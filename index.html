@@ -77,8 +77,8 @@
       top: 0;
       z-index: 100;
       height: var(--header-height);
-      background: rgba(250, 249, 247, 0.92);
-      backdrop-filter: blur(8px);
+      background: rgba(250, 249, 247, 0.96);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
     }
 
@@ -87,6 +87,7 @@
       align-items: center;
       justify-content: space-between;
       height: 100%;
+      gap: 1rem;
     }
 
     .logo {
@@ -95,88 +96,106 @@
       font-weight: 400;
       letter-spacing: 0.05em;
       color: var(--text);
+      flex-shrink: 0;
     }
 
-    .nav {
+    /* Menu button */
+    .menu-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0.5rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .menu-button:hover,
+    .menu-button:focus {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: var(--muted);
+      outline: none;
+    }
+
+    /* Full-screen menu */
+    .menu {
       position: fixed;
-      inset: var(--header-height) 0 auto 0;
+      inset: var(--header-height) 0 0 0;
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
       background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 1.5rem 0;
-      transform: translateY(-120%);
-      transition: transform 0.25s ease;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
     }
 
-    .nav.is-open {
-      transform: translateY(0);
+    .menu.is-open {
+      opacity: 1;
+      visibility: visible;
     }
 
-    .nav__list {
+    .menu__list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      text-align: center;
+      align-items: center;
+      gap: 1.5rem;
     }
 
-    .nav__link {
-      font-size: 0.95rem;
-      color: var(--muted);
-      transition: color 0.2s ease;
-    }
-
-    .nav__link:hover,
-    .nav__link:focus {
+    .menu__link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+      padding: 0.75rem 2rem;
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 10vw, 4rem);
+      font-weight: 400;
       color: var(--text);
+      border-radius: var(--radius);
+      transition: color 0.2s ease, background 0.2s ease;
     }
 
-    .menu-toggle {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      width: 28px;
-      background: none;
-      border: none;
+    .menu__link:hover,
+    .menu__link:focus {
+      color: var(--accent);
+      background: rgba(0, 0, 0, 0.03);
+      outline: none;
+    }
+
+    .menu__close {
+      position: absolute;
+      top: 1.25rem;
+      right: 5%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0.5rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       cursor: pointer;
-      padding: 4px;
-    }
-
-    .menu-toggle__bar {
-      display: block;
-      height: 2px;
-      background: var(--text);
-      transition: transform 0.25s ease, opacity 0.25s ease;
-    }
-
-    .menu-toggle.is-active .menu-toggle__bar:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-
-    .menu-toggle.is-active .menu-toggle__bar:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-toggle.is-active .menu-toggle__bar:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
-    }
-
-    @media (min-width: 768px) {
-      .menu-toggle {
-        display: none;
-      }
-
-      .nav {
-        position: static;
-        transform: none;
-        background: transparent;
-        border: none;
-        padding: 0;
-      }
-
-      .nav__list {
-        flex-direction: row;
-        gap: 2rem;
-      }
     }
 
     /* Hero */
@@ -210,6 +229,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      min-height: 48px;
       padding: 0.85rem 2rem;
       font-size: 0.9rem;
       letter-spacing: 0.05em;
@@ -218,6 +238,7 @@
       background: var(--text);
       color: var(--surface);
       transition: background 0.2s ease, color 0.2s ease;
+      cursor: pointer;
     }
 
     .btn:hover,
@@ -324,6 +345,7 @@
       overflow: hidden;
       box-shadow: var(--shadow);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
     }
 
     .card:hover {
@@ -337,12 +359,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
 
-    .card__media svg {
-      width: 3rem;
-      height: 3rem;
-      opacity: 0.35;
+    .card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover .card__media img {
+      transform: scale(1.03);
     }
 
     .card__body {
@@ -396,20 +424,22 @@
   <header class="header">
     <div class="container header__inner">
       <a href="#" class="logo">doba.objects</a>
-      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-        <span class="menu-toggle__bar"></span>
-        <span class="menu-toggle__bar"></span>
-        <span class="menu-toggle__bar"></span>
+      <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+        Menu
       </button>
-      <nav class="nav">
-        <ul class="nav__list">
-          <li><a href="#about" class="nav__link">About</a></li>
-          <li><a href="#collections" class="nav__link">Collections</a></li>
-          <li><a href="#contact" class="nav__link">Contact</a></li>
-        </ul>
-      </nav>
     </div>
   </header>
+
+  <nav class="menu" id="site-menu" aria-label="Main menu">
+    <button class="menu__close" type="button" aria-label="Close menu">
+      Close
+    </button>
+    <ul class="menu__list">
+      <li><a class="menu__link" href="#about">About</a></li>
+      <li><a class="menu__link" href="#collections">Collections</a></li>
+      <li><a class="menu__link" href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
   <main>
     <section class="hero">
@@ -445,5 +475,156 @@
           <div class="grid">
             <article class="card">
               <div class="card__media">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColo
-                  
+                <img src="https://placehold.co/600x600/e8e4df/1c1c1c?text=Doba+01" alt="Doba collection piece 1">
+              </div>
+              <div class="card__body">
+                <h4 class="card__title">Form Ring</h4>
+                <p class="card__meta">Silver / Gold vermeil</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card__media">
+                <img src="https://placehold.co/600x600/e8e4df/1c1c1c?text=Doba+02" alt="Doba collection piece 2">
+              </div>
+              <div class="card__body">
+                <h4 class="card__title">Line Necklace</h4>
+                <p class="card__meta">Sterling silver</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card__media">
+                <img src="https://placehold.co/600x600/e8e4df/1c1c1c?text=Doba+03" alt="Doba collection piece 3">
+              </div>
+              <div class="card__body">
+                <h4 class="card__title">Arc Studs</h4>
+                <p class="card__meta">Gold vermeil</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="collections__group reveal">
+          <h3 class="collections__heading">Limited Collection</h3>
+          <p class="collections__desc">Small-batch releases in numbered editions. Once they are gone, they are gone.</p>
+          <div class="grid">
+            <article class="card">
+              <div class="card__media">
+                <img src="https://placehold.co/600x600/f0ede8/1c1c1c?text=Limited+01" alt="Limited collection piece 1">
+              </div>
+              <div class="card__body">
+                <h4 class="card__title">No. 12 Cuff</h4>
+                <p class="card__meta">Edition of 24</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card__media">
+                <img src="https://placehold.co/600x600/f0ede8/1c1c1c?text=Limited+02" alt="Limited collection piece 2">
+              </div>
+              <div class="card__body">
+                <h4 class="card__title">No. 08 Pendant</h4>
+                <p class="card__meta">Edition of 16</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card__media">
+                <img src="https://placehold.co/600x600/f0ede8/1c1c1c?text=Limited+03" alt="Limited collection piece 3">
+              </div>
+              <div class="card__body">
+                <h4 class="card__title">No. 05 Chain</h4>
+                <p class="card__meta">Edition of 20</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="collections__group reveal">
+          <h3 class="collections__heading">Bold</h3>
+          <p class="collections__desc">Oversized shapes and sculptural volume for those who want to stand out.</p>
+          <div class="grid">
+            <article class="card">
+              <div class="card__media">
+                <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+01" alt="Bold collection piece 1">
+              </div>
+              <div class="card__body">
+                <h4 class="card__title">Sculpture Earrings</h4>
+                <p class="card__meta">Statement drop</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card__media">
+                <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+02" alt="Bold collection piece 2">
+              </div>
+              <div class="card__body">
+                <h4 class="card__title">Peak Ring</h4>
+                <p class="card__meta">Chunky gold plate</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card__media">
+                <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+03" alt="Bold collection piece 3">
+              </div>
+              <div class="card__body">
+                <h4 class="card__title">Wave Bangle</h4>
+                <p class="card__meta">Polished brass</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <div class="container reveal" style="text-align: center;">
+        <h2 class="section__title">Get in touch</h2>
+        <p class="section__intro" style="margin-inline: auto;">Interested in a piece, a collaboration, or a custom order? We would love to hear from you.</p>
+        <a href="mailto:hello@doba.objects" class="btn">hello@doba.objects</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__brand">doba.objects</p>
+      <p class="footer__copy">© 2026 doba.objects. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector('.menu-button');
+    const menuClose = document.querySelector('.menu__close');
+    const menu = document.querySelector('.menu');
+    const menuLinks = document.querySelectorAll('.menu__link');
+
+    function openMenu() {
+      menu.classList.add('is-open');
+      menuButton.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      menu.classList.remove('is-open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    menuButton.addEventListener('click', openMenu);
+    menuClose.addEventListener('click', closeMenu);
+
+    menuLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
