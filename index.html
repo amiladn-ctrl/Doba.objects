@@ -1,630 +1,504 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>doba.objects — Modern Jewellery</title>
-  <style>
-    :root {
-      --bg: #faf9f7;
-      --surface: #ffffff;
-      --text: #1c1c1c;
-      --muted: #6b6b6b;
-      --accent: #bfa268;
-      --border: #e8e4df;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-      --radius: 0.5rem;
-      --max-width: 72rem;
-      --header-height: 4rem;
-      --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-heading: Georgia, 'Times New Roman', serif;
-    }
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>doba.objects — Modern Jewellery</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+ <style>
+   :root {
+     --bg: #faf9f7;
+     --surface: #ffffff;
+     --text: #1c1c1c;
+     --muted: #6b6b6b;
+     --accent: #bfa268;
+     --border: #e8e4df;
+     --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+     --radius: 0.5rem;
+     --max-width: 72rem;
+     --header-height: 4.5rem;
+     --font-body: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+     --font-heading: 'Montserrat', Georgia, 'Times New Roman', serif;
+   }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+   * {
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+   }
 
-    html {
-      scroll-behavior: smooth;
-    }
+   html {
+     scroll-behavior: smooth;
+   }
 
-    body {
-      font-family: var(--font-body);
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
+   body {
+     font-family: var(--font-body);
+     background-color: var(--bg);
+     color: var(--text);
+     line-height: 1.6;
+   }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
+   img {
+     max-width: 100%;
+     display: block;
+   }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+   a {
+     color: inherit;
+     text-decoration: none;
+   }
 
-    .container {
-      width: 90%;
-      max-width: var(--max-width);
-      margin-inline: auto;
-    }
+   .container {
+     width: 90%;
+     max-width: var(--max-width);
+     margin-inline: auto;
+   }
 
-    .section {
-      padding: 4rem 0;
-    }
+   .section {
+     padding: 4rem 0;
+   }
 
-    .section__title {
-      font-family: var(--font-heading);
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      margin-bottom: 1rem;
-    }
+   .section__title {
+     font-family: var(--font-heading);
+     font-size: clamp(1.75rem, 4vw, 2.5rem);
+     font-weight: 400;
+     letter-spacing: -0.02em;
+     margin-bottom: 1rem;
+   }
 
-    .section__intro {
-      color: var(--muted);
-      max-width: 55ch;
-      margin-bottom: 2.5rem;
-    }
+   .section__intro {
+     color: var(--muted);
+     max-width: 55ch;
+     margin-bottom: 2.5rem;
+   }
 
-    /* Header */
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      height: var(--header-height);
-      background: rgba(250, 249, 247, 0.96);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-    }
+   /* Header */
+   .header {
+     position: sticky;
+     top: 0;
+     z-index: 100;
+     height: var(--header-height);
+     background: rgba(250, 249, 247, 0.96);
+     backdrop-filter: blur(10px);
+     border-bottom: 1px solid var(--border);
+   }
 
-    .header__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 100%;
-      gap: 1rem;
-    }
+   .header__inner {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     height: 100%;
+   }
 
-    .logo {
-      font-family: var(--font-heading);
-      font-size: 1.25rem;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      color: var(--text);
-      flex-shrink: 0;
-    }
+   .logo {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     height: 100%;
+   }
 
-    /* Menu button */
-    .menu-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 0.5rem 1rem;
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--text);
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
+   .logo img {
+     max-height: calc(var(--header-height) - 1.5rem);
+     width: auto;
+     max-width: 180px;
+     object-fit: contain;
+   }
 
-    .menu-button:hover,
-    .menu-button:focus {
-      background: rgba(0, 0, 0, 0.04);
-      border-color: var(--muted);
-      outline: none;
-    }
+   /* Hero */
+   .hero {
+     min-height: calc(100svh - var(--header-height));
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     text-align: center;
+     padding: 2rem 0;
+   }
 
-    /* Full-screen menu */
-    .menu {
-      position: fixed;
-      inset: var(--header-height) 0 0 0;
-      z-index: 99;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2rem;
-      background: var(--surface);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.25s ease, visibility 0.25s ease;
-    }
+   .hero__title {
+     font-family: var(--font-heading);
+     font-size: clamp(2.5rem, 10vw, 5.5rem);
+     font-weight: 300;
+     line-height: 1;
+     letter-spacing: -0.03em;
+     margin-bottom: 1rem;
+   }
 
-    .menu.is-open {
-      opacity: 1;
-      visibility: visible;
-    }
+   .hero__tagline {
+     font-size: clamp(1rem, 2.5vw, 1.25rem);
+     font-weight: 400;
+     color: var(--muted);
+     max-width: 40ch;
+     margin-bottom: 2rem;
+   }
 
-    .menu__list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-    }
+   .btn {
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     min-height: 48px;
+     padding: 0.85rem 2rem;
+     font-size: 0.9rem;
+     font-weight: 500;
+     letter-spacing: 0.05em;
+     text-transform: uppercase;
+     border: 1px solid var(--text);
+     background: var(--text);
+     color: var(--surface);
+     transition: background 0.2s ease, color 0.2s ease;
+     cursor: pointer;
+   }
 
-    .menu__link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 56px;
-      padding: 0.75rem 2rem;
-      font-family: var(--font-heading);
-      font-size: clamp(2rem, 10vw, 4rem);
-      font-weight: 400;
-      color: var(--text);
-      border-radius: var(--radius);
-      transition: color 0.2s ease, background 0.2s ease;
-    }
+   .btn:hover,
+   .btn:focus {
+     background: transparent;
+     color: var(--text);
+   }
 
-    .menu__link:hover,
-    .menu__link:focus {
-      color: var(--accent);
-      background: rgba(0, 0, 0, 0.03);
-      outline: none;
-    }
+   .btn--ghost {
+     background: transparent;
+     color: var(--text);
+   }
 
-    .menu__close {
-      position: absolute;
-      top: 1.25rem;
-      right: 5%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 0.5rem 1rem;
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--muted);
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      cursor: pointer;
-    }
+   .btn--ghost:hover,
+   .btn--ghost:focus {
+     background: var(--text);
+     color: var(--surface);
+   }
 
-    /* Hero */
-    .hero {
-      min-height: calc(100svh - var(--header-height));
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem 0;
-    }
+   /* About */
+   .about__grid {
+     display: grid;
+     gap: 2.5rem;
+     align-items: center;
+   }
 
-    .hero__title {
-      font-family: var(--font-heading);
-      font-size: clamp(2.5rem, 10vw, 5.5rem);
-      font-weight: 400;
-      line-height: 1;
-      letter-spacing: -0.03em;
-      margin-bottom: 1rem;
-    }
+   .about__image {
+     aspect-ratio: 4 / 5;
+     background: var(--border);
+     border-radius: var(--radius);
+     overflow: hidden;
+   }
 
-    .hero__tagline {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      color: var(--muted);
-      max-width: 40ch;
-      margin-bottom: 2rem;
-    }
+   .about__image img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+   }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0.85rem 2rem;
-      font-size: 0.9rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      border: 1px solid var(--text);
-      background: var(--text);
-      color: var(--surface);
-      transition: background 0.2s ease, color 0.2s ease;
-      cursor: pointer;
-    }
+   .about__text h2 {
+     font-family: var(--font-heading);
+     font-size: clamp(1.75rem, 4vw, 2.5rem);
+     font-weight: 400;
+     margin-bottom: 1rem;
+   }
 
-    .btn:hover,
-    .btn:focus {
-      background: transparent;
-      color: var(--text);
-    }
+   .about__text p {
+     color: var(--muted);
+     margin-bottom: 1rem;
+   }
 
-    .btn--ghost {
-      background: transparent;
-      color: var(--text);
-    }
+   @media (min-width: 768px) {
+     .about__grid {
+       grid-template-columns: 1fr 1fr;
+       gap: 4rem;
+     }
+   }
 
-    .btn--ghost:hover,
-    .btn--ghost:focus {
-      background: var(--text);
-      color: var(--surface);
-    }
+   /* Collections */
+   .collections__group {
+     margin-bottom: 3.5rem;
+   }
 
-    /* About */
-    .about__grid {
-      display: grid;
-      gap: 2.5rem;
-      align-items: center;
-    }
+   .collections__group:last-child {
+     margin-bottom: 0;
+   }
 
-    .about__image {
-      aspect-ratio: 4 / 5;
-      background: var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
+   .collections__heading {
+     font-family: var(--font-heading);
+     font-size: 1.5rem;
+     font-weight: 500;
+     margin-bottom: 0.5rem;
+   }
 
-    .about__image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+   .collections__desc {
+     color: var(--muted);
+     margin-bottom: 1.5rem;
+     max-width: 60ch;
+   }
 
-    .about__text h2 {
-      font-family: var(--font-heading);
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
-      font-weight: 400;
-      margin-bottom: 1rem;
-    }
+   .grid {
+     display: grid;
+     gap: 1.25rem;
+     grid-template-columns: 1fr;
+   }
 
-    .about__text p {
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
+   @media (min-width: 640px) {
+     .grid {
+       grid-template-columns: repeat(2, 1fr);
+     }
+   }
 
-    @media (min-width: 768px) {
-      .about__grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-      }
-    }
+   @media (min-width: 1024px) {
+     .grid {
+       grid-template-columns: repeat(3, 1fr);
+     }
+   }
 
-    /* Collections */
-    .collections__group {
-      margin-bottom: 3.5rem;
-    }
+   .card {
+     background: var(--surface);
+     border: 1px solid var(--border);
+     border-radius: var(--radius);
+     overflow: hidden;
+     box-shadow: var(--shadow);
+     transition: transform 0.2s ease, box-shadow 0.2s ease;
+     cursor: pointer;
+   }
 
-    .collections__group:last-child {
-      margin-bottom: 0;
-    }
+   .card:hover {
+     transform: translateY(-4px);
+     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+   }
 
-    .collections__heading {
-      font-family: var(--font-heading);
-      font-size: 1.5rem;
-      font-weight: 400;
-      margin-bottom: 0.5rem;
-      text-transform: lowercase;
-    }
+   .card__media {
+     aspect-ratio: 1 / 1;
+     background: #f0ede8;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     overflow: hidden;
+   }
 
-    .collections__desc {
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-      max-width: 60ch;
-    }
+   .card__media img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     transition: transform 0.4s ease;
+   }
 
-    .grid {
-      display: grid;
-      gap: 1.25rem;
-      grid-template-columns: 1fr;
-    }
+   .card:hover .card__media img {
+     transform: scale(1.03);
+   }
 
-    @media (min-width: 640px) {
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+   .card__body {
+     padding: 1.25rem;
+   }
 
-    @media (min-width: 1024px) {
-      .grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
+   .card__title {
+     font-size: 1rem;
+     font-weight: 500;
+     margin-bottom: 0.25rem;
+   }
 
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
-    }
+   .card__meta {
+     font-size: 0.85rem;
+     color: var(--muted);
+   }
 
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
-    }
+   /* Footer */
+   .footer {
+     border-top: 1px solid var(--border);
+     padding: 2.5rem 0;
+     text-align: center;
+   }
 
-    .card__media {
-      aspect-ratio: 1 / 1;
-      background: #f0ede8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+   .footer__brand {
+     font-family: var(--font-heading);
+     font-size: 1.25rem;
+     font-weight: 500;
+     margin-bottom: 0.75rem;
+   }
 
-    .card__media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
+   .footer__copy {
+     font-size: 0.85rem;
+     color: var(--muted);
+   }
 
-    .card:hover .card__media img {
-      transform: scale(1.03);
-    }
+   /* Reveal animation */
+   .reveal {
+     opacity: 0;
+     transform: translateY(20px);
+     transition: opacity 0.6s ease, transform 0.6s ease;
+   }
 
-    .card__body {
-      padding: 1.25rem;
-    }
-
-    .card__title {
-      font-size: 1rem;
-      font-weight: 500;
-      margin-bottom: 0.25rem;
-    }
-
-    .card__meta {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    /* Footer */
-    .footer {
-      border-top: 1px solid var(--border);
-      padding: 2.5rem 0;
-      text-align: center;
-    }
-
-    .footer__brand {
-      font-family: var(--font-heading);
-      font-size: 1.25rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .footer__copy {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    /* Reveal animation */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+   .reveal.is-visible {
+     opacity: 1;
+     transform: translateY(0);
+   }
+ </style>
 </head>
 <body>
 
-  <header class="header">
-    <div class="container header__inner">
-      <a href="#" class="logo">doba.objects</a>
-      <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
-        Menu
-      </button>
-    </div>
-  </header>
+ <header class="header">
+   <div class="container header__inner">
+     <a href="#" class="logo">
+       <img src="images/doba-objects-logo.png" alt="doba.objects logo">
+     </a>
+   </div>
+ </header>
 
-  <nav class="menu" id="site-menu" aria-label="Main menu">
-    <button class="menu__close" type="button" aria-label="Close menu">
-      Close
-    </button>
-    <ul class="menu__list">
-      <li><a class="menu__link" href="#about">About</a></li>
-      <li><a class="menu__link" href="#collections">Collections</a></li>
-      <li><a class="menu__link" href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+ <main>
+   <section class="hero">
+     <div class="container">
+       <h1 class="hero__title">doba.objects</h1>
+       <p class="hero__tagline">Modern jewellery shaped for everyday expression.</p>
+       <a href="#collections" class="btn">Explore Collections</a>
+     </div>
+   </section>
 
-  <main>
-    <section class="hero">
-      <div class="container">
-        <h1 class="hero__title">doba.objects</h1>
-        <p class="hero__tagline">Modern jewellery shaped for everyday expression.</p>
-        <a href="#collections" class="btn">Explore Collections</a>
-      </div>
-    </section>
+   <section id="about" class="section about">
+     <div class="container about__grid reveal">
+       <div class="about__image">
+         <img src="https://placehold.co/800x1000/f0ede8/1c1c1c?text=doba.objects" alt="doba.objects studio jewellery">
+       </div>
+       <div class="about__text">
+         <h2>About the brand</h2>
+         <p>doba.objects creates refined, wearable pieces for people who appreciate quiet detail. Every item is designed with intention, balancing minimal form with lasting material.</p>
+         <p>Our jewellery is made for layering, gifting, and keeping — small objects that become part of your daily uniform.</p>
+         <a href="#contact" class="btn btn--ghost">Get in touch</a>
+       </div>
+     </div>
+   </section>
 
-    <section id="about" class="section about">
-      <div class="container about__grid reveal">
-        <div class="about__image">
-          <img src="https://placehold.co/800x1000/f0ede8/1c1c1c?text=doba.objects" alt="doba.objects studio jewellery">
-        </div>
-        <div class="about__text">
-          <h2>About the brand</h2>
-          <p>doba.objects creates refined, wearable pieces for people who appreciate quiet detail. Every item is designed with intention, balancing minimal form with lasting material.</p>
-          <p>Our jewellery is made for layering, gifting, and keeping — small objects that become part of your daily uniform.</p>
-          <a href="#contact" class="btn btn--ghost">Get in touch</a>
-        </div>
-      </div>
-    </section>
+   <section id="collections" class="section collections">
+     <div class="container">
+       <h2 class="section__title reveal">Collections</h2>
+       <p class="section__intro reveal">Explore the doba.objects world: signature essentials, limited seasonal releases, and bold statement pieces.</p>
 
-    <section id="collections" class="section collections">
-      <div class="container">
-        <h2 class="section__title reveal">Collections</h2>
-        <p class="section__intro reveal">Explore the doba.objects world: signature essentials, limited seasonal releases, and bold statement pieces.</p>
+       <div class="collections__group reveal">
+         <h3 class="collections__heading">Novo doba</h3>
+         <p class="collections__desc">The core collection. Timeless silhouettes in sterling silver and gold vermeil.</p>
+         <div class="grid">
+           <article class="card">
+             <div class="card__media">
+               <img src="https://placehold.co/600x600/e8e4df/1c1c1c?text=Novo+Doba+01" alt="Novo doba collection piece 1">
+             </div>
+             <div class="card__body">
+               <h4 class="card__title">Form Ring</h4>
+               <p class="card__meta">Silver / Gold vermeil</p>
+             </div>
+           </article>
+           <article class="card">
+             <div class="card__media">
+               <img src="https://placehold.co/600x600/e8e4df/1c1c1c?text=Novo+Doba+02" alt="Novo doba collection piece 2">
+             </div>
+             <div class="card__body">
+               <h4 class="card__title">Line Necklace</h4>
+               <p class="card__meta">Sterling silver</p>
+             </div>
+           </article>
+           <article class="card">
+             <div class="card__media">
+               <img src="https://placehold.co/600x600/e8e4df/1c1c1c?text=Novo+Doba+03" alt="Novo doba collection piece 3">
+             </div>
+             <div class="card__body">
+               <h4 class="card__title">Arc Studs</h4>
+               <p class="card__meta">Gold vermeil</p>
+             </div>
+           </article>
+         </div>
+       </div>
 
-        <div class="collections__group reveal">
-          <h3 class="collections__heading">doba</h3>
-          <p class="collections__desc">The core collection. Timeless silhouettes in sterling silver and gold vermeil.</p>
-          <div class="grid">
-            <article class="card">
-              <div class="card__media">
-                <img src="https://placehold.co/600x600/e8e4df/1c1c1c?text=Doba+01" alt="Doba collection piece 1">
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Form Ring</h4>
-                <p class="card__meta">Silver / Gold vermeil</p>
-              </div>
-            </article>
-            <article class="card">
-              <div class="card__media">
-                <img src="https://placehold.co/600x600/e8e4df/1c1c1c?text=Doba+02" alt="Doba collection piece 2">
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Line Necklace</h4>
-                <p class="card__meta">Sterling silver</p>
-              </div>
-            </article>
-            <article class="card">
-              <div class="card__media">
-                <img src="https://placehold.co/600x600/e8e4df/1c1c1c?text=Doba+03" alt="Doba collection piece 3">
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Arc Studs</h4>
-                <p class="card__meta">Gold vermeil</p>
-              </div>
-            </article>
-          </div>
-        </div>
+       <div class="collections__group reveal">
+         <h3 class="collections__heading">Limited Collection</h3>
+         <p class="collections__desc">Small-batch releases in numbered editions. Once they are gone, they are gone.</p>
+         <div class="grid">
+           <article class="card">
+             <div class="card__media">
+               <img src="https://placehold.co/600x600/f0ede8/1c1c1c?text=Limited+01" alt="Limited collection piece 1">
+             </div>
+             <div class="card__body">
+               <h4 class="card__title">No. 12 Cuff</h4>
+               <p class="card__meta">Edition of 24</p>
+             </div>
+           </article>
+           <article class="card">
+             <div class="card__media">
+               <img src="https://placehold.co/600x600/f0ede8/1c1c1c?text=Limited+02" alt="Limited collection piece 2">
+             </div>
+             <div class="card__body">
+               <h4 class="card__title">No. 08 Pendant</h4>
+               <p class="card__meta">Edition of 16</p>
+             </div>
+           </article>
+           <article class="card">
+             <div class="card__media">
+               <img src="https://placehold.co/600x600/f0ede8/1c1c1c?text=Limited+03" alt="Limited collection piece 3">
+             </div>
+             <div class="card__body">
+               <h4 class="card__title">No. 05 Chain</h4>
+               <p class="card__meta">Edition of 20</p>
+             </div>
+           </article>
+         </div>
+       </div>
 
-        <div class="collections__group reveal">
-          <h3 class="collections__heading">Limited Collection</h3>
-          <p class="collections__desc">Small-batch releases in numbered editions. Once they are gone, they are gone.</p>
-          <div class="grid">
-            <article class="card">
-              <div class="card__media">
-                <img src="https://placehold.co/600x600/f0ede8/1c1c1c?text=Limited+01" alt="Limited collection piece 1">
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">No. 12 Cuff</h4>
-                <p class="card__meta">Edition of 24</p>
-              </div>
-            </article>
-            <article class="card">
-              <div class="card__media">
-                <img src="https://placehold.co/600x600/f0ede8/1c1c1c?text=Limited+02" alt="Limited collection piece 2">
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">No. 08 Pendant</h4>
-                <p class="card__meta">Edition of 16</p>
-              </div>
-            </article>
-            <article class="card">
-              <div class="card__media">
-                <img src="https://placehold.co/600x600/f0ede8/1c1c1c?text=Limited+03" alt="Limited collection piece 3">
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">No. 05 Chain</h4>
-                <p class="card__meta">Edition of 20</p>
-              </div>
-            </article>
-          </div>
-        </div>
+       <div class="collections__group reveal">
+         <h3 class="collections__heading">Bold</h3>
+         <p class="collections__desc">Oversized shapes and sculptural volume for those who want to stand out.</p>
+         <div class="grid">
+           <article class="card">
+             <div class="card__media">
+               <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+01" alt="Bold collection piece 1">
+             </div>
+             <div class="card__body">
+               <h4 class="card__title">Sculpture Earrings</h4>
+               <p class="card__meta">Statement drop</p>
+             </div>
+           </article>
+           <article class="card">
+             <div class="card__media">
+               <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+02" alt="Bold collection piece 2">
+             </div>
+             <div class="card__body">
+               <h4 class="card__title">Peak Ring</h4>
+               <p class="card__meta">Chunky gold plate</p>
+             </div>
+           </article>
+           <article class="card">
+             <div class="card__media">
+               <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+03" alt="Bold collection piece 3">
+             </div>
+             <div class="card__body">
+               <h4 class="card__title">Wave Bangle</h4>
+               <p class="card__meta">Polished brass</p>
+             </div>
+           </article>
+         </div>
+       </div>
+     </div>
+   </section>
 
-        <div class="collections__group reveal">
-          <h3 class="collections__heading">Bold</h3>
-          <p class="collections__desc">Oversized shapes and sculptural volume for those who want to stand out.</p>
-          <div class="grid">
-            <article class="card">
-              <div class="card__media">
-                <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+01" alt="Bold collection piece 1">
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Sculpture Earrings</h4>
-                <p class="card__meta">Statement drop</p>
-              </div>
-            </article>
-            <article class="card">
-              <div class="card__media">
-                <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+02" alt="Bold collection piece 2">
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Peak Ring</h4>
-                <p class="card__meta">Chunky gold plate</p>
-              </div>
-            </article>
-            <article class="card">
-              <div class="card__media">
-                <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+03" alt="Bold collection piece 3">
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Wave Bangle</h4>
-                <p class="card__meta">Polished brass</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
+   <section id="contact" class="section contact">
+     <div class="container reveal" style="text-align: center;">
+       <h2 class="section__title">Get in touch</h2>
+       <p class="section__intro" style="margin-inline: auto;">Interested in a piece, a collaboration, or a custom order? We would love to hear from you.</p>
+       <a href="mailto:hello@doba.objects" class="btn">hello@doba.objects</a>
+     </div>
+   </section>
+ </main>
 
-    <section id="contact" class="section contact">
-      <div class="container reveal" style="text-align: center;">
-        <h2 class="section__title">Get in touch</h2>
-        <p class="section__intro" style="margin-inline: auto;">Interested in a piece, a collaboration, or a custom order? We would love to hear from you.</p>
-        <a href="mailto:hello@doba.objects" class="btn">hello@doba.objects</a>
-      </div>
-    </section>
-  </main>
+ <footer class="footer">
+   <div class="container">
+     <p class="footer__brand">doba.objects</p>
+     <p class="footer__copy">© 2026 doba.objects. All rights reserved.</p>
+   </div>
+ </footer>
 
-  <footer class="footer">
-    <div class="container">
-      <p class="footer__brand">doba.objects</p>
-      <p class="footer__copy">© 2026 doba.objects. All rights reserved.</p>
-    </div>
-  </footer>
+ <script>
+   const revealEls = document.querySelectorAll('.reveal');
+   const observer = new IntersectionObserver((entries) => {
+     entries.forEach(entry => {
+       if (entry.isIntersecting) {
+         entry.target.classList.add('is-visible');
+       }
+     });
+   }, { threshold: 0.1 });
 
-  <script>
-    const menuButton = document.querySelector('.menu-button');
-    const menuClose = document.querySelector('.menu__close');
-    const menu = document.querySelector('.menu');
-    const menuLinks = document.querySelectorAll('.menu__link');
-
-    function openMenu() {
-      menu.classList.add('is-open');
-      menuButton.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeMenu() {
-      menu.classList.remove('is-open');
-      menuButton.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    }
-
-    menuButton.addEventListener('click', openMenu);
-    menuClose.addEventListener('click', closeMenu);
-
-    menuLinks.forEach(link => {
-      link.addEventListener('click', closeMenu);
-    });
-
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    revealEls.forEach(el => observer.observe(el));
-  </script>
+   revealEls.forEach(el => observer.observe(el));
+ </script>
 
 </body>
 </html>
