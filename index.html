@@ -81,7 +81,6 @@
       margin-bottom: 2.5rem;
     }
 
-    /* Header */
     .header {
       position: sticky;
       top: 0;
@@ -128,7 +127,7 @@
       border: none;
       cursor: pointer;
       padding: 0;
-      z-index: 101;
+      z-index: 102;
       flex-shrink: 0;
     }
 
@@ -153,16 +152,40 @@
       transform: translateY(-8px) rotate(-45deg);
     }
 
+    .nav-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(28, 28, 28, 0.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 98;
+    }
+
+    .nav-backdrop.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
     .nav {
       position: fixed;
-      inset: var(--header-height) 0 0 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(100%, 22rem);
       background: rgba(250, 249, 247, 0.98);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-left: 1px solid var(--border);
+      box-shadow: -12px 0 40px rgba(0, 0, 0, 0.12);
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      gap: 1.75rem;
+      gap: 1.5rem;
+      padding: 6rem 2.5rem 3rem;
       transform: translateX(100%);
       transition: transform 0.3s ease;
       z-index: 99;
@@ -173,7 +196,7 @@
     }
 
     .nav a {
-      font-size: clamp(1.15rem, 4vw, 1.5rem);
+      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -190,14 +213,13 @@
       width: 2rem;
       height: 1px;
       background: var(--border);
-      margin: 0.25rem 0;
+      margin: 0.15rem 0;
     }
 
     main {
       flex: 1;
     }
 
-    /* Pages: only the active page is shown */
     .page {
       display: none;
     }
@@ -206,7 +228,6 @@
       display: block;
     }
 
-    /* Hero */
     .hero {
       position: relative;
       min-height: calc(100svh - var(--header-height));
@@ -220,4 +241,1013 @@
     .hero__bg {
       position: absolute;
       inset: 0;
-    
+      z-index: 0;
+    }
+
+    .hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+    }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(250, 249, 247, 0.35);
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      width: 90%;
+      max-width: var(--max-width);
+      padding: 2rem 0;
+    }
+
+    .hero__title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.5rem, 10vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .hero__tagline {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 400;
+      color: var(--text);
+      max-width: 40ch;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0.85rem 2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1px solid var(--text);
+      background: var(--text);
+      color: var(--surface);
+      transition: background 0.2s ease, color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover,
+    .btn:focus {
+      background: transparent;
+      color: var(--text);
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--text);
+    }
+
+    .btn--ghost:hover,
+    .btn--ghost:focus {
+      background: var(--text);
+      color: var(--surface);
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel__track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.4s ease;
+    }
+
+    .carousel__slide {
+      min-width: 100%;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .carousel__btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2rem;
+      height: 2rem;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      line-height: 1;
+      color: var(--text);
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .carousel__btn--prev {
+      left: 0.5rem;
+    }
+
+    .carousel__btn--next {
+      right: 0.5rem;
+    }
+
+    .carousel__dots {
+      position: absolute;
+      bottom: 0.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.4rem;
+      z-index: 2;
+    }
+
+    .carousel__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .carousel__dot.is-active {
+      background: var(--text);
+    }
+
+    .about__grid {
+      display: grid;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .about__image {
+      aspect-ratio: 4 / 5;
+      background: var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .about__image.carousel {
+      display: block;
+    }
+
+    .about__image .carousel__track {
+      height: 100%;
+    }
+
+    .about__image .carousel__slide {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about__text h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .about__text p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .about__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+      }
+    }
+
+    .page-header {
+      padding: 3.5rem 0 1.5rem;
+    }
+
+    .page-header__title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .page-header__desc {
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .breadcrumb {
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--text);
+    }
+
+    .collections-preview {
+      padding-bottom: 4rem;
+    }
+
+    .collections-preview__grid {
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+      .collections-preview__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .preview-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: block;
+      cursor: pointer;
+    }
+
+    .preview-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .preview-card__media {
+      aspect-ratio: 1 / 1;
+      background: #f0ede8;
+      overflow: hidden;
+    }
+
+    .preview-card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .preview-card:hover .preview-card__media img {
+      transform: scale(1.03);
+    }
+
+    .preview-card__body {
+      padding: 1.25rem;
+    }
+
+    .preview-card__title {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+    }
+
+    .preview-card__meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: 1fr;
+      padding-bottom: 4rem;
+    }
+
+    @media (min-width: 640px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .card.is-open {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .card__media {
+      aspect-ratio: 1 / 1;
+      background: #f0ede8;
+      overflow: hidden;
+    }
+
+    .card__media.carousel {
+      display: block;
+    }
+
+    .card__media .carousel__track {
+      height: 100%;
+    }
+
+    .card__media .carousel__slide {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card__body {
+      padding: 1.25rem;
+    }
+
+    .card__title {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .card__meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .card__info {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.35s ease, opacity 0.3s ease, margin 0.3s ease;
+      margin-top: 0;
+    }
+
+    .card.is-open .card__info {
+      max-height: 12rem;
+      opacity: 1;
+      margin-top: 0.85rem;
+    }
+
+    .card__info p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+      border-top: 1px solid var(--border);
+      padding-top: 0.85rem;
+    }
+
+    .card__hint {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .card.is-open .card__hint {
+      display: none;
+    }
+
+    .contact-page {
+      min-height: calc(100svh - var(--header-height) - 8rem);
+      display: flex;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 0;
+    }
+
+    .contact-page .section__intro {
+      margin-inline: auto;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .footer__brand {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer__copy {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#home" class="logo" data-link>
+        <img src="Untitled.svg" alt="doba.objects logo">
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="nav-backdrop" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Main">
+    <a href="#home" data-link>Home</a>
+    <div class="nav__divider" aria-hidden="true"></div>
+    <a href="#novo-doba" data-link>Novo doba</a>
+    <a href="#limited" data-link>Limited Collection</a>
+    <a href="#bold" data-link>Bold</a>
+    <div class="nav__divider" aria-hidden="true"></div>
+    <a href="#contact" data-link>Contact</a>
+  </nav>
+
+  <main>
+    <div id="home" class="page is-active">
+      <section class="hero">
+        <div class="hero__bg" aria-hidden="true">
+          <img src="IMG_0240.jpeg" alt="">
+        </div>
+        <div class="hero__overlay" aria-hidden="true"></div>
+        <div class="hero__content">
+          <h1 class="hero__title">DOBA.OBJECTS</h1>
+          <p class="hero__tagline">Modern jewellery shaped for everyday expression.</p>
+          <a href="#novo-doba" class="btn" data-link>Explore Collections</a>
+        </div>
+      </section>
+
+      <section class="section about">
+        <div class="container about__grid reveal">
+          <div class="about__image carousel">
+            <div class="carousel__track">
+              <img src="IMG_1552.jpeg" alt="doba.objects studio jewellery" class="carousel__slide">
+              <img src="IMG_0147.jpeg" alt="doba.objects jewellery detail" class="carousel__slide">
+              <img src="worry.jpeg" alt="doba.objects pendant detail" class="carousel__slide">
+            </div>
+            <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+            <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+            <div class="carousel__dots"></div>
+          </div>
+          <div class="about__text">
+            <h2>About the brand</h2>
+            <p>Doba.objects creates refined, wearable pieces for people who appreciate quiet detail. Every item is designed with intention, balancing minimal form with lasting material.</p>
+            <p>Our jewellery is made for layering, gifting, and keeping — small objects that become part of your daily uniform.</p>
+            <a href="#contact" class="btn btn--ghost" data-link>Get in touch</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section collections-preview">
+        <div class="container">
+          <h2 class="section__title reveal">Collections</h2>
+          <p class="section__intro reveal">Explore the doba.objects world: signature essentials, limited seasonal releases, and bold statement pieces.</p>
+          <div class="collections-preview__grid reveal">
+            <a href="#novo-doba" class="preview-card" data-link>
+              <div class="preview-card__media">
+                <img src="IMG_0147.jpeg" alt="Novo doba collection">
+              </div>
+              <div class="preview-card__body">
+                <h3 class="preview-card__title">Novo doba</h3>
+                <p class="preview-card__meta">Timeless silhouettes in silver and gold</p>
+              </div>
+            </a>
+            <a href="#limited" class="preview-card" data-link>
+              <div class="preview-card__media">
+                <img src="wb1.jpg" alt="Limited collection">
+              </div>
+              <div class="preview-card__body">
+                <h3 class="preview-card__title">Limited Collection</h3>
+                <p class="preview-card__meta">Small-batch numbered editions</p>
+              </div>
+            </a>
+            <a href="#bold" class="preview-card" data-link>
+              <div class="preview-card__media">
+                <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold" alt="Bold collection">
+              </div>
+              <div class="preview-card__body">
+                <h3 class="preview-card__title">Bold</h3>
+                <p class="preview-card__meta">Oversized sculptural volume</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="novo-doba" class="page">
+      <div class="container page-header">
+        <p class="breadcrumb"><a href="#home" data-link>Home</a> / Novo doba</p>
+        <h1 class="page-header__title">Novo doba</h1>
+        <p class="page-header__desc">The core collection. Timeless silhouettes in silver and gold colours.</p>
+      </div>
+      <div class="container">
+        <div class="grid">
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="IMG_0147.jpeg" alt="Dua ring base" class="carousel__slide">
+                <img src="dua base.jpg.jpg" alt="Dua ring base view 2" class="carousel__slide">
+                <img src="dua duo.jpg" alt="Dua ring base view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h4 class="card__title">Dua ring base</h4>
+              <p class="card__meta">Silver / Gold</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A modular base ring with clean dual lines. Designed to wear alone or stack with Dua solo. Hand-finished edges for everyday comfort.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="worry.jpeg" alt="Mirror pendant" class="carousel__slide">
+                <img src="worry 2.jpg" alt="Mirror pendant view 2" class="carousel__slide">
+                <img src="fav.jpeg" alt="Mirror pendant view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h4 class="card__title">Mirror pendant</h4>
+              <p class="card__meta">Silver/Gold</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A reflective pendant with a quiet geometric face. Lightweight on the chain, strong as a focal point. Made for layering or solo wear.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="IMG_0151.jpeg" alt="Dua ring solo" class="carousel__slide">
+                <img src="dua one.jpg.jpg" alt="Dua ring solo view 2" class="carousel__slide">
+                <img src="dua duo.jpg" alt="Dua ring solo view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h4 class="card__title">Dua ring solo</h4>
+              <p class="card__meta">Silver/Gold</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>The companion band to Dua base. Slim profile, polished finish. Stacks cleanly or stands alone as a minimal everyday ring.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div id="limited" class="page">
+      <div class="container page-header">
+        <p class="breadcrumb"><a href="#home" data-link>Home</a> / Limited Collection</p>
+        <h1 class="page-header__title">Limited Collection</h1>
+        <p class="page-header__desc">Small-batch releases in numbered editions. One of one. Once they are gone, they are gone.</p>
+      </div>
+      <div class="container">
+        <div class="grid">
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="wb1.jpg" alt="Wood doba ring 0.1" class="carousel__slide">
+                <img src="wb2.jpg" alt="Wood doba ring 0.1 view 2" class="carousel__slide">
+                <img src="wr1.jpg" alt="Wood doba ring 0.1 view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h4 class="card__title">Wood doba ring 0.1</h4>
+              <p class="card__meta">Ebony wood and silver</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>Edition one. Dark ebony set against silver in a sculpted band. Each grain pattern is unique. Limited run, numbered piece.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="wm1.jpg" alt="Wood doba ring 0.2" class="carousel__slide">
+                <img src="wm2.jpg" alt="Wood doba ring 0.2 view 2" class="carousel__slide">
+                <img src="wg2.jpg" alt="Wood doba ring 0.2 view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h4 class="card__title">Wood doba ring 0.2</h4>
+              <p class="card__meta">Ebony wood and silver</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>Edition two. A deeper wood inset with a sharper silver frame. Small-batch only. Once sold, this cut is not remade.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="wp1.jpg" alt="Wood doba ring 0.3" class="carousel__slide">
+                <img src="wp2.jpg" alt="Wood doba ring 0.3 view 2" class="carousel__slide">
+                <img src="wg3.jpg" alt="Wood doba ring 0.3 view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h4 class="card__title">Wood doba ring 0.3</h4>
+              <p class="card__meta">Ebony wood and silver</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>Edition three. Balanced wood-to-metal ratio with a smooth inner band. Final piece in this limited wood series.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div id="bold" class="page">
+      <div class="container page-header">
+        <p class="breadcrumb"><a href="#home" data-link>Home</a> / Bold</p>
+        <h1 class="page-header__title">Bold</h1>
+        <p class="page-header__desc">Oversized shapes and sculptural volume for those who want to stand out.</p>
+      </div>
+      <div class="container">
+        <div class="grid">
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+01" alt="Sculpture Base ring" class="carousel__slide">
+                <img src="https://placehold.co/600x600/e8e4df/6b6b6b?text=View+2" alt="Sculpture Base ring view 2" class="carousel__slide">
+                <img src="https://placehold.co/600x600/e8e4df/6b6b6b?text=View+3" alt="Sculpture Base ring view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h4 class="card__title">Sculpture Base ring</h4>
+              <p class="card__meta">Silver/Gold</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>An architectural base with strong volume. Built to anchor a hand stack or wear as a single statement form.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+02" alt="Peak Ring" class="carousel__slide">
+                <img src="https://placehold.co/600x600/e8e4df/6b6b6b?text=View+2" alt="Peak Ring view 2" class="carousel__slide">
+                <img src="https://placehold.co/600x600/e8e4df/6b6b6b?text=View+3" alt="Peak Ring view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h4 class="card__title">Peak Ring</h4>
+              <p class="card__meta">Silver/Gold</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A rising silhouette with a sharp crest. Sculptural from every angle. Made for those who want presence without noise.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+03" alt="Bold pendant" class="carousel__slide">
+                <img src="https://placehold.co/600x600/e8e4df/6b6b6b?text=View+2" alt="Bold pendant view 2" class="carousel__slide">
+                <img src="https://placehold.co/600x600/e8e4df/6b6b6b?text=View+3" alt="Bold pendant view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h4 class="card__title">Bold pendant</h4>
+              <p class="card__meta">Silver/Gold</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>Oversized pendant with solid weight and clean geometry. A centrepiece piece meant to sit alone on a long chain.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div id="contact" class="page">
+      <section class="contact-page">
+        <div class="container">
+          <h1 class="section__title">Get in touch</h1>
+          <p class="section__intro">Interested in a piece, a collaboration, or a custom order? We would love to hear from you.</p>
+          <a href="mailto:doba.objects@gmail.com" class="btn">doba.objects@gmail.com</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__brand">DOBA.OBJECTS</p>
+      <p class="footer__copy">© 2026 doba.objects. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var pages = document.querySelectorAll('.page');
+      var navLinks = document.querySelectorAll('.nav a[data-link]');
+      var menuToggle = document.querySelector('.menu-toggle');
+      var nav = document.querySelector('.nav');
+      var backdrop = document.querySelector('.nav-backdrop');
+
+      function closeMenu() {
+        if (!nav || !menuToggle) return;
+        nav.classList.remove('is-open');
+        menuToggle.classList.remove('is-active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        if (backdrop) {
+          backdrop.classList.remove('is-open');
+          backdrop.setAttribute('aria-hidden', 'true');
+        }
+        document.body.style.overflow = '';
+      }
+
+      function openMenu() {
+        if (!nav || !menuToggle) return;
+        nav.classList.add('is-open');
+        menuToggle.classList.add('is-active');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        if (backdrop) {
+          backdrop.classList.add('is-open');
+          backdrop.setAttribute('aria-hidden', 'false');
+        }
+        document.body.style.overflow = 'hidden';
+      }
+
+      function setActiveNav(hash) {
+        Array.prototype.forEach.call(navLinks, function (link) {
+          var href = link.getAttribute('href');
+          link.classList.toggle('is-active', href === hash);
+        });
+      }
+
+      function showPage(hash) {
+        var id = (hash || '#home').replace('#', '');
+        if (!id) id = 'home';
+
+        var target = document.getElementById(id);
+        if (!target || !target.classList.contains('page')) {
+          id = 'home';
+          target = document.getElementById('home');
+        }
+
+        Array.prototype.forEach.call(pages, function (page) {
+          page.classList.toggle('is-active', page.id === id);
+        });
+
+        setActiveNav('#' + id);
+        window.scrollTo(0, 0);
+        closeMenu();
+        initReveal();
+      }
+
+      function initRouter() {
+        document.addEventListener('click', function (e) {
+          var link = e.target.closest('[data-link]');
+          if (!link) return;
+
+          var href = link.getAttribute('href');
+          if (!href || href.charAt(0) !== '#') return;
+
+          e.preventDefault();
+          if (window.location.hash !== href) {
+            window.location.hash = href;
+          } else {
+            showPage(href);
+          }
+        });
+
+        window.addEventListener('hashchange', function () {
+          showPage(window.location.hash);
+        });
+
+        showPage(window.location.hash || '#home');
+      }
+
+      function initMenu() {
+        if (!menuToggle || !nav) return;
+
+        menuToggle.addEventListener('click', function () {
+          if (nav.classList.contains('is-open')) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        });
+
+        if (backdrop) {
+          backdrop.addEventListener('click', closeMenu);
+        }
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') closeMenu();
+        });
+      }
+
+      function initCarousels() {
+        document.querySelectorAll('.carousel').forEach(function (carousel) {
+          if (carousel.dataset.ready === 'true') return;
+
+          var track = carousel.querySelector('.carousel__track');
+          if (!track) return;
+
+          var slides = Array.prototype.slice.call(track.children);
+          if (!slides.length) return;
+
+          var dotsContainer = carousel.querySelector('.carousel__dots');
+          var current = 0;
+
+          function goTo(index) {
+            current = (index + slides.length) % slides.length;
+            track.style.transform = 'translateX(-' + (current * 100) + '%)';
+            if (dotsContainer) {
+              Array.prototype.forEach.call(dotsContainer.children, function (dot, i) {
+                dot.classList.toggle('is-active', i === current);
+              });
+            }
+          }
+
+          if (dotsContainer) {
+            dotsContainer.innerHTML = '';
+            slides.forEach(function (_, i) {
+              var dot = document.createElement('button');
+              dot.type = 'button';
+              dot.className = 'carousel__dot' + (i === 0 ? ' is-active' : '');
+              dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+              dot.addEventListener('click', function (e) {
+                e.stopPropagation();
+                goTo(i);
+              });
+              dotsContainer.appendChild(dot);
+            });
+          }
+
+          var prev = carousel.querySelector('.carousel__btn--prev');
+          var next = carousel.querySelector('.carousel__btn--next');
+
+          if (prev) {
+            prev.addEventListener('click', function (e) {
+              e.stopPropagation();
+              goTo(current - 1);
+            });
+          }
+
+          if (next) {
+            next.addEventListener('click', function (e) {
+              e.stopPropagation();
+              goTo(current + 1);
+            });
+          }
+
+          carousel.dataset.ready = 'true';
+        });
+      }
+
+      function initProductCards() {
+        var cards = document.querySelectorAll('.card');
+
+        function closeAll(except) {
+          Array.prototype.forEach.call(cards, function (card) {
+            if (card !== except) {
+              card.classList.remove('is-open');
+              card.setAttribute('aria-expanded', 'false');
+            }
+          });
+        }
+
+        Array.prototype.forEach.call(cards, function (card) {
+          if (card.dataset.ready === 'true') return;
+
+          card.addEventListener('click', function (e) {
+            if (e.target.closest('.carousel__btn') || e.target.closest('.carousel__dot')) {
+              return;
+            }
+
+            var willOpen = !card.classList.contains('is-open');
+            closeAll(card);
+            card.classList.toggle('is-open', willOpen);
+            card.setAttribute('aria-expanded', String(willOpen));
+          });
+
+          card.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              if (e.target.closest('.carousel__btn') || e.target.closest('.carousel__dot')) {
+                return;
+              }
+              e.preventDefault();
+              card.click();
+            }
+          });
+
+          card.dataset.ready = 'true';
+        });
+      }
+
+      function initReveal() {
+        var revealEls = document.querySelectorAll('.page.is-active .reveal');
+
+        if (!('IntersectionObserver' in window)) {
+          Array.prototype.forEach.call(revealEls, function (el) {
+            el.classList.add('is-visible');
+          });
+          return;
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+
+        Array.prototype.forEach.call(revealEls, function (el) {
+          if (!el.classList.contains('is-visible')) {
+            observer.observe(el);
+          }
+        });
+      }
+
+      initMenu();
+      initCarousels();
+      initProductCards();
+      initRouter();
+    })();
+  </script>
+
+</body>
+</html>
