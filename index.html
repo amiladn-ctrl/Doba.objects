@@ -38,6 +38,9 @@
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     img {
@@ -133,7 +136,20 @@
       height: 2px;
       width: 100%;
       background: var(--text);
-      transition: transform 0.2s ease, opacity 0.2s ease;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      transform-origin: center;
+    }
+
+    .menu-toggle.is-active span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-toggle.is-active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.is-active span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
     }
 
     .nav {
@@ -145,7 +161,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2rem;
+      gap: 1.75rem;
       transform: translateX(100%);
       transition: transform 0.3s ease;
       z-index: 99;
@@ -156,13 +172,39 @@
     }
 
     .nav a {
-      font-size: 1.5rem;
+      font-size: clamp(1.15rem, 4vw, 1.5rem);
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      transition: color 0.2s ease;
     }
 
-    /* Hero — single photo, text on top */
+    .nav a:hover,
+    .nav a.is-active {
+      color: var(--accent);
+    }
+
+    .nav__divider {
+      width: 2rem;
+      height: 1px;
+      background: var(--border);
+      margin: 0.25rem 0;
+    }
+
+    /* Pages */
+    main {
+      flex: 1;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.is-active {
+      display: block;
+    }
+
+    /* Hero */
     .hero {
       position: relative;
       min-height: calc(100svh - var(--header-height));
@@ -254,7 +296,7 @@
       color: var(--surface);
     }
 
-    /* Product carousels */
+    /* Carousel */
     .carousel {
       position: relative;
       overflow: hidden;
@@ -336,7 +378,15 @@
       overflow: hidden;
     }
 
-    .about__image img {
+    .about__image.carousel {
+      display: block;
+    }
+
+    .about__image .carousel__track {
+      height: 100%;
+    }
+
+    .about__image .carousel__slide {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -361,32 +411,105 @@
       }
     }
 
-    /* Collections */
-    .collections__group {
-      margin-bottom: 3.5rem;
+    /* Collection page */
+    .page-header {
+      padding: 3.5rem 0 1rem;
     }
 
-    .collections__group:last-child {
-      margin-bottom: 0;
-    }
-
-    .collections__heading {
+    .page-header__title {
       font-family: var(--font-heading);
-      font-size: 1.5rem;
-      font-weight: 500;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .page-header__desc {
+      color: var(--muted);
+      max-width: 60ch;
       margin-bottom: 0.5rem;
     }
 
-    .collections__desc {
+    .breadcrumb {
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 1.5rem;
-      max-width: 60ch;
+      margin-bottom: 1rem;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--text);
+    }
+
+    .collections-preview {
+      padding-bottom: 4rem;
+    }
+
+    .collections-preview__grid {
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+      .collections-preview__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .preview-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: block;
+    }
+
+    .preview-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .preview-card__media {
+      aspect-ratio: 1 / 1;
+      background: #f0ede8;
+      overflow: hidden;
+    }
+
+    .preview-card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .preview-card:hover .preview-card__media img {
+      transform: scale(1.03);
+    }
+
+    .preview-card__body {
+      padding: 1.25rem;
+    }
+
+    .preview-card__title {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+    }
+
+    .preview-card__meta {
+      font-size: 0.85rem;
+      color: var(--muted);
     }
 
     .grid {
       display: grid;
       gap: 1.25rem;
       grid-template-columns: 1fr;
+      padding-bottom: 4rem;
     }
 
     @media (min-width: 640px) {
@@ -490,11 +613,25 @@
       display: none;
     }
 
+    /* Contact page */
+    .contact-page {
+      min-height: calc(100svh - var(--header-height) - 8rem);
+      display: flex;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 0;
+    }
+
+    .contact-page .section__intro {
+      margin-inline: auto;
+    }
+
     /* Footer */
     .footer {
       border-top: 1px solid var(--border);
       padding: 2.5rem 0;
       text-align: center;
+      margin-top: auto;
     }
 
     .footer__brand {
@@ -526,7 +663,7 @@
 
   <header class="header">
     <div class="container header__inner">
-      <a href="#" class="logo">
+      <a href="#home" class="logo" data-link>
         <img src="Untitled.svg" alt="doba.objects logo">
       </a>
       <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
@@ -536,410 +673,5 @@
       </button>
     </div>
     <nav class="nav" aria-label="Main">
-      <a href="#about">About</a>
-      <a href="#collections">Collections</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="hero__bg" aria-hidden="true">
-        <img src="IMG_0240.jpeg" alt="">
-      </div>
-      <div class="hero__overlay" aria-hidden="true"></div>
-      <div class="hero__content">
-        <h1 class="hero__title">DOBA.OBJECTS</h1>
-        <p class="hero__tagline">Modern jewellery shaped for everyday expression.</p>
-        <a href="#collections" class="btn">Explore Collections</a>
-      </div>
-    </section>
-
-    <section id="about" class="section about">
-      <div class="container about__grid reveal">
-        <div class="about__image">
-          <img src="IMG_1552.jpeg" alt="doba.objects studio jewellery">
-        </div>
-        <div class="about__text">
-          <h2>About the brand</h2>
-          <p>Doba.objects creates refined, wearable pieces for people who appreciate quiet detail. Every item is designed with intention, balancing minimal form with lasting material.</p>
-          <p>Our jewellery is made for layering, gifting, and keeping — small objects that become part of your daily uniform.</p>
-          <a href="#contact" class="btn btn--ghost">Get in touch</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="collections" class="section collections">
-      <div class="container">
-        <h2 class="section__title reveal">Collections</h2>
-        <p class="section__intro reveal">Explore the doba.objects world: signature essentials, limited seasonal releases, and bold statement pieces.</p>
-
-        <div class="collections__group reveal">
-          <h3 class="collections__heading">Novo doba</h3>
-          <p class="collections__desc">The core collection. Timeless silhouettes in silver and gold colours.</p>
-          <div class="grid">
-            <article class="card" tabindex="0" role="button" aria-expanded="false">
-              <div class="card__media carousel">
-                <div class="carousel__track">
-                  <img src="IMG_0147.jpeg" alt="Dua ring base" class="carousel__slide">
-                  <img src="dua base.jpg.jpg" alt="Dua ring base view 2" class="carousel__slide">
-                  <img src="dua duo.jpg" alt="Dua ring base view 3" class="carousel__slide">
-                </div>
-                <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-                <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-                <div class="carousel__dots"></div>
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Dua ring base</h4>
-                <p class="card__meta">Silver / Gold</p>
-                <span class="card__hint">Tap for details</span>
-                <div class="card__info">
-                  <p>A modular base ring with clean dual lines. Designed to wear alone or stack with Dua solo. Hand-finished edges for everyday comfort.</p>
-                </div>
-              </div>
-            </article>
-
-            <article class="card" tabindex="0" role="button" aria-expanded="false">
-              <div class="card__media carousel">
-                <div class="carousel__track">
-                  <img src="worry.jpeg" alt="Mirror pendant" class="carousel__slide">
-                  <img src="worry 2.jpg" alt="Mirror pendant view 2" class="carousel__slide">
-                  <img src="fav.jpeg" alt="Mirror pendant view 3" class="carousel__slide">
-                </div>
-                <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-                <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-                <div class="carousel__dots"></div>
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Mirror pendant</h4>
-                <p class="card__meta">Silver/Gold</p>
-                <span class="card__hint">Tap for details</span>
-                <div class="card__info">
-                  <p>A reflective pendant with a quiet geometric face. Lightweight on the chain, strong as a focal point. Made for layering or solo wear.</p>
-                </div>
-              </div>
-            </article>
-
-            <article class="card" tabindex="0" role="button" aria-expanded="false">
-              <div class="card__media carousel">
-                <div class="carousel__track">
-                  <img src="IMG_0151.jpeg" alt="Dua ring solo" class="carousel__slide">
-                  <img src="dua one.jpg.jpg" alt="Dua ring solo view 2" class="carousel__slide">
-                  <img src="dua duo.jpg" alt="Dua ring solo view 3" class="carousel__slide">
-                </div>
-                <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-                <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-                <div class="carousel__dots"></div>
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Dua ring solo</h4>
-                <p class="card__meta">Silver/Gold</p>
-                <span class="card__hint">Tap for details</span>
-                <div class="card__info">
-                  <p>The companion band to Dua base. Slim profile, polished finish. Stacks cleanly or stands alone as a minimal everyday ring.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="collections__group reveal">
-          <h3 class="collections__heading">Limited Collection</h3>
-          <p class="collections__desc">Small-batch releases in numbered editions. One of one. Once they are gone, they are gone.</p>
-          <div class="grid">
-            <article class="card" tabindex="0" role="button" aria-expanded="false">
-              <div class="card__media carousel">
-                <div class="carousel__track">
-                  <img src="wb1.jpg" alt="Wood doba 1 ring" class="carousel__slide">
-                  <img src="wb2.jpg" alt="Wood doba 1 ring view 2" class="carousel__slide">
-                  <img src="wr1.jpg" alt="Wood doba 1 ring view 3" class="carousel__slide">
-                </div>
-                <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-                <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-                <div class="carousel__dots"></div>
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Wood doba ring 0.1</h4>
-                <p class="card__meta">Ebony wood and silver</p>
-                <span class="card__hint">Tap for details</span>
-                <div class="card__info">
-                  <p>Edition one. Dark ebony set against silver in a sculpted band. Each grain pattern is unique. Limited run, numbered piece.</p>
-                </div>
-              </div>
-            </article>
-
-            <article class="card" tabindex="0" role="button" aria-expanded="false">
-              <div class="card__media carousel">
-                <div class="carousel__track">
-                  <img src="wm1.jpg" alt="Wood doba ring 2" class="carousel__slide">
-                  <img src="wm2.jpg" alt="Wood doba ring 2 view 2" class="carousel__slide">
-                  <img src="wg2.jpg" alt="Wood doba ring 2 view 3" class="carousel__slide">
-                </div>
-                <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-                <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-                <div class="carousel__dots"></div>
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Wood doba ring 0.2</h4>
-                <p class="card__meta">Ebony wood and silver</p>
-                <span class="card__hint">Tap for details</span>
-                <div class="card__info">
-                  <p>Edition two. A deeper wood inset with a sharper silver frame. Small-batch only. Once sold, this cut is not remade.</p>
-                </div>
-              </div>
-            </article>
-
-            <article class="card" tabindex="0" role="button" aria-expanded="false">
-              <div class="card__media carousel">
-                <div class="carousel__track">
-                  <img src="wp1.jpg" alt="Wood doba ring 3" class="carousel__slide">
-                  <img src="wp2.jpg" alt="Wood doba ring 3 view 2" class="carousel__slide">
-                  <img src="wg3.jpg" alt="Wood doba ring 3 view 3" class="carousel__slide">
-                </div>
-                <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-                <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-                <div class="carousel__dots"></div>
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Wood doba ring 0.3</h4>
-                <p class="card__meta">Ebony wood and silver</p>
-                <span class="card__hint">Tap for details</span>
-                <div class="card__info">
-                  <p>Edition three. Balanced wood-to-metal ratio with a smooth inner band. Final piece in this limited wood series.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="collections__group reveal">
-          <h3 class="collections__heading">Bold</h3>
-          <p class="collections__desc">Oversized shapes and sculptural volume for those who want to stand out.</p>
-          <div class="grid">
-            <article class="card" tabindex="0" role="button" aria-expanded="false">
-              <div class="card__media carousel">
-                <div class="carousel__track">
-                  <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+01" alt="Sculpture Base ring" class="carousel__slide">
-                  <img src="https://placehold.co/600x600/e8e4df/6b6b6b?text=View+2" alt="Sculpture Base ring view 2" class="carousel__slide">
-                  <img src="https://placehold.co/600x600/e8e4df/6b6b6b?text=View+3" alt="Sculpture Base ring view 3" class="carousel__slide">
-                </div>
-                <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-                <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-                <div class="carousel__dots"></div>
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Sculpture Base ring</h4>
-                <p class="card__meta">Silver/Gold</p>
-                <span class="card__hint">Tap for details</span>
-                <div class="card__info">
-                  <p>An architectural base with strong volume. Built to anchor a hand stack or wear as a single statement form.</p>
-                </div>
-              </div>
-            </article>
-
-            <article class="card" tabindex="0" role="button" aria-expanded="false">
-              <div class="card__media carousel">
-                <div class="carousel__track">
-                  <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+02" alt="Peak Ring" class="carousel__slide">
-                  <img src="https://placehold.co/600x600/e8e4df/6b6b6b?text=View+2" alt="Peak Ring view 2" class="carousel__slide">
-                  <img src="https://placehold.co/600x600/e8e4df/6b6b6b?text=View+3" alt="Peak Ring view 3" class="carousel__slide">
-                </div>
-                <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-                <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-                <div class="carousel__dots"></div>
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Peak Ring</h4>
-                <p class="card__meta">Silver/Gold</p>
-                <span class="card__hint">Tap for details</span>
-                <div class="card__info">
-                  <p>A rising silhouette with a sharp crest. Sculptural from every angle. Made for those who want presence without noise.</p>
-                </div>
-              </div>
-            </article>
-
-            <article class="card" tabindex="0" role="button" aria-expanded="false">
-              <div class="card__media carousel">
-                <div class="carousel__track">
-                  <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+03" alt="Bold pendant" class="carousel__slide">
-                  <img src="https://placehold.co/600x600/e8e4df/6b6b6b?text=View+2" alt="Bold pendant view 2" class="carousel__slide">
-                  <img src="https://placehold.co/600x600/e8e4df/6b6b6b?text=View+3" alt="Bold pendant view 3" class="carousel__slide">
-                </div>
-                <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-                <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-                <div class="carousel__dots"></div>
-              </div>
-              <div class="card__body">
-                <h4 class="card__title">Bold pendant</h4>
-                <p class="card__meta">Silver/Gold</p>
-                <span class="card__hint">Tap for details</span>
-                <div class="card__info">
-                  <p>Oversized pendant with solid weight and clean geometry. A centrepiece piece meant to sit alone on a long chain.</p>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section contact">
-      <div class="container reveal" style="text-align: center;">
-        <h2 class="section__title">Get in touch</h2>
-        <p class="section__intro" style="margin-inline: auto;">Interested in a piece, a collaboration, or a custom order? We would love to hear from you.</p>
-        <a href="mailto:doba.objects@gmail.com" class="btn">doba.objects@gmail.com</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p class="footer__brand">DOBA.OBJECTS</p>
-      <p class="footer__copy">© 2026 doba.objects. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script>
-    (function () {
-      function initCarousels() {
-        document.querySelectorAll('.carousel').forEach(function (carousel) {
-          var track = carousel.querySelector('.carousel__track');
-          if (!track) return;
-
-          var slides = Array.prototype.slice.call(track.children);
-          if (!slides.length) return;
-
-          var dotsContainer = carousel.querySelector('.carousel__dots');
-          var current = 0;
-
-          function goTo(index) {
-            current = (index + slides.length) % slides.length;
-            track.style.transform = 'translateX(-' + (current * 100) + '%)';
-            if (dotsContainer) {
-              Array.prototype.forEach.call(dotsContainer.children, function (dot, i) {
-                dot.classList.toggle('is-active', i === current);
-              });
-            }
-          }
-
-          if (dotsContainer) {
-            dotsContainer.innerHTML = '';
-            slides.forEach(function (_, i) {
-              var dot = document.createElement('button');
-              dot.type = 'button';
-              dot.className = 'carousel__dot' + (i === 0 ? ' is-active' : '');
-              dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-              dot.addEventListener('click', function (e) {
-                e.stopPropagation();
-                goTo(i);
-              });
-              dotsContainer.appendChild(dot);
-            });
-          }
-
-          var prev = carousel.querySelector('.carousel__btn--prev');
-          var next = carousel.querySelector('.carousel__btn--next');
-
-          if (prev) {
-            prev.addEventListener('click', function (e) {
-              e.stopPropagation();
-              goTo(current - 1);
-            });
-          }
-
-          if (next) {
-            next.addEventListener('click', function (e) {
-              e.stopPropagation();
-              goTo(current + 1);
-            });
-          }
-        });
-      }
-
-      function initMenu() {
-        var menuToggle = document.querySelector('.menu-toggle');
-        var nav = document.querySelector('.nav');
-        if (!menuToggle || !nav) return;
-
-        menuToggle.addEventListener('click', function () {
-          var isOpen = nav.classList.toggle('is-open');
-          menuToggle.setAttribute('aria-expanded', String(isOpen));
-          document.body.style.overflow = isOpen ? 'hidden' : '';
-        });
-
-        Array.prototype.forEach.call(document.querySelectorAll('.nav a'), function (link) {
-          link.addEventListener('click', function () {
-            nav.classList.remove('is-open');
-            menuToggle.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-          });
-        });
-      }
-
-      function initProductCards() {
-        var cards = document.querySelectorAll('.card');
-
-        function closeAll(except) {
-          Array.prototype.forEach.call(cards, function (card) {
-            if (card !== except) {
-              card.classList.remove('is-open');
-              card.setAttribute('aria-expanded', 'false');
-            }
-          });
-        }
-
-        Array.prototype.forEach.call(cards, function (card) {
-          card.addEventListener('click', function (e) {
-            if (e.target.closest('.carousel__btn') || e.target.closest('.carousel__dot')) {
-              return;
-            }
-
-            var willOpen = !card.classList.contains('is-open');
-            closeAll(card);
-            card.classList.toggle('is-open', willOpen);
-            card.setAttribute('aria-expanded', String(willOpen));
-          });
-
-          card.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-              if (e.target.closest('.carousel__btn') || e.target.closest('.carousel__dot')) {
-                return;
-              }
-              e.preventDefault();
-              card.click();
-            }
-          });
-        });
-      }
-
-      function initReveal() {
-        var revealEls = document.querySelectorAll('.reveal');
-        if (!('IntersectionObserver' in window)) {
-          Array.prototype.forEach.call(revealEls, function (el) {
-            el.classList.add('is-visible');
-          });
-          return;
-        }
-
-        var observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-            }
-          });
-        }, { threshold: 0.1 });
-
-        Array.prototype.forEach.call(revealEls, function (el) {
-          observer.observe(el);
-        });
-      }
-
-      initCarousels();
-      initMenu();
-      initProductCards();
-      initReveal();
-    })();
-  </script>
-
-</body>
-</html>
+      <a href="#home" data-link>Home</a>
+      <div class="nav__divider" aria-hidden="tr
