@@ -526,7 +526,6 @@
       color: var(--muted);
     }
 
-    /* Home info buttons */
     .home-info {
       padding: 1rem 0 4.5rem;
       border-top: 1px solid var(--border);
@@ -673,7 +672,6 @@
       margin-inline: auto;
     }
 
-    /* Info content pages */
     .info-page {
       padding-bottom: 4rem;
     }
@@ -718,10 +716,14 @@
       margin: 2rem 0;
     }
 
-    .info-placeholder {
-      color: var(--muted);
-      max-width: 40ch;
-      margin-bottom: 2rem;
+    .care-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin: 1.25rem 0 0.4rem;
     }
 
     .footer {
@@ -1161,13 +1163,47 @@
     <div id="care" class="page">
       <div class="container page-header">
         <p class="breadcrumb"><a href="#home" data-link>Home</a> / How to care</p>
-        <h1 class="page-header__title">How to care</h1>
-        <p class="page-header__desc">Guidance for keeping solid silver and solid ebony wood over time.</p>
+        <h1 class="page-header__title">Care Guide</h1>
+        <p class="page-header__desc">How to maintain solid silver and solid ebony wood over time.</p>
       </div>
       <div class="container info-page">
         <div class="info-content">
-          <p class="info-placeholder">Care guide content will be added here. You can paste cleaning, storage, and material notes whenever ready.</p>
-          <a href="#studio" class="btn btn--ghost" data-link>Studio structure and production</a>
+          <h2>Solid Silver</h2>
+          <p>doba.objects silver pieces are solid throughout, not plated. This means the material you see is the material you’re wearing, all the way through.</p>
+          <p>Silver develops a natural patina over time through normal exposure to air and moisture. This is not damage. It’s the metal aging the way solid silver is meant to age.</p>
+          <span class="care-label">To clean</span>
+          <p>Use a soft polishing cloth for light tarnish. For deeper tarnish, a standard silver polishing cloth or mild silver cleaning solution restores shine without affecting the metal.</p>
+          <span class="care-label">To store</span>
+          <p>Keep pieces in a dry place, away from direct humidity, when not being worn. A small airtight pouch or box slows down natural tarnishing.</p>
+          <span class="care-label">To avoid</span>
+          <p>Chlorine, perfume, and household cleaning chemicals applied directly to the piece. Remove jewellery before swimming, showering with strong products, or cleaning the house.</p>
+
+          <hr>
+
+          <h2>Solid Ebony Wood</h2>
+          <p>Wood pieces are solid ebony, not veneered or laminated. Grain, density, and tone vary slightly from piece to piece. This variation is the material, not a flaw.</p>
+          <span class="care-label">To clean</span>
+          <p>Wipe gently with a dry, soft cloth after wear. Avoid water and soap, since wood absorbs moisture differently than metal.</p>
+          <span class="care-label">To store</span>
+          <p>Keep away from prolonged direct sunlight, which can dry and lighten wood tone over time. Store in a stable, moderate environment, avoiding extreme heat, cold, or humidity swings.</p>
+          <span class="care-label">To avoid</span>
+          <p>Submerging in water, wearing while swimming or showering, and prolonged contact with lotions or oils, which can seep into the grain.</p>
+          <span class="care-label">Occasional care</span>
+          <p>A small amount of natural, unscented oil (such as mineral oil, applied sparingly with a cloth) can help maintain the wood’s depth of color if it appears to be drying out. This is optional and only needed occasionally.</p>
+
+          <hr>
+
+          <h2>Pieces combining silver and wood</h2>
+          <p>Follow both sets of guidance above for the relevant material on each piece. Avoid soaking or submerging the full piece even briefly, since silver and wood require different handling.</p>
+
+          <hr>
+
+          <h2>A general note</h2>
+          <p>Nothing here is plated, so nothing here wears down to reveal a different material underneath. What ages is the material itself, the same way it would in any solid object made to be lived with. Wear it, let it age, and it will keep telling you the truth about what it’s made of.</p>
+
+          <p style="margin-top: 2rem;">
+            <a href="#studio" class="btn btn--ghost" data-link>Studio structure and production</a>
+          </p>
         </div>
       </div>
     </div>
