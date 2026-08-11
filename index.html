@@ -300,6 +300,7 @@
       color: var(--surface);
       transition: background 0.2s ease, color 0.2s ease;
       cursor: pointer;
+      text-align: center;
     }
 
     .btn:hover,
@@ -462,7 +463,7 @@
     }
 
     .collections-preview {
-      padding-bottom: 4rem;
+      padding-bottom: 2rem;
     }
 
     .collections-preview__grid {
@@ -523,6 +524,33 @@
     .preview-card__meta {
       font-size: 0.85rem;
       color: var(--muted);
+    }
+
+    /* Home info buttons */
+    .home-info {
+      padding: 1rem 0 4.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .home-info__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+      max-width: 36rem;
+      margin-inline: auto;
+    }
+
+    @media (min-width: 640px) {
+      .home-info__inner {
+        flex-direction: row;
+        max-width: none;
+        justify-content: center;
+      }
+
+      .home-info__inner .btn {
+        min-width: 16rem;
+      }
     }
 
     .grid {
@@ -645,6 +673,57 @@
       margin-inline: auto;
     }
 
+    /* Info content pages */
+    .info-page {
+      padding-bottom: 4rem;
+    }
+
+    .info-content {
+      max-width: 42rem;
+    }
+
+    .info-content h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.25rem, 3vw, 1.5rem);
+      font-weight: 500;
+      margin: 2.25rem 0 0.85rem;
+    }
+
+    .info-content h2:first-child {
+      margin-top: 0;
+    }
+
+    .info-content p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .info-content ul {
+      color: var(--muted);
+      margin: 0 0 1.25rem 1.15rem;
+    }
+
+    .info-content li {
+      margin-bottom: 0.65rem;
+    }
+
+    .info-content strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .info-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+
+    .info-placeholder {
+      color: var(--muted);
+      max-width: 40ch;
+      margin-bottom: 2rem;
+    }
+
     .footer {
       border-top: 1px solid var(--border);
       padding: 2.5rem 0;
@@ -699,6 +778,9 @@
     <a href="#novo-doba" data-link>Novo doba</a>
     <a href="#limited" data-link>Limited Collection</a>
     <a href="#bold" data-link>Bold</a>
+    <div class="nav__divider" aria-hidden="true"></div>
+    <a href="#studio" data-link>Studio</a>
+    <a href="#care" data-link>How to care</a>
     <div class="nav__divider" aria-hidden="true"></div>
     <a href="#contact" data-link>Contact</a>
   </nav>
@@ -771,6 +853,13 @@
               </div>
             </a>
           </div>
+        </div>
+      </section>
+
+      <section class="home-info">
+        <div class="container home-info__inner reveal">
+          <a href="#care" class="btn btn--ghost" data-link>How to care</a>
+          <a href="#studio" class="btn" data-link>Studio structure and production</a>
         </div>
       </section>
     </div>
@@ -993,6 +1082,92 @@
               </div>
             </div>
           </article>
+        </div>
+      </div>
+    </div>
+
+    <div id="studio" class="page">
+      <div class="container page-header">
+        <p class="breadcrumb"><a href="#home" data-link>Home</a> / Studio structure and production</p>
+        <h1 class="page-header__title">Studio structure and production</h1>
+        <p class="page-header__desc">How doba.objects designs, makes, and delivers each piece.</p>
+      </div>
+      <div class="container info-page">
+        <div class="info-content">
+          <p>doba.objects operates as an independent studio. All design and production take place in Sarajevo, under the direction of a single maker. Pieces are produced using lost wax casting and hand finishing.</p>
+          <p>The studio works across three collections:</p>
+          <ul>
+            <li><strong>Novo doba (Base Collection)</strong> Molded pieces in solid silver. These designs are repeatable and available on an ongoing basis. They form the core, everyday system of the brand.</li>
+            <li><strong>Limited Collection</strong> Pieces in ebony wood or wood combined with silver. Each Limited piece is designed and produced individually. Once a Limited piece is sold, that specific design is not repeated.</li>
+            <li><strong>Bold Collection</strong> Larger, sculptural pieces that sit at the intersection of jewellery and object. Each Bold piece is designed and produced individually, one at a time. Once a Bold piece is sold, it is not remade.</li>
+          </ul>
+          <p>No collection uses plating. All silver is solid; all wood is solid ebony.</p>
+
+          <hr>
+
+          <h2>Ordering and production time</h2>
+          <p>All orders are produced individually.</p>
+          <ul>
+            <li>Novo doba pieces are produced from existing molds and finished by hand.</li>
+            <li>Limited and Bold pieces are produced as individual works.</li>
+          </ul>
+          <p>Production time depends on the collection and the current studio schedule. An estimated production window is communicated at the time of order. Customers are notified if any timing changes are required.</p>
+
+          <hr>
+
+          <h2>Custom work and commissions</h2>
+          <p>The studio accepts a limited number of custom commissions each year.</p>
+          <p>For commissions, scope, price, and timing are agreed in writing before work begins. Because materials and studio time are committed to a single piece, a non-refundable deposit may be required at the start of the project.</p>
+
+          <hr>
+
+          <h2>Material clarity</h2>
+          <p>All pieces are either:</p>
+          <ul>
+            <li>Solid silver</li>
+            <li>Solid ebony wood</li>
+            <li>A combination of solid silver and solid ebony wood</li>
+          </ul>
+          <p>The studio does not use plating or hollow forms to imitate weight. Surfaces age as the material itself, not as a coating.</p>
+          <p>Natural variation in wood grain, minor casting marks, and hand finishing are part of the studio’s aesthetic and are not treated as defects.</p>
+
+          <hr>
+
+          <h2>Returns and adjustments</h2>
+          <p>The studio’s approach reflects the nature of its collections:</p>
+          <ul>
+            <li>Novo doba pieces may be eligible for return or exchange within a defined period if unworn and in original condition.</li>
+            <li>Limited and Bold pieces, and commissioned work, are produced individually for a specific client and are generally treated as final sale.</li>
+          </ul>
+          <p>Sizing adjustments for rings or chains are considered case by case, depending on the design and material constraints.</p>
+          <p>Full legal terms, including eligibility for returns and repairs, are outlined in the Terms and Conditions.</p>
+
+          <hr>
+
+          <h2>Care and longevity</h2>
+          <p>Pieces are designed to be worn and kept.</p>
+          <p>A detailed care guide explains how to maintain solid silver and solid ebony wood over time, including cleaning, storage, and environmental considerations. Customers receive this guide with their order and can consult an online version as needed.</p>
+          <p><a href="#care" class="btn btn--ghost" data-link style="margin-top: 0.5rem;">Read how to care</a></p>
+
+          <hr>
+
+          <h2>Communication with the studio</h2>
+          <p>All communication is direct with the studio. Customers can use email for order enquiries, commission requests, or care questions. There is no outsourced customer service layer. This ensures that each conversation is informed by the studio’s design and material knowledge.</p>
+          <p style="margin-top: 2rem;"><a href="#contact" class="btn" data-link>Get in touch</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="care" class="page">
+      <div class="container page-header">
+        <p class="breadcrumb"><a href="#home" data-link>Home</a> / How to care</p>
+        <h1 class="page-header__title">How to care</h1>
+        <p class="page-header__desc">Guidance for keeping solid silver and solid ebony wood over time.</p>
+      </div>
+      <div class="container info-page">
+        <div class="info-content">
+          <p class="info-placeholder">Care guide content will be added here. You can paste cleaning, storage, and material notes whenever ready.</p>
+          <a href="#studio" class="btn btn--ghost" data-link>Studio structure and production</a>
         </div>
       </div>
     </div>
