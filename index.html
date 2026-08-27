@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>doba.objects — Modern Jewellery</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -11,16 +12,17 @@
   <style>
     :root {
       --bg: #faf9f7;
-      --surface: #fff;
+      --surface: #ffffff;
       --text: #1c1c1c;
       --muted: #6b6b6b;
       --accent: #bfa268;
       --border: #e8e4df;
       --radius: .5rem;
-      --shadow: 0 4px 20px rgba(0,0,0,.04);
+      --shadow: 0 4px 20px rgba(0, 0, 0, .04);
       --max-width: 72rem;
       --header-height: 6rem;
       --font: 'Montserrat', system-ui, sans-serif;
+      --heading: Georgia, serif;
     }
 
     * {
@@ -84,7 +86,7 @@
       z-index: 100;
       height: var(--header-height);
       border-bottom: 1px solid var(--border);
-      background: rgba(250,249,247,.96);
+      background: rgba(250, 249, 247, .96);
       backdrop-filter: blur(10px);
     }
 
@@ -147,12 +149,15 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      z-index: 98;
       visibility: hidden;
       opacity: 0;
-      background: rgba(28,28,28,.5);
+      background: rgba(28, 28, 28, .5);
       backdrop-filter: blur(6px);
       transition: opacity .3s ease, visibility .3s ease;
+    }
+
+    .nav-backdrop {
+      z-index: 98;
     }
 
     .modal-backdrop {
@@ -177,8 +182,8 @@
       width: min(100%, 22rem);
       padding: 6rem 2.5rem 3rem;
       border-left: 1px solid var(--border);
-      background: rgba(250,249,247,.98);
-      box-shadow: -12px 0 40px rgba(0,0,0,.12);
+      background: rgba(250, 249, 247, .98);
+      box-shadow: -12px 0 40px rgba(0, 0, 0, .12);
       transform: translateX(100%);
       transition: transform .3s ease;
     }
@@ -227,17 +232,13 @@
       text-align: center;
     }
 
-    .hero__bg,
+    .hero__image,
     .hero__overlay {
       position: absolute;
       inset: 0;
     }
 
-    .hero__bg {
-      z-index: 0;
-    }
-
-    .hero__bg img {
+    .hero__image {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -245,31 +246,27 @@
     }
 
     .hero__overlay {
-      z-index: 1;
-      background: rgba(250,249,247,.35);
+      background: rgba(250, 249, 247, .35);
     }
 
     .hero__content {
       position: relative;
-      z-index: 2;
+      z-index: 1;
       width: 90%;
     }
 
-    .hero h1,
-    .page-header h1,
-    .section h2,
-    .about h2,
-    .modal h2,
-    .info-content h2 {
-      font-family: Georgia, serif;
+    h1,
+    h2,
+    h3 {
+      font-family: var(--heading);
       font-weight: 400;
       letter-spacing: -.02em;
     }
 
     .hero h1 {
+      margin-bottom: 1rem;
       font-size: clamp(2.5rem, 10vw, 5.5rem);
       line-height: 1;
-      margin-bottom: 1rem;
     }
 
     .hero p {
@@ -340,7 +337,7 @@
     }
 
     .about h2,
-    .section h2 {
+    .section > .container > h2 {
       margin-bottom: 1rem;
       font-size: clamp(1.75rem, 4vw, 2.5rem);
     }
@@ -378,15 +375,7 @@
     .grid {
       display: grid;
       gap: 1.25rem;
-    }
-
-    .collections-preview__grid {
       grid-template-columns: 1fr;
-    }
-
-    .grid {
-      grid-template-columns: 1fr;
-      padding-bottom: 4rem;
     }
 
     .preview-card,
@@ -405,7 +394,7 @@
     .preview-card:hover,
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(0,0,0,.06);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .06);
     }
 
     .preview-card__media,
@@ -560,7 +549,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       background: var(--surface);
-      box-shadow: 0 20px 60px rgba(0,0,0,.15);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .15);
       opacity: 0;
       visibility: hidden;
       transform: translate(-50%, -48%) scale(.98);
@@ -618,6 +607,7 @@
     .form-group label {
       display: block;
       margin-bottom: .4rem;
+      color: var(--text);
       font-size: .7rem;
       font-weight: 600;
       letter-spacing: .04em;
@@ -706,7 +696,7 @@
 
     .footer__brand {
       margin-bottom: .75rem;
-      font-family: Georgia, serif;
+      font-family: var(--heading);
       font-size: 1.25rem;
     }
 
@@ -742,9 +732,9 @@
     }
 
     @media (min-width: 768px) {
-      .about__grid,
-      .collections-preview__grid {
-        grid-template-columns: repeat(2, 1fr);
+      .about__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
       }
 
       .collections-preview__grid {
@@ -793,10 +783,9 @@
   <main>
     <section id="home" class="page is-active">
       <section class="hero">
-        <div class="hero__bg">
-          <img src="IMG_0240.jpeg" alt="">
-        </div>
+        <img class="hero__image" src="IMG_0240.jpeg" alt="">
         <div class="hero__overlay"></div>
+
         <div class="hero__content">
           <h1>DOBA.OBJECTS</h1>
           <p>Modern jewellery shaped for everyday expression.</p>
@@ -822,7 +811,7 @@
       <section class="section">
         <div class="container">
           <h2>Collections</h2>
-          <p class="section__intro">Explore the doba.objects world: signature essentials, limited seasonal releases, and bold statement pieces.</p>
+          <p class="section__intro">Explore signature essentials, limited seasonal releases, and bold statement pieces.</p>
 
           <div class="collections-preview__grid">
             <a href="#novo-doba" class="preview-card" data-link>
@@ -841,7 +830,7 @@
               </div>
               <div class="preview-card__body">
                 <h3 class="preview-card__title">Limited Collection</h3>
-                <p class="preview-card__meta">Small-batch numbered editions</p>
+                <p class="preview-card__meta">Small batch numbered editions</p>
               </div>
             </a>
 
@@ -884,7 +873,7 @@
               <p class="card__meta">Silver / Gold</p>
               <span class="card__hint">Tap for details</span>
               <div class="card__info">
-                <p>A modular base ring with clean dual lines. Designed to wear alone or stack with Dua solo. Hand-finished edges for everyday comfort.</p>
+                <p>A modular base ring with clean dual lines. Designed to wear alone or stack with Dua solo.</p>
               </div>
               <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Dua ring base" data-collection="Novo doba" data-ring="true" data-material="true">Inquire about piece</button>
             </div>
@@ -899,7 +888,7 @@
               <p class="card__meta">Silver / Gold</p>
               <span class="card__hint">Tap for details</span>
               <div class="card__info">
-                <p>A reflective pendant with a quiet geometric face. Lightweight on the chain, strong as a focal point. Made for layering or solo wear.</p>
+                <p>A reflective pendant with a quiet geometric face. Made for layering or solo wear.</p>
               </div>
               <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Mirror pendant" data-collection="Novo doba" data-ring="false" data-material="true">Inquire about piece</button>
             </div>
@@ -914,7 +903,7 @@
               <p class="card__meta">Silver / Gold</p>
               <span class="card__hint">Tap for details</span>
               <div class="card__info">
-                <p>The companion band to Dua base. Slim profile, polished finish. Stacks cleanly or stands alone as a minimal everyday ring.</p>
+                <p>The companion band to Dua base. Slim profile, polished finish, and designed for everyday wear.</p>
               </div>
               <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Dua ring solo" data-collection="Novo doba" data-ring="true" data-material="true">Inquire about piece</button>
             </div>
@@ -927,7 +916,7 @@
       <div class="container page-header">
         <p class="breadcrumb"><a href="#home" data-link>Home</a> / Limited Collection</p>
         <h1>Limited Collection</h1>
-        <p class="page-header__desc">Small-batch releases in numbered editions. One of one. Once they are gone, they are gone.</p>
+        <p class="page-header__desc">Small batch releases in numbered editions. Once they are gone, they are gone.</p>
       </div>
 
       <div class="container">
@@ -941,7 +930,7 @@
               <p class="card__meta">Ebony wood and silver</p>
               <span class="card__hint">Tap for details</span>
               <div class="card__info">
-                <p>Edition one. Dark ebony set against silver in a sculpted band. Each grain pattern is unique. Limited run, numbered piece.</p>
+                <p>Edition one. Dark ebony set against silver in a sculpted band. Each grain pattern is unique.</p>
               </div>
               <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Wood doba ring 0.1" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
             </div>
@@ -956,7 +945,7 @@
               <p class="card__meta">Ebony wood and silver</p>
               <span class="card__hint">Tap for details</span>
               <div class="card__info">
-                <p>Edition two. A deeper wood inset with a sharper silver frame. Small-batch only. Once sold, this cut is not remade.</p>
+                <p>Edition two. A deeper wood inset with a sharper silver frame. Once sold, this cut is not remade.</p>
               </div>
               <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Wood doba ring 0.2" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
             </div>
@@ -971,7 +960,7 @@
               <p class="card__meta">Ebony wood and silver</p>
               <span class="card__hint">Tap for details</span>
               <div class="card__info">
-                <p>Edition three. Balanced wood-to-metal ratio with a smooth inner band. Final piece in this limited wood series.</p>
+                <p>Edition three. Balanced wood to metal ratio with a smooth inner band.</p>
               </div>
               <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Wood doba ring 0.3" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
             </div>
@@ -1013,7 +1002,7 @@
               <p class="card__meta">Silver / Gold</p>
               <span class="card__hint">Tap for details</span>
               <div class="card__info">
-                <p>A rising silhouette with a sharp crest. Sculptural from every angle. Made for those who want presence without noise.</p>
+                <p>A rising silhouette with a sharp crest. Sculptural from every angle.</p>
               </div>
               <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Peak Ring" data-collection="Bold" data-ring="true" data-material="true">Inquire about piece</button>
             </div>
@@ -1028,7 +1017,7 @@
               <p class="card__meta">Silver / Gold</p>
               <span class="card__hint">Tap for details</span>
               <div class="card__info">
-                <p>Oversized pendant with solid weight and clean geometry. A centrepiece piece meant to sit alone on a long chain.</p>
+                <p>Oversized pendant with solid weight and clean geometry.</p>
               </div>
               <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Bold pendant" data-collection="Bold" data-ring="false" data-material="true">Inquire about piece</button>
             </div>
@@ -1046,14 +1035,14 @@
 
       <div class="container info-page">
         <div class="info-content">
-          <p>doba.objects operates as a small independent studio producing wearable objects. All design and production take place in Sarajevo, under the direction of a single maker. Pieces are produced using lost wax casting and hand finishing.</p>
+          <p>doba.objects operates as a small independent studio producing wearable objects. All design and production take place in Sarajevo under the direction of a single maker.</p>
 
           <p>The studio works across three collections:</p>
 
           <ul>
-            <li><strong>Novo doba</strong> Molded pieces in solid silver. These designs are repeatable, available on an ongoing basis, and made to order.</li>
-            <li><strong>Limited Collection</strong> Pieces in ebony wood or wood combined with silver. Each Limited piece is designed and produced individually. Once a Limited piece is sold, that specific design is not repeated.</li>
-            <li><strong>Bold Collection</strong> Larger, sculptural pieces that sit at the intersection of jewellery and object. Each Bold piece is designed and produced individually, one at a time.</li>
+            <li><strong>Novo doba</strong> Molded pieces in solid silver. These designs are repeatable and made to order.</li>
+            <li><strong>Limited Collection</strong> Pieces in ebony wood or wood combined with silver. Each piece is designed and produced individually.</li>
+            <li><strong>Bold Collection</strong> Larger sculptural pieces produced individually, one at a time.</li>
           </ul>
 
           <p>No collection uses plating. All metal is solid. All wood is solid.</p>
@@ -1066,17 +1055,12 @@
           <hr>
 
           <h2>Custom work and commissions</h2>
-          <p>The studio accepts a limited number of custom commissions each year. For commissions, scope, price, and timing are agreed in writing before work begins.</p>
+          <p>The studio accepts a limited number of custom commissions each year. Scope, price, and timing are agreed in writing before work begins.</p>
 
           <hr>
 
           <h2>Material clarity</h2>
           <p>All pieces are either solid metal, solid wood, or a combination of solid metal and solid wood. The studio does not use plating or hollow forms to imitate weight.</p>
-
-          <hr>
-
-          <h2>Returns and adjustments</h2>
-          <p>Novo doba pieces may be eligible for return or exchange within a defined period if unworn and in original condition. Limited, Bold, and commissioned work are generally treated as final sale.</p>
         </div>
       </div>
     </section>
@@ -1091,10 +1075,10 @@
       <div class="container info-page">
         <div class="info-content">
           <h2>Solid metal</h2>
-          <p>doba.objects metal pieces are solid throughout, not plated. Metal develops a natural patina over time through normal exposure to air and moisture.</p>
+          <p>doba.objects metal pieces are solid throughout, not plated. Metal develops a natural patina through normal exposure to air and moisture.</p>
 
           <span class="care-label">To clean</span>
-          <p>Use a soft polishing cloth for light tarnish. For deeper tarnish, a standard polishing cloth or mild metal cleaning solution can restore shine.</p>
+          <p>Use a soft polishing cloth for light tarnish. For deeper tarnish, use a standard polishing cloth or mild metal cleaning solution.</p>
 
           <span class="care-label">To store</span>
           <p>Keep pieces in a dry place away from direct humidity when not being worn.</p>
@@ -1105,7 +1089,7 @@
           <hr>
 
           <h2>Solid wood</h2>
-          <p>Wood pieces are solid wood, not veneered or laminated. Grain, density, and tone vary slightly from piece to piece.</p>
+          <p>Wood pieces are solid wood, not veneered or laminated. Grain, density, and tone vary naturally from piece to piece.</p>
 
           <span class="care-label">To clean</span>
           <p>Wipe gently with a dry, soft cloth after wear. Avoid water and soap.</p>
@@ -1115,11 +1099,6 @@
 
           <span class="care-label">To avoid</span>
           <p>Do not submerge in water or wear while swimming or showering.</p>
-
-          <hr>
-
-          <h2>Pieces combining metal and wood</h2>
-          <p>Follow both sets of guidance above. Avoid soaking or submerging the full piece.</p>
         </div>
       </div>
     </section>
@@ -1147,7 +1126,10 @@
   <div class="modal" id="inquiry-modal" role="dialog" aria-modal="true" aria-labelledby="inquiry-title" hidden>
     <div class="modal__header">
       <h2 id="inquiry-title">Inquire about piece</h2>
-      <button type="button" class="modal__close" id="inquiry-close" aria-label="Close inquiry form">&times;</button>
+
+      <button class="modal__close" type="button" id="inquiry-close" aria-label="Close inquiry form">
+        &times;
+      </button>
     </div>
 
     <p class="modal__product">
@@ -1195,14 +1177,21 @@
         <input type="text" id="inquiry-custom-size" name="custom_ring_size" placeholder="e.g. EU 58 / US 8.25">
       </div>
 
-      <div class="form-group">
-        <label for="inquiry-wishes" id="wishes-label">Custom wishes</label>
+      <div class="form-group is-hidden" id="group-information">
+        <label for="inquiry-information">Information inquiry</label>
+        <textarea id="inquiry-information" name="information_inquiry" placeholder="Ask about availability of the piece, pricing, materials, shipping, or anything else..."></textarea>
+      </div>
+
+      <div class="form-group is-hidden" id="group-wishes">
+        <label for="inquiry-wishes">Custom wishes</label>
         <textarea id="inquiry-wishes" name="custom_wishes" placeholder="Texture, finish, chain length, stacking notes, or other details..."></textarea>
       </div>
 
       <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
 
-      <p class="form-note">Your inquiry will be sent directly to doba.objects. You will remain on this website.</p>
+      <p class="form-note">
+        Your inquiry will be sent directly to doba.objects. You will remain on this website.
+      </p>
 
       <div class="modal__actions">
         <button type="submit" class="btn" id="submit-inquiry">Send inquiry</button>
@@ -1228,50 +1217,36 @@
       var form = document.getElementById('inquiry-form');
       var closeButton = document.getElementById('inquiry-close');
       var cancelButton = document.getElementById('inquiry-cancel');
+
       var productName = document.getElementById('inquiry-product-name');
       var productInput = document.getElementById('inquiry-product');
       var collectionInput = document.getElementById('inquiry-collection');
       var subjectInput = document.getElementById('inquiry-subject');
       var replyToInput = document.getElementById('inquiry-replyto');
+
       var nameInput = document.getElementById('inquiry-name');
       var emailInput = document.getElementById('inquiry-email');
       var materialInput = document.getElementById('inquiry-material');
       var sizeInput = document.getElementById('inquiry-size');
       var customSizeInput = document.getElementById('inquiry-custom-size');
-      var wishesInput = document.getElementById('inquiry-wishes');
-      var wishesLabel = document.getElementById('wishes-label');
+
       var materialGroup = document.getElementById('group-material');
       var sizeGroup = document.getElementById('group-size');
       var customSizeGroup = document.getElementById('group-custom-size');
+      var informationGroup = document.getElementById('group-information');
+      var wishesGroup = document.getElementById('group-wishes');
+
       var policyNote = document.getElementById('size-policy-note');
       var statusBox = document.getElementById('form-status');
       var submitButton = document.getElementById('submit-inquiry');
 
       var sizes = [
-        ['44', '3'],
-        ['45', '3.25'],
-        ['46', '3.75'],
-        ['47', '4'],
-        ['48', '4.5'],
-        ['49', '4.75'],
-        ['50', '5.25'],
-        ['51', '5.5'],
-        ['52', '6'],
-        ['53', '6.25'],
-        ['54', '6.75'],
-        ['55', '7.25'],
-        ['56', '7.5'],
-        ['57', '8'],
-        ['58', '8.25'],
-        ['59', '8.75'],
-        ['60', '9'],
-        ['61', '9.5'],
-        ['62', '10'],
-        ['63', '10.25'],
-        ['64', '10.75'],
-        ['65', '11'],
-        ['66', '11.5'],
-        ['67', '12']
+        ['44', '3'], ['45', '3.25'], ['46', '3.75'], ['47', '4'],
+        ['48', '4.5'], ['49', '4.75'], ['50', '5.25'], ['51', '5.5'],
+        ['52', '6'], ['53', '6.25'], ['54', '6.75'], ['55', '7.25'],
+        ['56', '7.5'], ['57', '8'], ['58', '8.25'], ['59', '8.75'],
+        ['60', '9'], ['61', '9.5'], ['62', '10'], ['63', '10.25'],
+        ['64', '10.75'], ['65', '11'], ['66', '11.5'], ['67', '12']
       ];
 
       var femaleIndex = 10;
@@ -1281,15 +1256,11 @@
         return 'EU ' + size[0] + ' / US ' + size[1];
       }
 
-      function option(value, text) {
+      function createOption(value, text) {
         var item = document.createElement('option');
         item.value = value;
         item.textContent = text;
         return item;
-      }
-
-      function placeholder(text) {
-        return option('', text);
       }
 
       function closeMenu() {
@@ -1318,8 +1289,8 @@
       function closeModal() {
         modal.classList.remove('is-open');
         modalBackdrop.classList.remove('is-open');
-        modal.hidden = true;
         modalBackdrop.setAttribute('aria-hidden', 'true');
+        modal.hidden = true;
 
         if (!nav.classList.contains('is-open')) {
           document.body.classList.remove('modal-open');
@@ -1346,8 +1317,9 @@
         window.scrollTo(0, 0);
       }
 
-      function buildSizes(collection) {
+      function buildSizeOptions(collection) {
         sizeInput.innerHTML = '';
+        sizeInput.disabled = false;
         sizeInput.required = false;
         customSizeGroup.classList.add('is-hidden');
         customSizeInput.required = false;
@@ -1356,7 +1328,7 @@
         if (collection === 'Limited Collection') {
           var fixedSize = sizes[femaleIndex];
 
-          sizeInput.appendChild(option(
+          sizeInput.appendChild(createOption(
             sizeLabel(fixedSize),
             sizeLabel(fixedSize) + ' — standard female, fixed size'
           ));
@@ -1368,18 +1340,16 @@
           return;
         }
 
-        sizeInput.disabled = false;
-        sizeInput.appendChild(placeholder('Select size'));
+        sizeInput.appendChild(createOption('', 'Select size'));
 
         if (collection === 'Novo doba') {
           var femaleGroup = document.createElement('optgroup');
           femaleGroup.label = 'Standard female range';
 
           for (var i = femaleIndex - 3; i <= femaleIndex + 3; i++) {
-            var femaleSize = sizes[i];
-            femaleGroup.appendChild(option(
-              sizeLabel(femaleSize),
-              sizeLabel(femaleSize) + (i === femaleIndex ? ' — standard female' : '')
+            femaleGroup.appendChild(createOption(
+              sizeLabel(sizes[i]),
+              sizeLabel(sizes[i]) + (i === femaleIndex ? ' — standard female' : '')
             ));
           }
 
@@ -1387,41 +1357,30 @@
           maleGroup.label = 'Standard male range';
 
           for (var j = maleIndex - 3; j <= maleIndex + 3; j++) {
-            var maleSize = sizes[j];
-            maleGroup.appendChild(option(
-              sizeLabel(maleSize),
-              sizeLabel(maleSize) + (j === maleIndex ? ' — standard male' : '')
+            maleGroup.appendChild(createOption(
+              sizeLabel(sizes[j]),
+              sizeLabel(sizes[j]) + (j === maleIndex ? ' — standard male' : '')
             ));
           }
 
           sizeInput.appendChild(femaleGroup);
           sizeInput.appendChild(maleGroup);
-          sizeInput.appendChild(option('other', 'Other size — custom quote'));
+          sizeInput.appendChild(createOption('other', 'Other size — custom quote'));
 
           sizeInput.required = true;
           sizeGroup.classList.remove('is-hidden');
-          policyNote.textContent = 'Novo doba rings are resized from the master model within three sizes above or below the master. Other sizes require a new carved master and are treated as a mini-commission.';
+          policyNote.textContent = 'Novo doba rings can be resized up to three sizes above or below the master. Other sizes require a new carved master and are treated as a mini-commission.';
           return;
         }
 
         if (collection === 'Bold') {
           sizes.forEach(function (size) {
-            sizeInput.appendChild(option(sizeLabel(size), sizeLabel(size)));
+            sizeInput.appendChild(createOption(sizeLabel(size), sizeLabel(size)));
           });
 
           sizeInput.required = true;
           sizeGroup.classList.remove('is-hidden');
-          policyNote.textContent = 'Bold rings are sized through 3D modelling. All sizes are available, subject to material and machine tolerances. Extreme sizes may require a design proportion check before quoting.';
-        }
-      }
-
-      function setupWishes(collection) {
-        if (collection === 'Limited Collection') {
-          wishesLabel.textContent = 'Information inquiry';
-          wishesInput.placeholder = 'Ask about pricing, availability, materials, shipping, or anything else...';
-        } else {
-          wishesLabel.textContent = 'Custom wishes';
-          wishesInput.placeholder = 'Texture, finish, chain length, stacking notes, or other details...';
+          policyNote.textContent = 'Bold rings are sized through 3D modelling. All sizes are available within material and machine tolerances. Extreme sizes may require a design proportion check before quoting.';
         }
       }
 
@@ -1430,6 +1389,7 @@
         var collection = button.dataset.collection;
         var isRing = button.dataset.ring === 'true';
         var hasMaterial = button.dataset.material === 'true';
+        var isLimited = collection === 'Limited Collection';
 
         form.reset();
         statusBox.textContent = '';
@@ -1444,14 +1404,16 @@
         materialInput.required = hasMaterial;
 
         sizeGroup.classList.add('is-hidden');
-        sizeInput.disabled = false;
+        customSizeGroup.classList.add('is-hidden');
         sizeInput.required = false;
+        sizeInput.disabled = false;
+
+        informationGroup.classList.toggle('is-hidden', !isLimited);
+        wishesGroup.classList.toggle('is-hidden', isLimited);
 
         if (isRing) {
-          buildSizes(collection);
+          buildSizeOptions(collection);
         }
-
-        setupWishes(collection);
 
         modal.hidden = false;
         modal.classList.add('is-open');
@@ -1462,6 +1424,17 @@
         setTimeout(function () {
           nameInput.focus();
         }, 50);
+      }
+
+      function handleSizeChange() {
+        var isOther = sizeInput.value === 'other';
+
+        customSizeGroup.classList.toggle('is-hidden', !isOther);
+        customSizeInput.required = isOther;
+
+        if (!isOther) {
+          customSizeInput.value = '';
+        }
       }
 
       function setStatus(message, type) {
@@ -1505,17 +1478,6 @@
         return true;
       }
 
-      function handleSizeChange() {
-        var custom = sizeInput.value === 'other';
-
-        customSizeGroup.classList.toggle('is-hidden', !custom);
-        customSizeInput.required = custom;
-
-        if (!custom) {
-          customSizeInput.value = '';
-        }
-      }
-
       async function submitForm(event) {
         event.preventDefault();
 
@@ -1526,18 +1488,20 @@
         replyToInput.value = emailInput.value.trim();
 
         var data = {};
+
         new FormData(form).forEach(function (value, key) {
           data[key] = value;
         });
 
         if (collectionInput.value === 'Limited Collection') {
+          data.inquiry_type = 'Information inquiry about availability, pricing, materials, shipping, or related details.';
           data.size_policy_note = 'Fixed standard female size. Limited pieces cannot be resized.';
         }
 
         if (collectionInput.value === 'Novo doba') {
           data.size_policy_note = sizeInput.value === 'other'
             ? 'Other size requested. New carved master required. Treat as mini-commission.'
-            : 'Novo doba master model sizing within three sizes above or below the master.';
+            : 'Novo doba sizing within three sizes above or below the master.';
         }
 
         if (collectionInput.value === 'Bold') {
@@ -1569,6 +1533,7 @@
 
           form.reset();
           setStatus('Thank you. Your inquiry has been sent to doba.objects. We will reply by email.', 'success');
+
           submitButton.textContent = 'Inquiry sent';
 
           setTimeout(function () {
@@ -1592,8 +1557,8 @@
           if (href && href.charAt(0) === '#') {
             event.preventDefault();
 
-            if (location.hash !== href) {
-              location.hash = href;
+            if (window.location.hash !== href) {
+              window.location.hash = href;
             } else {
               setPage(href);
             }
@@ -1615,15 +1580,15 @@
             return;
           }
 
-          var open = !card.classList.contains('is-open');
+          var shouldOpen = !card.classList.contains('is-open');
 
-          document.querySelectorAll('.card').forEach(function (other) {
-            other.classList.remove('is-open');
-            other.setAttribute('aria-expanded', 'false');
+          document.querySelectorAll('.card').forEach(function (otherCard) {
+            otherCard.classList.remove('is-open');
+            otherCard.setAttribute('aria-expanded', 'false');
           });
 
-          card.classList.toggle('is-open', open);
-          card.setAttribute('aria-expanded', String(open));
+          card.classList.toggle('is-open', shouldOpen);
+          card.setAttribute('aria-expanded', String(shouldOpen));
         });
 
         card.addEventListener('keydown', function (event) {
@@ -1653,10 +1618,10 @@
       });
 
       window.addEventListener('hashchange', function () {
-        setPage(location.hash);
+        setPage(window.location.hash);
       });
 
-      setPage(location.hash || '#home');
+      setPage(window.location.hash || '#home');
     })();
   </script>
 </body>
