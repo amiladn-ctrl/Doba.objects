@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>doba.objects — Modern Jewellery</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg: #faf9f7;
@@ -19,8 +21,8 @@
       --radius: 0.5rem;
       --max-width: 72rem;
       --header-height: 6rem;
-      --font-body: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-heading: 'Montserrat', Georgia, 'Times New Roman', serif;
+      --font-body: 'Montserrat', system-ui, sans-serif;
+      --font-heading: 'Montserrat', Georgia, serif;
     }
 
     * {
@@ -34,18 +36,22 @@
     }
 
     body {
-      font-family: var(--font-body);
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+
+    body.modal-open {
+      overflow: hidden;
     }
 
     img {
-      max-width: 100%;
       display: block;
+      max-width: 100%;
     }
 
     a {
@@ -53,8 +59,15 @@
       text-decoration: none;
     }
 
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
     button {
-      font-family: inherit;
+      cursor: pointer;
     }
 
     .container {
@@ -67,18 +80,22 @@
       padding: 4rem 0;
     }
 
-    .section__title {
+    .section__title,
+    .page-header__title {
       font-family: var(--font-heading);
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
       font-weight: 400;
       letter-spacing: -0.02em;
+    }
+
+    .section__title {
       margin-bottom: 1rem;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
     }
 
     .section__intro {
-      color: var(--muted);
       max-width: 55ch;
       margin-bottom: 2.5rem;
+      color: var(--muted);
     }
 
     .header {
@@ -86,9 +103,9 @@
       top: 0;
       z-index: 100;
       height: var(--header-height);
+      border-bottom: 1px solid var(--border);
       background: rgba(250, 249, 247, 0.96);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
     }
 
     .header__inner {
@@ -105,39 +122,38 @@
       height: 100%;
       flex: 1;
       min-width: 0;
-      cursor: pointer;
     }
 
     .logo img {
-      height: calc(var(--header-height) - 1rem);
       width: auto;
+      height: calc(var(--header-height) - 1rem);
       max-width: min(78vw, 420px);
       object-fit: contain;
       object-position: left center;
     }
 
     .menu-toggle {
+      position: relative;
+      z-index: 102;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 6px;
       width: 36px;
       height: 36px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
+      gap: 6px;
       padding: 0;
-      z-index: 102;
+      border: 0;
+      background: transparent;
       flex-shrink: 0;
     }
 
     .menu-toggle span {
       display: block;
-      height: 2px;
       width: 100%;
+      height: 2px;
       background: var(--text);
-      transition: transform 0.25s ease, opacity 0.25s ease;
       transform-origin: center;
+      transition: transform 0.25s ease, opacity 0.25s ease;
     }
 
     .menu-toggle.is-active span:nth-child(1) {
@@ -152,19 +168,24 @@
       transform: translateY(-8px) rotate(-45deg);
     }
 
-    .nav-backdrop {
+    .nav-backdrop,
+    .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(28, 28, 28, 0.45);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
       opacity: 0;
       visibility: hidden;
+      background: rgba(28, 28, 28, 0.5);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .nav-backdrop {
       z-index: 98;
     }
 
-    .nav-backdrop.is-open {
+    .nav-backdrop.is-open,
+    .modal-backdrop.is-open {
       opacity: 1;
       visibility: visible;
     }
@@ -174,21 +195,19 @@
       top: 0;
       right: 0;
       bottom: 0;
-      width: min(100%, 22rem);
-      background: rgba(250, 249, 247, 0.98);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-left: 1px solid var(--border);
-      box-shadow: -12px 0 40px rgba(0, 0, 0, 0.12);
+      z-index: 99;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
+      width: min(100%, 22rem);
       gap: 1.5rem;
       padding: 6rem 2.5rem 3rem;
+      border-left: 1px solid var(--border);
+      background: rgba(250, 249, 247, 0.98);
+      box-shadow: -12px 0 40px rgba(0, 0, 0, 0.12);
       transform: translateX(100%);
       transition: transform 0.3s ease;
-      z-index: 99;
     }
 
     .nav.is-open {
@@ -198,10 +217,9 @@
     .nav a {
       font-size: clamp(1.1rem, 3.5vw, 1.35rem);
       font-weight: 500;
-      text-transform: uppercase;
       letter-spacing: 0.05em;
+      text-transform: uppercase;
       transition: color 0.2s ease;
-      cursor: pointer;
     }
 
     .nav a:hover,
@@ -212,8 +230,8 @@
     .nav__divider {
       width: 2rem;
       height: 1px;
-      background: var(--border);
       margin: 0.15rem 0;
+      background: var(--border);
     }
 
     main {
@@ -230,17 +248,21 @@
 
     .hero {
       position: relative;
-      min-height: calc(100svh - var(--header-height));
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
+      min-height: calc(100svh - var(--header-height));
       overflow: hidden;
+      text-align: center;
+    }
+
+    .hero__bg,
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
     }
 
     .hero__bg {
-      position: absolute;
-      inset: 0;
       z-index: 0;
     }
 
@@ -252,11 +274,8 @@
     }
 
     .hero__overlay {
-      position: absolute;
-      inset: 0;
       z-index: 1;
       background: rgba(250, 249, 247, 0.35);
-      pointer-events: none;
     }
 
     .hero__content {
@@ -268,21 +287,19 @@
     }
 
     .hero__title {
+      margin-bottom: 1rem;
+      color: var(--text);
       font-family: var(--font-heading);
       font-size: clamp(2.5rem, 10vw, 5.5rem);
       font-weight: 300;
       line-height: 1;
       letter-spacing: -0.03em;
-      margin-bottom: 1rem;
-      color: var(--text);
     }
 
     .hero__tagline {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      font-weight: 400;
-      color: var(--text);
       max-width: 40ch;
       margin: 0 auto 2rem;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
     }
 
     .btn {
@@ -291,16 +308,15 @@
       justify-content: center;
       min-height: 48px;
       padding: 0.85rem 2rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
       border: 1px solid var(--text);
       background: var(--text);
       color: var(--surface);
-      transition: background 0.2s ease, color 0.2s ease;
-      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
       text-align: center;
+      text-transform: uppercase;
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
     .btn:hover,
@@ -321,11 +337,11 @@
     }
 
     .btn--small {
+      width: 100%;
       min-height: 40px;
+      margin-top: 0.85rem;
       padding: 0.6rem 1rem;
       font-size: 0.75rem;
-      width: 100%;
-      margin-top: 0.85rem;
     }
 
     .carousel {
@@ -340,27 +356,26 @@
     }
 
     .carousel__slide {
-      min-width: 100%;
       display: block;
+      min-width: 100%;
       flex-shrink: 0;
     }
 
     .carousel__btn {
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
+      z-index: 2;
+      display: grid;
       width: 2rem;
       height: 2rem;
-      display: grid;
       place-items: center;
-      background: rgba(255, 255, 255, 0.9);
-      border: none;
+      border: 0;
       border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text);
       font-size: 1.25rem;
       line-height: 1;
-      color: var(--text);
-      cursor: pointer;
-      z-index: 2;
+      transform: translateY(-50%);
     }
 
     .carousel__btn--prev {
@@ -375,20 +390,19 @@
       position: absolute;
       bottom: 0.6rem;
       left: 50%;
-      transform: translateX(-50%);
+      z-index: 2;
       display: flex;
       gap: 0.4rem;
-      z-index: 2;
+      transform: translateX(-50%);
     }
 
     .carousel__dot {
       width: 8px;
       height: 8px;
-      border-radius: 50%;
-      border: none;
-      background: rgba(0, 0, 0, 0.25);
-      cursor: pointer;
       padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.25);
     }
 
     .carousel__dot.is-active {
@@ -397,48 +411,37 @@
 
     .about__grid {
       display: grid;
-      gap: 2.5rem;
       align-items: center;
+      gap: 2.5rem;
     }
 
     .about__image {
       aspect-ratio: 4 / 5;
-      background: var(--border);
-      border-radius: var(--radius);
       overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--border);
     }
 
-    .about__image.carousel {
-      display: block;
-    }
-
-    .about__image .carousel__track {
+    .about__image .carousel__track,
+    .about__image .carousel__slide {
+      width: 100%;
       height: 100%;
     }
 
     .about__image .carousel__slide {
-      width: 100%;
-      height: 100%;
       object-fit: cover;
     }
 
     .about__text h2 {
+      margin-bottom: 1rem;
       font-family: var(--font-heading);
       font-size: clamp(1.75rem, 4vw, 2.5rem);
       font-weight: 400;
-      margin-bottom: 1rem;
     }
 
     .about__text p {
-      color: var(--muted);
       margin-bottom: 1rem;
-    }
-
-    @media (min-width: 768px) {
-      .about__grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-      }
+      color: var(--muted);
     }
 
     .page-header {
@@ -446,24 +449,21 @@
     }
 
     .page-header__title {
-      font-family: var(--font-heading);
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 400;
-      letter-spacing: -0.02em;
       margin-bottom: 0.75rem;
+      font-size: clamp(2rem, 5vw, 3rem);
     }
 
     .page-header__desc {
-      color: var(--muted);
       max-width: 60ch;
+      color: var(--muted);
     }
 
     .breadcrumb {
+      margin-bottom: 1rem;
+      color: var(--muted);
       font-size: 0.8rem;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1rem;
     }
 
     .breadcrumb a:hover {
@@ -480,32 +480,25 @@
       grid-template-columns: 1fr;
     }
 
-    @media (min-width: 768px) {
-      .collections-preview__grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
     .preview-card {
-      background: var(--surface);
+      display: block;
+      overflow: hidden;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      overflow: hidden;
+      background: var(--surface);
       box-shadow: var(--shadow);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      display: block;
-      cursor: pointer;
     }
 
     .preview-card:hover {
-      transform: translateY(-4px);
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      transform: translateY(-4px);
     }
 
     .preview-card__media {
       aspect-ratio: 1 / 1;
-      background: #f0ede8;
       overflow: hidden;
+      background: #f0ede8;
     }
 
     .preview-card__media img {
@@ -524,14 +517,14 @@
     }
 
     .preview-card__title {
+      margin-bottom: 0.35rem;
       font-size: 1.05rem;
       font-weight: 500;
-      margin-bottom: 0.35rem;
     }
 
     .preview-card__meta {
-      font-size: 0.85rem;
       color: var(--muted);
+      font-size: 0.85rem;
     }
 
     .home-info {
@@ -542,22 +535,9 @@
     .home-info__inner {
       display: flex;
       flex-direction: column;
-      align-items: stretch;
-      gap: 1rem;
       max-width: 36rem;
+      gap: 1rem;
       margin-inline: auto;
-    }
-
-    @media (min-width: 640px) {
-      .home-info__inner {
-        flex-direction: row;
-        max-width: none;
-        justify-content: center;
-      }
-
-      .home-info__inner .btn {
-        min-width: 16rem;
-      }
     }
 
     .grid {
@@ -567,31 +547,19 @@
       padding-bottom: 4rem;
     }
 
-    @media (min-width: 640px) {
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
     .card {
-      background: var(--surface);
+      overflow: hidden;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      overflow: hidden;
+      background: var(--surface);
       box-shadow: var(--shadow);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
       cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .card:hover {
-      transform: translateY(-4px);
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      transform: translateY(-4px);
     }
 
     .card.is-open {
@@ -600,21 +568,17 @@
 
     .card__media {
       aspect-ratio: 1 / 1;
-      background: #f0ede8;
       overflow: hidden;
+      background: #f0ede8;
     }
 
-    .card__media.carousel {
-      display: block;
-    }
-
-    .card__media .carousel__track {
+    .card__media .carousel__track,
+    .card__media .carousel__slide {
+      width: 100%;
       height: 100%;
     }
 
     .card__media .carousel__slide {
-      width: 100%;
-      height: 100%;
       object-fit: cover;
     }
 
@@ -623,57 +587,57 @@
     }
 
     .card__title {
+      margin-bottom: 0.25rem;
       font-size: 1rem;
       font-weight: 500;
-      margin-bottom: 0.25rem;
     }
 
     .card__meta {
-      font-size: 0.85rem;
       color: var(--muted);
-    }
-
-    .card__info {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 0.35s ease, opacity 0.3s ease, margin 0.3s ease;
-      margin-top: 0;
-    }
-
-    .card.is-open .card__info {
-      max-height: 12rem;
-      opacity: 1;
-      margin-top: 0.85rem;
-    }
-
-    .card__info p {
       font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.55;
-      border-top: 1px solid var(--border);
-      padding-top: 0.85rem;
     }
 
     .card__hint {
       display: block;
       margin-top: 0.5rem;
+      color: var(--accent);
       font-size: 0.7rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--accent);
     }
 
     .card.is-open .card__hint {
       display: none;
     }
 
+    .card__info {
+      max-height: 0;
+      margin-top: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.35s ease, opacity 0.3s ease, margin 0.3s ease;
+    }
+
+    .card.is-open .card__info {
+      max-height: 12rem;
+      margin-top: 0.85rem;
+      opacity: 1;
+    }
+
+    .card__info p {
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.55;
+    }
+
     .contact-page {
-      min-height: calc(100svh - var(--header-height) - 8rem);
       display: flex;
       align-items: center;
-      text-align: center;
+      min-height: calc(100svh - var(--header-height) - 8rem);
       padding: 4rem 0;
+      text-align: center;
     }
 
     .contact-page .section__intro {
@@ -689,10 +653,10 @@
     }
 
     .info-content h2 {
+      margin: 2.25rem 0 0.85rem;
       font-family: var(--font-heading);
       font-size: clamp(1.25rem, 3vw, 1.5rem);
       font-weight: 500;
-      margin: 2.25rem 0 0.85rem;
     }
 
     .info-content h2:first-child {
@@ -700,13 +664,13 @@
     }
 
     .info-content p {
-      color: var(--muted);
       margin-bottom: 1rem;
+      color: var(--muted);
     }
 
     .info-content ul {
-      color: var(--muted);
       margin: 0 0 1.25rem 1.15rem;
+      color: var(--muted);
     }
 
     .info-content li {
@@ -719,55 +683,38 @@
     }
 
     .info-content hr {
-      border: none;
-      border-top: 1px solid var(--border);
       margin: 2rem 0;
+      border: 0;
+      border-top: 1px solid var(--border);
     }
 
     .care-label {
       display: block;
+      margin: 1.25rem 0 0.4rem;
+      color: var(--text);
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: var(--text);
-      margin: 1.25rem 0 0.4rem;
-    }
-
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(28, 28, 28, 0.5);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-      z-index: 200;
-    }
-
-    .modal-backdrop.is-open {
-      opacity: 1;
-      visibility: visible;
     }
 
     .modal {
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -48%) scale(0.98);
-      width: min(92vw, 28rem);
-      max-height: min(90vh, 40rem);
+      z-index: 201;
+      width: min(92vw, 30rem);
+      max-height: min(90vh, 42rem);
       overflow-y: auto;
-      background: var(--surface);
+      padding: 1.75rem 1.5rem 1.5rem;
       border: 1px solid var(--border);
       border-radius: var(--radius);
+      background: var(--surface);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-      padding: 1.75rem 1.5rem 1.5rem;
       opacity: 0;
       visibility: hidden;
+      transform: translate(-50%, -48%) scale(0.98);
       transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-      z-index: 201;
     }
 
     .modal.is-open {
@@ -788,19 +735,17 @@
       font-family: var(--font-heading);
       font-size: 1.35rem;
       font-weight: 500;
-      letter-spacing: -0.02em;
     }
 
     .modal__close {
       width: 2rem;
       height: 2rem;
-      border: none;
+      padding: 0;
+      border: 0;
       background: transparent;
+      color: var(--muted);
       font-size: 1.5rem;
       line-height: 1;
-      color: var(--muted);
-      cursor: pointer;
-      flex-shrink: 0;
     }
 
     .modal__close:hover {
@@ -808,14 +753,19 @@
     }
 
     .modal__product {
-      font-size: 0.9rem;
-      color: var(--muted);
       margin-bottom: 1.5rem;
+      color: var(--muted);
+      font-size: 0.9rem;
     }
 
     .modal__product strong {
       color: var(--text);
       font-weight: 500;
+    }
+
+    .form-row {
+      display: grid;
+      gap: 1rem;
     }
 
     .form-group {
@@ -824,27 +774,25 @@
 
     .form-group label {
       display: block;
+      margin-bottom: 0.4rem;
+      color: var(--text);
       font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: var(--text);
-      margin-bottom: 0.4rem;
     }
 
     .form-group input,
     .form-group select,
     .form-group textarea {
       width: 100%;
-      font-family: inherit;
-      font-size: 0.95rem;
-      color: var(--text);
-      background: var(--bg);
+      padding: 0.75rem 0.85rem;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 0.75rem 0.85rem;
       outline: none;
-      transition: border-color 0.2s ease;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.95rem;
     }
 
     .form-group input:focus,
@@ -859,30 +807,43 @@
     }
 
     .form-group select {
-      cursor: pointer;
       appearance: none;
+      cursor: pointer;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%231c1c1c' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 0.85rem center;
       padding-right: 2.25rem;
     }
 
-    .form-row {
-      display: grid;
-      gap: 1rem;
-    }
-
-    @media (min-width: 480px) {
-      .form-row {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
     .form-note {
-      font-size: 0.8rem;
-      color: var(--muted);
       margin: 0.5rem 0 1.25rem;
+      color: var(--muted);
+      font-size: 0.8rem;
       line-height: 1.5;
+    }
+
+    .form-status {
+      display: none;
+      margin: 0 0 1rem;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .form-status.is-visible {
+      display: block;
+    }
+
+    .form-status.is-success {
+      border-color: #9db89d;
+      color: #426442;
+    }
+
+    .form-status.is-error {
+      border-color: #c89b9b;
+      color: #7a3d3d;
     }
 
     .modal__actions {
@@ -900,22 +861,22 @@
     }
 
     .footer {
-      border-top: 1px solid var(--border);
-      padding: 2.5rem 0;
-      text-align: center;
       margin-top: auto;
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
     }
 
     .footer__brand {
+      margin-bottom: 0.75rem;
       font-family: var(--font-heading);
       font-size: 1.25rem;
       font-weight: 500;
-      margin-bottom: 0.75rem;
     }
 
     .footer__copy {
-      font-size: 0.85rem;
       color: var(--muted);
+      font-size: 0.85rem;
     }
 
     .reveal {
@@ -928,16 +889,60 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    @media (min-width: 480px) {
+      .form-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 640px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .home-info__inner {
+        flex-direction: row;
+        justify-content: center;
+        max-width: none;
+      }
+
+      .home-info__inner .btn {
+        min-width: 16rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .about__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+      }
+
+      .collections-preview__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
   </style>
 </head>
-<body>
 
+<body>
   <header class="header">
     <div class="container header__inner">
-      <a href="#home" class="logo" data-link>
+      <a href="#home" class="logo" data-link aria-label="Go to home">
         <img src="logo 1.png" alt="doba.objects logo">
       </a>
-      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -947,26 +952,33 @@
 
   <div class="nav-backdrop" aria-hidden="true"></div>
 
-  <nav class="nav" aria-label="Main">
+  <nav class="nav" aria-label="Main navigation">
     <a href="#home" data-link>Home</a>
     <div class="nav__divider" aria-hidden="true"></div>
+
     <a href="#novo-doba" data-link>Novo doba</a>
     <a href="#limited" data-link>Limited Collection</a>
     <a href="#bold" data-link>Bold</a>
+
     <div class="nav__divider" aria-hidden="true"></div>
+
     <a href="#studio" data-link>Studio</a>
     <a href="#care" data-link>How to care</a>
+
     <div class="nav__divider" aria-hidden="true"></div>
+
     <a href="#contact" data-link>Contact</a>
   </nav>
 
   <main>
-    <div id="home" class="page is-active">
+    <section id="home" class="page is-active">
       <section class="hero">
         <div class="hero__bg" aria-hidden="true">
           <img src="IMG_0240.jpeg" alt="">
         </div>
+
         <div class="hero__overlay" aria-hidden="true"></div>
+
         <div class="hero__content">
           <h1 class="hero__title">DOBA.OBJECTS</h1>
           <p class="hero__tagline">Modern jewellery shaped for everyday expression.</p>
@@ -982,14 +994,16 @@
               <img src="IMG_0147.jpeg" alt="doba.objects jewellery detail" class="carousel__slide">
               <img src="worry.jpeg" alt="doba.objects pendant detail" class="carousel__slide">
             </div>
+
             <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
             <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
             <div class="carousel__dots"></div>
           </div>
+
           <div class="about__text">
             <h2>About the brand</h2>
             <p>Doba.objects creates refined, wearable pieces for people who appreciate quiet detail. Every item is designed with intention, balancing minimal form with lasting material.</p>
-            <p>Our jewellery is made for layering, gifting, and keeping — small objects that become part of your daily uniform.</p>
+            <p>Our jewellery is made for layering, gifting, and keeping. Small objects that become part of your daily uniform.</p>
             <a href="#contact" class="btn btn--ghost" data-link>Get in touch</a>
           </div>
         </div>
@@ -999,6 +1013,7 @@
         <div class="container">
           <h2 class="section__title reveal">Collections</h2>
           <p class="section__intro reveal">Explore the doba.objects world: signature essentials, limited seasonal releases, and bold statement pieces.</p>
+
           <div class="collections-preview__grid reveal">
             <a href="#novo-doba" class="preview-card" data-link>
               <div class="preview-card__media">
@@ -1009,6 +1024,7 @@
                 <p class="preview-card__meta">Timeless silhouettes in silver and gold</p>
               </div>
             </a>
+
             <a href="#limited" class="preview-card" data-link>
               <div class="preview-card__media">
                 <img src="wb1.jpg" alt="Limited collection">
@@ -1018,6 +1034,7 @@
                 <p class="preview-card__meta">Small-batch numbered editions</p>
               </div>
             </a>
+
             <a href="#bold" class="preview-card" data-link>
               <div class="preview-card__media">
                 <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold" alt="Bold collection">
@@ -1037,14 +1054,15 @@
           <a href="#studio" class="btn" data-link>Studio structure and production</a>
         </div>
       </section>
-    </div>
+    </section>
 
-    <div id="novo-doba" class="page">
+    <section id="novo-doba" class="page">
       <div class="container page-header">
         <p class="breadcrumb"><a href="#home" data-link>Home</a> / Novo doba</p>
         <h1 class="page-header__title">Novo doba</h1>
         <p class="page-header__desc">The core collection. Timeless silhouettes in silver and gold colours.</p>
       </div>
+
       <div class="container">
         <div class="grid">
           <article class="card" tabindex="0" role="button" aria-expanded="false">
@@ -1058,14 +1076,25 @@
               <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
               <div class="carousel__dots"></div>
             </div>
+
             <div class="card__body">
-              <h4 class="card__title">Dua ring base</h4>
+              <h2 class="card__title">Dua ring base</h2>
               <p class="card__meta">Silver / Gold</p>
               <span class="card__hint">Tap for details</span>
+
               <div class="card__info">
                 <p>A modular base ring with clean dual lines. Designed to wear alone or stack with Dua solo. Hand-finished edges for everyday comfort.</p>
               </div>
-              <button type="button" class="btn btn--ghost btn--small inquire-btn" data-product="Dua ring base" data-collection="Novo doba" data-ring="true" data-material="true">Inquire about piece</button>
+
+              <button
+                type="button"
+                class="btn btn--ghost btn--small inquire-btn"
+                data-product="Dua ring base"
+                data-collection="Novo doba"
+                data-ring="true"
+                data-material="true">
+                Inquire about piece
+              </button>
             </div>
           </article>
 
@@ -1080,14 +1109,25 @@
               <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
               <div class="carousel__dots"></div>
             </div>
+
             <div class="card__body">
-              <h4 class="card__title">Mirror pendant</h4>
-              <p class="card__meta">Silver/Gold</p>
+              <h2 class="card__title">Mirror pendant</h2>
+              <p class="card__meta">Silver / Gold</p>
               <span class="card__hint">Tap for details</span>
+
               <div class="card__info">
                 <p>A reflective pendant with a quiet geometric face. Lightweight on the chain, strong as a focal point. Made for layering or solo wear.</p>
               </div>
-              <button type="button" class="btn btn--ghost btn--small inquire-btn" data-product="Mirror pendant" data-collection="Novo doba" data-ring="false" data-material="true">Inquire about piece</button>
+
+              <button
+                type="button"
+                class="btn btn--ghost btn--small inquire-btn"
+                data-product="Mirror pendant"
+                data-collection="Novo doba"
+                data-ring="false"
+                data-material="true">
+                Inquire about piece
+              </button>
             </div>
           </article>
 
@@ -1102,26 +1142,38 @@
               <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
               <div class="carousel__dots"></div>
             </div>
+
             <div class="card__body">
-              <h4 class="card__title">Dua ring solo</h4>
-              <p class="card__meta">Silver/Gold</p>
+              <h2 class="card__title">Dua ring solo</h2>
+              <p class="card__meta">Silver / Gold</p>
               <span class="card__hint">Tap for details</span>
+
               <div class="card__info">
                 <p>The companion band to Dua base. Slim profile, polished finish. Stacks cleanly or stands alone as a minimal everyday ring.</p>
               </div>
-              <button type="button" class="btn btn--ghost btn--small inquire-btn" data-product="Dua ring solo" data-collection="Novo doba" data-ring="true" data-material="true">Inquire about piece</button>
+
+              <button
+                type="button"
+                class="btn btn--ghost btn--small inquire-btn"
+                data-product="Dua ring solo"
+                data-collection="Novo doba"
+                data-ring="true"
+                data-material="true">
+                Inquire about piece
+              </button>
             </div>
           </article>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div id="limited" class="page">
+    <section id="limited" class="page">
       <div class="container page-header">
         <p class="breadcrumb"><a href="#home" data-link>Home</a> / Limited Collection</p>
         <h1 class="page-header__title">Limited Collection</h1>
         <p class="page-header__desc">Small-batch releases in numbered editions. One of one. Once they are gone, they are gone.</p>
       </div>
+
       <div class="container">
         <div class="grid">
           <article class="card" tabindex="0" role="button" aria-expanded="false">
@@ -1135,14 +1187,25 @@
               <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
               <div class="carousel__dots"></div>
             </div>
+
             <div class="card__body">
-              <h4 class="card__title">Wood doba ring 0.1</h4>
+              <h2 class="card__title">Wood doba ring 0.1</h2>
               <p class="card__meta">Ebony wood and silver</p>
               <span class="card__hint">Tap for details</span>
+
               <div class="card__info">
                 <p>Edition one. Dark ebony set against silver in a sculpted band. Each grain pattern is unique. Limited run, numbered piece.</p>
               </div>
-              <button type="button" class="btn btn--ghost btn--small inquire-btn" data-product="Wood doba ring 0.1" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
+
+              <button
+                type="button"
+                class="btn btn--ghost btn--small inquire-btn"
+                data-product="Wood doba ring 0.1"
+                data-collection="Limited Collection"
+                data-ring="true"
+                data-material="false">
+                Inquire about piece
+              </button>
             </div>
           </article>
 
@@ -1157,14 +1220,25 @@
               <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
               <div class="carousel__dots"></div>
             </div>
+
             <div class="card__body">
-              <h4 class="card__title">Wood doba ring 0.2</h4>
+              <h2 class="card__title">Wood doba ring 0.2</h2>
               <p class="card__meta">Ebony wood and silver</p>
               <span class="card__hint">Tap for details</span>
+
               <div class="card__info">
                 <p>Edition two. A deeper wood inset with a sharper silver frame. Small-batch only. Once sold, this cut is not remade.</p>
               </div>
-              <button type="button" class="btn btn--ghost btn--small inquire-btn" data-product="Wood doba ring 0.2" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
+
+              <button
+                type="button"
+                class="btn btn--ghost btn--small inquire-btn"
+                data-product="Wood doba ring 0.2"
+                data-collection="Limited Collection"
+                data-ring="true"
+                data-material="false">
+                Inquire about piece
+              </button>
             </div>
           </article>
 
@@ -1179,26 +1253,38 @@
               <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
               <div class="carousel__dots"></div>
             </div>
+
             <div class="card__body">
-              <h4 class="card__title">Wood doba ring 0.3</h4>
+              <h2 class="card__title">Wood doba ring 0.3</h2>
               <p class="card__meta">Ebony wood and silver</p>
               <span class="card__hint">Tap for details</span>
+
               <div class="card__info">
                 <p>Edition three. Balanced wood-to-metal ratio with a smooth inner band. Final piece in this limited wood series.</p>
               </div>
-              <button type="button" class="btn btn--ghost btn--small inquire-btn" data-product="Wood doba ring 0.3" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
+
+              <button
+                type="button"
+                class="btn btn--ghost btn--small inquire-btn"
+                data-product="Wood doba ring 0.3"
+                data-collection="Limited Collection"
+                data-ring="true"
+                data-material="false">
+                Inquire about piece
+              </button>
             </div>
           </article>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div id="bold" class="page">
+    <section id="bold" class="page">
       <div class="container page-header">
         <p class="breadcrumb"><a href="#home" data-link>Home</a> / Bold</p>
         <h1 class="page-header__title">Bold</h1>
         <p class="page-header__desc">Oversized shapes and sculptural volume for those who want to stand out.</p>
       </div>
+
       <div class="container">
         <div class="grid">
           <article class="card" tabindex="0" role="button" aria-expanded="false">
@@ -1212,14 +1298,25 @@
               <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
               <div class="carousel__dots"></div>
             </div>
+
             <div class="card__body">
-              <h4 class="card__title">Sculpture Base ring</h4>
-              <p class="card__meta">Silver/Gold</p>
+              <h2 class="card__title">Sculpture Base ring</h2>
+              <p class="card__meta">Silver / Gold</p>
               <span class="card__hint">Tap for details</span>
+
               <div class="card__info">
                 <p>An architectural base with strong volume. Built to anchor a hand stack or wear as a single statement form.</p>
               </div>
-              <button type="button" class="btn btn--ghost btn--small inquire-btn" data-product="Sculpture Base ring" data-collection="Bold" data-ring="true" data-material="true">Inquire about piece</button>
+
+              <button
+                type="button"
+                class="btn btn--ghost btn--small inquire-btn"
+                data-product="Sculpture Base ring"
+                data-collection="Bold"
+                data-ring="true"
+                data-material="true">
+                Inquire about piece
+              </button>
             </div>
           </article>
 
@@ -1234,14 +1331,25 @@
               <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
               <div class="carousel__dots"></div>
             </div>
+
             <div class="card__body">
-              <h4 class="card__title">Peak Ring</h4>
-              <p class="card__meta">Silver/Gold</p>
+              <h2 class="card__title">Peak Ring</h2>
+              <p class="card__meta">Silver / Gold</p>
               <span class="card__hint">Tap for details</span>
+
               <div class="card__info">
                 <p>A rising silhouette with a sharp crest. Sculptural from every angle. Made for those who want presence without noise.</p>
               </div>
-              <button type="button" class="btn btn--ghost btn--small inquire-btn" data-product="Peak Ring" data-collection="Bold" data-ring="true" data-material="true">Inquire about piece</button>
+
+              <button
+                type="button"
+                class="btn btn--ghost btn--small inquire-btn"
+                data-product="Peak Ring"
+                data-collection="Bold"
+                data-ring="true"
+                data-material="true">
+                Inquire about piece
+              </button>
             </div>
           </article>
 
@@ -1256,120 +1364,176 @@
               <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
               <div class="carousel__dots"></div>
             </div>
+
             <div class="card__body">
-              <h4 class="card__title">Bold pendant</h4>
-              <p class="card__meta">Silver/Gold</p>
+              <h2 class="card__title">Bold pendant</h2>
+              <p class="card__meta">Silver / Gold</p>
               <span class="card__hint">Tap for details</span>
+
               <div class="card__info">
                 <p>Oversized pendant with solid weight and clean geometry. A centrepiece piece meant to sit alone on a long chain.</p>
               </div>
-              <button type="button" class="btn btn--ghost btn--small inquire-btn" data-product="Bold pendant" data-collection="Bold" data-ring="false" data-material="true">Inquire about piece</button>
+
+              <button
+                type="button"
+                class="btn btn--ghost btn--small inquire-btn"
+                data-product="Bold pendant"
+                data-collection="Bold"
+                data-ring="false"
+                data-material="true">
+                Inquire about piece
+              </button>
             </div>
           </article>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div id="studio" class="page">
+    <section id="studio" class="page">
       <div class="container page-header">
         <p class="breadcrumb"><a href="#home" data-link>Home</a> / Studio structure and production</p>
         <h1 class="page-header__title">Studio structure and production</h1>
         <p class="page-header__desc">How doba.objects designs, makes, and delivers each piece.</p>
       </div>
+
       <div class="container info-page">
         <div class="info-content">
           <p>doba.objects operates as an small independent studio producing wearable objects. All design and production take place in Sarajevo, under the direction of a single maker. Pieces are produced using lost wax casting and hand finishing.</p>
+
           <p>The studio works across three collections:</p>
+
           <ul>
             <li><strong>Novo doba (Base Collection)</strong> Molded pieces in solid silver. These designs are repeatable and available on an ongoing basis and made to order. They form the core, everyday system of the brand.</li>
             <li><strong>Limited Collection</strong> Pieces in ebony wood or wood combined with silver. Each Limited piece is designed and produced individually. Once a Limited piece is sold, that specific design is not repeated.</li>
-            <li><strong>Bold Collection</strong> Larger, sculptural pieces that sit at the intersection of jewellery and object. Each Bold piece is designed and produced individually, one at a time. Pieces can be made to order via inqiry but will never be exactly the same..</li>
+            <li><strong>Bold Collection</strong> Larger, sculptural pieces that sit at the intersection of jewellery and object. Each Bold piece is designed and produced individually, one at a time. Pieces can be made to order via inquiry but will never be exactly the same.</li>
           </ul>
-          <p>No collection uses plating. All metal is solid; all wood is solid.</p>
+
+          <p>No collection uses plating. All metal is solid. All wood is solid.</p>
+
           <hr>
+
           <h2>Ordering and production time</h2>
           <p>All orders are produced individually.</p>
+
           <ul>
-            <li>Novo doba pieces are made to order and produced in same base shape and finished by hand, with possibility of customizing texture and finishes.</li>
+            <li>Novo doba pieces are made to order and produced in the same base shape and finished by hand, with the possibility of customizing texture and finishes.</li>
             <li>Limited and Bold pieces are produced as individual works, some one of one and some made to order.</li>
           </ul>
+
           <p>Production time depends on the collection and the current studio schedule. An estimated production window is communicated at the time of order. Customers are notified if any timing changes are required.</p>
+
           <hr>
+
           <h2>Custom work and commissions</h2>
           <p>The studio accepts a limited number of custom commissions each year.</p>
           <p>For commissions, scope, price, and timing are agreed in writing before work begins. Because materials and studio time are committed to a single piece, a non-refundable deposit may be required at the start of the project.</p>
+
           <hr>
+
           <h2>Material clarity</h2>
           <p>All pieces are either:</p>
+
           <ul>
             <li>Solid metal</li>
             <li>Solid wood</li>
             <li>A combination of solid metal and solid wood</li>
           </ul>
+
           <p>The studio does not use plating or hollow forms to imitate weight. Surfaces age as the material itself, not as a coating.</p>
           <p>Natural variation in wood grain, minor casting marks, and hand finishing are part of the studio’s aesthetic and are not treated as defects.</p>
+
           <hr>
+
           <h2>Returns and adjustments</h2>
           <p>The studio’s approach reflects the nature of its collections:</p>
+
           <ul>
             <li>Novo doba pieces may be eligible for return or exchange within a defined period if unworn and in original condition.</li>
             <li>Limited and Bold pieces, and commissioned work, are produced individually for a specific client and are generally treated as final sale.</li>
           </ul>
+
           <p>Sizing adjustments for rings or chains are considered case by case, depending on the design and material constraints.</p>
           <p>Full legal terms, including eligibility for returns and repairs, are outlined in the Terms and Conditions.</p>
+
           <hr>
+
           <h2>Care and longevity</h2>
           <p>Pieces are designed to be worn and kept.</p>
           <p>A detailed care guide explains how to maintain solid metals and solid wood over time, including cleaning, storage, and environmental considerations. Customers receive this guide with their order and can consult an online version as needed.</p>
-          <p><a href="#care" class="btn btn--ghost" data-link style="margin-top: 0.5rem;">Read how to care</a></p>
+
+          <p>
+            <a href="#care" class="btn btn--ghost" data-link>Read how to care</a>
+          </p>
+
           <hr>
+
           <h2>Communication with the studio</h2>
           <p>All communication is direct with the studio. Customers can use email for order enquiries, commission requests, or care questions. There is no outsourced customer service layer. This ensures that each conversation is informed by the studio’s design and material knowledge.</p>
-          <p style="margin-top: 2rem;"><a href="#contact" class="btn" data-link>Get in touch</a></p>
+
+          <p>
+            <a href="#contact" class="btn" data-link>Get in touch</a>
+          </p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div id="care" class="page">
+    <section id="care" class="page">
       <div class="container page-header">
         <p class="breadcrumb"><a href="#home" data-link>Home</a> / How to care</p>
         <h1 class="page-header__title">Care Guide</h1>
         <p class="page-header__desc">How to maintain solid metals and solid wood over time.</p>
       </div>
+
       <div class="container info-page">
         <div class="info-content">
           <h2>Solid metal</h2>
           <p>doba.objects metal pieces are solid throughout, not plated. This means the material you see is the material you’re wearing, all the way through.</p>
           <p>Metal develops a natural patina over time through normal exposure to air and moisture. This is not damage. It’s the metal aging the way it is meant to age.</p>
+
           <span class="care-label">To clean</span>
           <p>Use a soft polishing cloth for light tarnish. For deeper tarnish, a standard polishing cloth or mild metal cleaning solution restores shine without affecting the metal.</p>
+
           <span class="care-label">To store</span>
           <p>Keep pieces in a dry place, away from direct humidity, when not being worn. A small airtight pouch or box slows down natural tarnishing.</p>
+
           <span class="care-label">To avoid</span>
           <p>Chlorine, perfume, and household cleaning chemicals applied directly to the piece. Remove jewellery before swimming, showering with strong products, or cleaning the house.</p>
+
           <hr>
+
           <h2>Solid Wood</h2>
           <p>Wood pieces are solid wood, not veneered or laminated. Grain, density, and tone vary slightly from piece to piece. This variation is the material, not a flaw.</p>
+
           <span class="care-label">To clean</span>
           <p>Wipe gently with a dry, soft cloth after wear. Avoid water and soap, since wood absorbs moisture differently than metal.</p>
+
           <span class="care-label">To store</span>
           <p>Keep away from prolonged direct sunlight, which can dry and lighten wood tone over time. Store in a stable, moderate environment, avoiding extreme heat, cold, or humidity swings.</p>
+
           <span class="care-label">To avoid</span>
           <p>Submerging in water, wearing while swimming or showering, and prolonged contact with lotions or oils, which can seep into the grain.</p>
+
           <span class="care-label">Occasional care</span>
-          <p>A small amount of natural, unscented oil (such as mineral oil, applied sparingly with a cloth) can help maintain the wood’s depth of color if it appears to be drying out. This is optional and only needed occasionally.</p>
+          <p>A small amount of natural, unscented oil, such as mineral oil applied sparingly with a cloth, can help maintain the wood’s depth of colour if it appears to be drying out. This is optional and only needed occasionally.</p>
+
           <hr>
+
           <h2>Pieces combining metal and wood</h2>
           <p>Follow both sets of guidance above for the relevant material on each piece. Avoid soaking or submerging the full piece even briefly, since metal and wood require different handling.</p>
+
           <hr>
+
           <h2>A general note</h2>
           <p>Nothing here is plated, so nothing here wears down to reveal a different material underneath. What ages is the material itself, the same way it would in any solid object made to be lived with. Wear it, let it age, and it will keep telling you the truth about what it’s made of.</p>
-          <p style="margin-top: 2rem;"><a href="#studio" class="btn btn--ghost" data-link>Studio structure and production</a></p>
+
+          <p>
+            <a href="#studio" class="btn btn--ghost" data-link>Studio structure and production</a>
+          </p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div id="contact" class="page">
+    <section id="contact" class="page">
       <section class="contact-page">
         <div class="container">
           <h1 class="section__title">Get in touch</h1>
@@ -1377,7 +1541,7 @@
           <a href="mailto:doba.objects@gmail.com" class="btn">doba.objects@gmail.com</a>
         </div>
       </section>
-    </div>
+    </section>
   </main>
 
   <footer class="footer">
@@ -1388,31 +1552,68 @@
   </footer>
 
   <div class="modal-backdrop" id="inquiry-backdrop" aria-hidden="true"></div>
-  <div class="modal" id="inquiry-modal" role="dialog" aria-modal="true" aria-labelledby="inquiry-title" hidden>
+
+  <div
+    class="modal"
+    id="inquiry-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="inquiry-title"
+    hidden>
+
     <div class="modal__header">
       <h2 class="modal__title" id="inquiry-title">Inquire about piece</h2>
-      <button type="button" class="modal__close" id="inquiry-close" aria-label="Close">&times;</button>
-    </div>
-    <p class="modal__product">Piece: <strong id="inquiry-product-name">—</strong></p>
 
-    <form id="inquiry-form" novalidate>
-      <input type="hidden" id="inquiry-collection" value="">
-      <input type="hidden" id="inquiry-product" value="">
+      <button
+        type="button"
+        class="modal__close"
+        id="inquiry-close"
+        aria-label="Close inquiry form">
+        &times;
+      </button>
+    </div>
+
+    <p class="modal__product">
+      Piece:
+      <strong id="inquiry-product-name">—</strong>
+    </p>
+
+    <form id="inquiry-form">
+      <input type="hidden" id="inquiry-product" name="piece">
+      <input type="hidden" id="inquiry-collection" name="collection">
+
+      <input type="hidden" name="_subject" id="inquiry-subject">
+      <input type="hidden" name="_replyto" id="inquiry-replyto">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="is-hidden">
 
       <div class="form-row">
         <div class="form-group">
           <label for="inquiry-name">Your name</label>
-          <input type="text" id="inquiry-name" name="name" required autocomplete="name" placeholder="Full name">
+          <input
+            type="text"
+            id="inquiry-name"
+            name="customer_name"
+            autocomplete="name"
+            placeholder="Full name"
+            required>
         </div>
+
         <div class="form-group">
           <label for="inquiry-email">Your email</label>
-          <input type="email" id="inquiry-email" name="email" required autocomplete="email" placeholder="you@email.com">
+          <input
+            type="email"
+            id="inquiry-email"
+            name="customer_email"
+            autocomplete="email"
+            placeholder="you@email.com"
+            required>
         </div>
       </div>
 
       <div class="form-group is-hidden" id="group-material">
         <label for="inquiry-material">Colour / material</label>
-        <select id="inquiry-material" name="material">
+        <select id="inquiry-material" name="colour_material">
           <option value="">Select material</option>
           <option value="Silver">Silver</option>
           <option value="Gold">Gold</option>
@@ -1421,7 +1622,7 @@
 
       <div class="form-group is-hidden" id="group-size">
         <label for="inquiry-size">Ring size</label>
-        <select id="inquiry-size" name="size">
+        <select id="inquiry-size" name="ring_size">
           <option value="">Select size</option>
           <option value="EU 44 / US 3">EU 44 / US 3</option>
           <option value="EU 45 / US 3.25">EU 45 / US 3.25</option>
@@ -1453,98 +1654,130 @@
 
       <div class="form-group">
         <label for="inquiry-wishes">Custom wishes</label>
-        <textarea id="inquiry-wishes" name="wishes" placeholder="Texture, finish, chain length, stacking notes, or other details..."></textarea>
+        <textarea
+          id="inquiry-wishes"
+          name="custom_wishes"
+          placeholder="Texture, finish, chain length, stacking notes, or other details..."></textarea>
       </div>
 
-      <p class="form-note">This opens your email app with a ready message to doba.objects@gmail.com. We continue the order process by email.</p>
+      <div
+        class="form-status"
+        id="form-status"
+        role="status"
+        aria-live="polite">
+      </div>
+
+      <p class="form-note">
+        Your inquiry will be sent directly to doba.objects. You will remain on this website.
+      </p>
 
       <div class="modal__actions">
-        <button type="submit" class="btn">Send inquiry by email</button>
-        <button type="button" class="btn btn--ghost" id="inquiry-cancel">Cancel</button>
+        <button type="submit" class="btn" id="submit-inquiry">
+          Send inquiry
+        </button>
+
+        <button type="button" class="btn btn--ghost" id="inquiry-cancel">
+          Cancel
+        </button>
       </div>
     </form>
   </div>
 
   <script>
     (function () {
+      'use strict';
+
       var pages = document.querySelectorAll('.page');
       var navLinks = document.querySelectorAll('.nav a[data-link]');
       var menuToggle = document.querySelector('.menu-toggle');
       var nav = document.querySelector('.nav');
-      var backdrop = document.querySelector('.nav-backdrop');
+      var navBackdrop = document.querySelector('.nav-backdrop');
 
-      var inquiryBackdrop = document.getElementById('inquiry-backdrop');
       var inquiryModal = document.getElementById('inquiry-modal');
+      var inquiryBackdrop = document.getElementById('inquiry-backdrop');
       var inquiryForm = document.getElementById('inquiry-form');
       var inquiryClose = document.getElementById('inquiry-close');
       var inquiryCancel = document.getElementById('inquiry-cancel');
+      var inquiryProductName = document.getElementById('inquiry-product-name');
+      var inquiryProduct = document.getElementById('inquiry-product');
+      var inquiryCollection = document.getElementById('inquiry-collection');
+      var inquirySubject = document.getElementById('inquiry-subject');
+      var inquiryReplyTo = document.getElementById('inquiry-replyto');
+      var inquiryName = document.getElementById('inquiry-name');
+      var inquiryEmail = document.getElementById('inquiry-email');
+      var inquiryMaterial = document.getElementById('inquiry-material');
+      var inquirySize = document.getElementById('inquiry-size');
+      var inquiryWishes = document.getElementById('inquiry-wishes');
       var groupMaterial = document.getElementById('group-material');
       var groupSize = document.getElementById('group-size');
-      var materialSelect = document.getElementById('inquiry-material');
-      var sizeSelect = document.getElementById('inquiry-size');
-      var STUDIO_EMAIL = 'doba.objects@gmail.com';
+      var formStatus = document.getElementById('form-status');
+      var submitButton = document.getElementById('submit-inquiry');
+
+      var FORM_ENDPOINT = 'https://formsubmit.co/ajax/doba.objects@gmail.com';
 
       function closeMenu() {
-        if (!nav || !menuToggle) return;
         nav.classList.remove('is-open');
+        navBackdrop.classList.remove('is-open');
         menuToggle.classList.remove('is-active');
         menuToggle.setAttribute('aria-expanded', 'false');
-        if (backdrop) {
-          backdrop.classList.remove('is-open');
-          backdrop.setAttribute('aria-hidden', 'true');
+        menuToggle.setAttribute('aria-label', 'Open menu');
+        navBackdrop.setAttribute('aria-hidden', 'true');
+
+        if (!inquiryModal.classList.contains('is-open')) {
+          document.body.classList.remove('modal-open');
         }
-        document.body.style.overflow = '';
       }
 
       function openMenu() {
-        if (!nav || !menuToggle) return;
         nav.classList.add('is-open');
+        navBackdrop.classList.add('is-open');
         menuToggle.classList.add('is-active');
         menuToggle.setAttribute('aria-expanded', 'true');
-        if (backdrop) {
-          backdrop.classList.add('is-open');
-          backdrop.setAttribute('aria-hidden', 'false');
-        }
-        document.body.style.overflow = 'hidden';
+        menuToggle.setAttribute('aria-label', 'Close menu');
+        navBackdrop.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
       }
 
       function setActiveNav(hash) {
-        Array.prototype.forEach.call(navLinks, function (link) {
-          var href = link.getAttribute('href');
-          link.classList.toggle('is-active', href === hash);
+        navLinks.forEach(function (link) {
+          link.classList.toggle('is-active', link.getAttribute('href') === hash);
         });
       }
 
       function showPage(hash) {
-        var id = (hash || '#home').replace('#', '');
-        if (!id) id = 'home';
+        var pageId = (hash || '#home').replace('#', '');
 
-        var target = document.getElementById(id);
-        if (!target || !target.classList.contains('page')) {
-          id = 'home';
-          target = document.getElementById('home');
+        if (!pageId || !document.getElementById(pageId)) {
+          pageId = 'home';
         }
 
-        Array.prototype.forEach.call(pages, function (page) {
-          page.classList.toggle('is-active', page.id === id);
+        pages.forEach(function (page) {
+          page.classList.toggle('is-active', page.id === pageId);
         });
 
-        setActiveNav('#' + id);
-        window.scrollTo(0, 0);
+        setActiveNav('#' + pageId);
         closeMenu();
         closeInquiry();
+        window.scrollTo(0, 0);
         initReveal();
       }
 
       function initRouter() {
-        document.addEventListener('click', function (e) {
-          var link = e.target.closest('[data-link]');
-          if (!link) return;
+        document.addEventListener('click', function (event) {
+          var link = event.target.closest('[data-link]');
+
+          if (!link) {
+            return;
+          }
 
           var href = link.getAttribute('href');
-          if (!href || href.charAt(0) !== '#') return;
 
-          e.preventDefault();
+          if (!href || href.charAt(0) !== '#') {
+            return;
+          }
+
+          event.preventDefault();
+
           if (window.location.hash !== href) {
             window.location.hash = href;
           } else {
@@ -1560,8 +1793,6 @@
       }
 
       function initMenu() {
-        if (!menuToggle || !nav) return;
-
         menuToggle.addEventListener('click', function () {
           if (nav.classList.contains('is-open')) {
             closeMenu();
@@ -1570,70 +1801,66 @@
           }
         });
 
-        if (backdrop) {
-          backdrop.addEventListener('click', closeMenu);
-        }
-
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape') {
-            closeMenu();
-            closeInquiry();
-          }
-        });
+        navBackdrop.addEventListener('click', closeMenu);
       }
 
       function initCarousels() {
         document.querySelectorAll('.carousel').forEach(function (carousel) {
-          if (carousel.dataset.ready === 'true') return;
+          if (carousel.dataset.ready === 'true') {
+            return;
+          }
 
           var track = carousel.querySelector('.carousel__track');
-          if (!track) return;
 
-          var slides = Array.prototype.slice.call(track.children);
-          if (!slides.length) return;
+          if (!track) {
+            return;
+          }
 
+          var slides = Array.from(track.children);
           var dotsContainer = carousel.querySelector('.carousel__dots');
-          var current = 0;
+          var previousButton = carousel.querySelector('.carousel__btn--prev');
+          var nextButton = carousel.querySelector('.carousel__btn--next');
+          var currentIndex = 0;
 
           function goTo(index) {
-            current = (index + slides.length) % slides.length;
-            track.style.transform = 'translateX(-' + (current * 100) + '%)';
+            currentIndex = (index + slides.length) % slides.length;
+            track.style.transform = 'translateX(-' + currentIndex * 100 + '%)';
+
             if (dotsContainer) {
-              Array.prototype.forEach.call(dotsContainer.children, function (dot, i) {
-                dot.classList.toggle('is-active', i === current);
+              Array.from(dotsContainer.children).forEach(function (dot, dotIndex) {
+                dot.classList.toggle('is-active', dotIndex === currentIndex);
               });
             }
           }
 
           if (dotsContainer) {
-            dotsContainer.innerHTML = '';
-            slides.forEach(function (_, i) {
+            slides.forEach(function (_, index) {
               var dot = document.createElement('button');
+
               dot.type = 'button';
-              dot.className = 'carousel__dot' + (i === 0 ? ' is-active' : '');
-              dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-              dot.addEventListener('click', function (e) {
-                e.stopPropagation();
-                goTo(i);
+              dot.className = 'carousel__dot' + (index === 0 ? ' is-active' : '');
+              dot.setAttribute('aria-label', 'Go to slide ' + (index + 1));
+
+              dot.addEventListener('click', function (event) {
+                event.stopPropagation();
+                goTo(index);
               });
+
               dotsContainer.appendChild(dot);
             });
           }
 
-          var prev = carousel.querySelector('.carousel__btn--prev');
-          var next = carousel.querySelector('.carousel__btn--next');
-
-          if (prev) {
-            prev.addEventListener('click', function (e) {
-              e.stopPropagation();
-              goTo(current - 1);
+          if (previousButton) {
+            previousButton.addEventListener('click', function (event) {
+              event.stopPropagation();
+              goTo(currentIndex - 1);
             });
           }
 
-          if (next) {
-            next.addEventListener('click', function (e) {
-              e.stopPropagation();
-              goTo(current + 1);
+          if (nextButton) {
+            nextButton.addEventListener('click', function (event) {
+              event.stopPropagation();
+              goTo(currentIndex + 1);
             });
           }
 
@@ -1644,195 +1871,238 @@
       function initProductCards() {
         var cards = document.querySelectorAll('.card');
 
-        function closeAll(except) {
-          Array.prototype.forEach.call(cards, function (card) {
-            if (card !== except) {
+        function closeOtherCards(currentCard) {
+          cards.forEach(function (card) {
+            if (card !== currentCard) {
               card.classList.remove('is-open');
               card.setAttribute('aria-expanded', 'false');
             }
           });
         }
 
-        Array.prototype.forEach.call(cards, function (card) {
-          if (card.dataset.ready === 'true') return;
+        cards.forEach(function (card) {
+          if (card.dataset.ready === 'true') {
+            return;
+          }
 
-          card.addEventListener('click', function (e) {
+          card.addEventListener('click', function (event) {
             if (
-              e.target.closest('.carousel__btn') ||
-              e.target.closest('.carousel__dot') ||
-              e.target.closest('.inquire-btn')
+              event.target.closest('.carousel__btn') ||
+              event.target.closest('.carousel__dot') ||
+              event.target.closest('.inquire-btn')
             ) {
               return;
             }
 
-            var willOpen = !card.classList.contains('is-open');
-            closeAll(card);
-            card.classList.toggle('is-open', willOpen);
-            card.setAttribute('aria-expanded', String(willOpen));
+            var shouldOpen = !card.classList.contains('is-open');
+
+            closeOtherCards(card);
+            card.classList.toggle('is-open', shouldOpen);
+            card.setAttribute('aria-expanded', String(shouldOpen));
           });
 
-          card.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-              if (
-                e.target.closest('.carousel__btn') ||
-                e.target.closest('.carousel__dot') ||
-                e.target.closest('.inquire-btn')
-              ) {
-                return;
-              }
-              e.preventDefault();
-              card.click();
+          card.addEventListener('keydown', function (event) {
+            if (event.key !== 'Enter' && event.key !== ' ') {
+              return;
             }
+
+            if (
+              event.target.closest('.carousel__btn') ||
+              event.target.closest('.carousel__dot') ||
+              event.target.closest('.inquire-btn')
+            ) {
+              return;
+            }
+
+            event.preventDefault();
+            card.click();
           });
 
           card.dataset.ready = 'true';
         });
       }
 
-      function openInquiry(btn) {
-        var product = btn.getAttribute('data-product') || '';
-        var collection = btn.getAttribute('data-collection') || '';
-        var isRing = btn.getAttribute('data-ring') === 'true';
-        var hasMaterial = btn.getAttribute('data-material') === 'true';
+      function setFormStatus(message, type) {
+        formStatus.textContent = message;
+        formStatus.className = 'form-status is-visible';
 
-        document.getElementById('inquiry-product-name').textContent = product;
-        document.getElementById('inquiry-product').value = product;
-        document.getElementById('inquiry-collection').value = collection;
+        if (type) {
+          formStatus.classList.add('is-' + type);
+        }
+      }
+
+      function clearFormStatus() {
+        formStatus.textContent = '';
+        formStatus.className = 'form-status';
+      }
+
+      function openInquiry(button) {
+        var product = button.getAttribute('data-product') || '';
+        var collection = button.getAttribute('data-collection') || '';
+        var isRing = button.getAttribute('data-ring') === 'true';
+        var hasMaterial = button.getAttribute('data-material') === 'true';
+
+        closeMenu();
+        clearFormStatus();
 
         inquiryForm.reset();
-        document.getElementById('inquiry-product').value = product;
-        document.getElementById('inquiry-collection').value = collection;
 
-        if (hasMaterial) {
-          groupMaterial.classList.remove('is-hidden');
-          materialSelect.required = true;
-        } else {
-          groupMaterial.classList.add('is-hidden');
-          materialSelect.required = false;
-          materialSelect.value = '';
-        }
+        inquiryProductName.textContent = product;
+        inquiryProduct.value = product;
+        inquiryCollection.value = collection;
+        inquirySubject.value = 'Inquiry: ' + product + ' | ' + collection;
 
-        if (isRing) {
-          groupSize.classList.remove('is-hidden');
-          sizeSelect.required = true;
-        } else {
-          groupSize.classList.add('is-hidden');
-          sizeSelect.required = false;
-          sizeSelect.value = '';
-        }
+        groupMaterial.classList.toggle('is-hidden', !hasMaterial);
+        inquiryMaterial.required = hasMaterial;
+
+        groupSize.classList.toggle('is-hidden', !isRing);
+        inquirySize.required = isRing;
 
         inquiryModal.hidden = false;
         inquiryModal.classList.add('is-open');
         inquiryBackdrop.classList.add('is-open');
         inquiryBackdrop.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
+        document.body.classList.add('modal-open');
 
-        setTimeout(function () {
-          document.getElementById('inquiry-name').focus();
+        window.setTimeout(function () {
+          inquiryName.focus();
         }, 50);
       }
 
       function closeInquiry() {
-        if (!inquiryModal) return;
         inquiryModal.classList.remove('is-open');
         inquiryBackdrop.classList.remove('is-open');
         inquiryBackdrop.setAttribute('aria-hidden', 'true');
         inquiryModal.hidden = true;
-        if (!nav || !nav.classList.contains('is-open')) {
-          document.body.style.overflow = '';
+
+        if (!nav.classList.contains('is-open')) {
+          document.body.classList.remove('modal-open');
         }
       }
 
-      function buildMailto() {
-        var product = document.getElementById('inquiry-product').value.trim();
-        var collection = document.getElementById('inquiry-collection').value.trim();
-        var name = document.getElementById('inquiry-name').value.trim();
-        var email = document.getElementById('inquiry-email').value.trim();
-        var material = materialSelect.value.trim();
-        var size = sizeSelect.value.trim();
-        var wishes = document.getElementById('inquiry-wishes').value.trim();
-
-        var subject = 'Inquiry: ' + product + (collection ? ' (' + collection + ')' : '');
-
-        var lines = [
-          'Hello doba.objects,',
-          '',
-          'I would like to inquire about the following piece:',
-          '',
-          'Collection: ' + (collection || '—'),
-          'Piece: ' + (product || '—'),
-          'Name: ' + (name || '—'),
-          'Email: ' + (email || '—')
-        ];
-
-        if (!groupMaterial.classList.contains('is-hidden')) {
-          lines.push('Colour / material: ' + (material || '—'));
+      function validateInquiry() {
+        if (!inquiryName.value.trim()) {
+          setFormStatus('Please enter your name.', 'error');
+          inquiryName.focus();
+          return false;
         }
 
-        if (!groupSize.classList.contains('is-hidden')) {
-          lines.push('Ring size: ' + (size || '—'));
+        if (!inquiryEmail.value.trim() || !inquiryEmail.checkValidity()) {
+          setFormStatus('Please enter a valid email address.', 'error');
+          inquiryEmail.focus();
+          return false;
         }
 
-        lines.push('Custom wishes: ' + (wishes || '—'));
-        lines.push('');
-        lines.push('Please let me know availability, price, and next steps.');
-        lines.push('');
-        lines.push('Thank you.');
+        if (inquiryMaterial.required && !inquiryMaterial.value) {
+          setFormStatus('Please select a colour or material.', 'error');
+          inquiryMaterial.focus();
+          return false;
+        }
 
-        var body = lines.join('\n');
-        return 'mailto:' + STUDIO_EMAIL +
-          '?subject=' + encodeURIComponent(subject) +
-          '&body=' + encodeURIComponent(body);
+        if (inquirySize.required && !inquirySize.value) {
+          setFormStatus('Please select a ring size.', 'error');
+          inquirySize.focus();
+          return false;
+        }
+
+        return true;
+      }
+
+      async function sendInquiry(event) {
+        event.preventDefault();
+
+        if (!validateInquiry()) {
+          return;
+        }
+
+        var formData = new FormData(inquiryForm);
+        var payload = {};
+
+        formData.forEach(function (value, key) {
+          payload[key] = value;
+        });
+
+        inquiryReplyTo.value = inquiryEmail.value.trim();
+        payload._replyto = inquiryEmail.value.trim();
+
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+        clearFormStatus();
+
+        try {
+          var response = await fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          var result = await response.json().catch(function () {
+            return {};
+          });
+
+          if (!response.ok || result.success === false) {
+            throw new Error('The inquiry could not be sent.');
+          }
+
+          inquiryForm.reset();
+          setFormStatus(
+            'Thank you. Your inquiry has been sent to doba.objects. We will reply by email.',
+            'success'
+          );
+
+          submitButton.textContent = 'Inquiry sent';
+
+          window.setTimeout(function () {
+            closeInquiry();
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send inquiry';
+          }, 3000);
+        } catch (error) {
+          setFormStatus(
+            'The inquiry could not be sent. Please try again or contact doba.objects@gmail.com directly.',
+            'error'
+          );
+
+          submitButton.disabled = false;
+          submitButton.textContent = 'Send inquiry';
+        }
       }
 
       function initInquiry() {
-        document.addEventListener('click', function (e) {
-          var btn = e.target.closest('.inquire-btn');
-          if (!btn) return;
-          e.preventDefault();
-          e.stopPropagation();
-          openInquiry(btn);
+        document.addEventListener('click', function (event) {
+          var button = event.target.closest('.inquire-btn');
+
+          if (!button) {
+            return;
+          }
+
+          event.preventDefault();
+          event.stopPropagation();
+          openInquiry(button);
         });
 
-        if (inquiryClose) inquiryClose.addEventListener('click', closeInquiry);
-        if (inquiryCancel) inquiryCancel.addEventListener('click', closeInquiry);
-        if (inquiryBackdrop) inquiryBackdrop.addEventListener('click', closeInquiry);
+        inquiryClose.addEventListener('click', closeInquiry);
+        inquiryCancel.addEventListener('click', closeInquiry);
+        inquiryBackdrop.addEventListener('click', closeInquiry);
+        inquiryForm.addEventListener('submit', sendInquiry);
 
-        if (inquiryForm) {
-          inquiryForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            var name = document.getElementById('inquiry-name').value.trim();
-            var email = document.getElementById('inquiry-email').value.trim();
-
-            if (!name || !email) {
-              alert('Please enter your name and email.');
-              return;
-            }
-
-            if (materialSelect.required && !materialSelect.value) {
-              alert('Please select a colour / material.');
-              return;
-            }
-
-            if (sizeSelect.required && !sizeSelect.value) {
-              alert('Please select a ring size.');
-              return;
-            }
-
-            var mailto = buildMailto();
-            window.location.href = mailto;
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape') {
+            closeMenu();
             closeInquiry();
-          });
-        }
+          }
+        });
       }
 
       function initReveal() {
-        var revealEls = document.querySelectorAll('.page.is-active .reveal');
+        var revealElements = document.querySelectorAll('.page.is-active .reveal');
 
         if (!('IntersectionObserver' in window)) {
-          Array.prototype.forEach.call(revealEls, function (el) {
-            el.classList.add('is-visible');
+          revealElements.forEach(function (element) {
+            element.classList.add('is-visible');
           });
           return;
         }
@@ -1844,11 +2114,13 @@
               observer.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.1 });
+        }, {
+          threshold: 0.1
+        });
 
-        Array.prototype.forEach.call(revealEls, function (el) {
-          if (!el.classList.contains('is-visible')) {
-            observer.observe(el);
+        revealElements.forEach(function (element) {
+          if (!element.classList.contains('is-visible')) {
+            observer.observe(element);
           }
         });
       }
@@ -1860,6 +2132,5 @@
       initRouter();
     })();
   </script>
-
 </body>
 </html>
