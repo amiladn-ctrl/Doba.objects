@@ -12,7 +12,7 @@
   <style>
     :root {
       --bg: #faf9f7;
-      --surface: #fff;
+      --surface: #ffffff;
       --text: #1c1c1c;
       --muted: #6b6b6b;
       --accent: #bfa268;
@@ -94,6 +94,7 @@
       align-items: center;
       justify-content: space-between;
       height: 100%;
+      gap: 1rem;
     }
 
     .logo {
@@ -102,12 +103,13 @@
       height: 100%;
       flex: 1;
       min-width: 0;
+      padding-block: .15rem;
     }
 
     .logo img {
       width: auto;
-      height: calc(var(--header-height) - .3rem);
-      max-width: min(88vw, 560px);
+      height: 100%;
+      max-width: min(88vw, 640px);
       object-fit: contain;
       object-position: left center;
     }
@@ -408,10 +410,76 @@
     }
 
     .preview-card__media img,
-    .card__media img {
+    .card__media img,
+    .carousel__slide {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel__track {
+      display: flex;
+      height: 100%;
+      transition: transform .4s ease;
+    }
+
+    .carousel__slide {
+      display: block;
+      min-width: 100%;
+      flex-shrink: 0;
+    }
+
+    .carousel__btn {
+      position: absolute;
+      top: 50%;
+      z-index: 2;
+      display: grid;
+      width: 2rem;
+      height: 2rem;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .9);
+      color: var(--text);
+      font-size: 1.25rem;
+      line-height: 1;
+      transform: translateY(-50%);
+    }
+
+    .carousel__btn--prev {
+      left: .5rem;
+    }
+
+    .carousel__btn--next {
+      right: .5rem;
+    }
+
+    .carousel__dots {
+      position: absolute;
+      bottom: .6rem;
+      left: 50%;
+      z-index: 2;
+      display: flex;
+      gap: .4rem;
+      transform: translateX(-50%);
+    }
+
+    .carousel__dot {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, .25);
+    }
+
+    .carousel__dot.is-active {
+      background: var(--text);
     }
 
     .preview-card__body,
@@ -467,16 +535,6 @@
       border-top: 1px solid var(--border);
       color: var(--muted);
       font-size: .8rem;
-    }
-
-    .collection-status {
-      margin: 0 0 1.5rem;
-      padding: .9rem 1rem;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-size: .8rem;
-      text-transform: uppercase;
-      letter-spacing: .04em;
     }
 
     .home-info {
@@ -879,7 +937,118 @@
       </div>
 
       <div class="container">
-        <div class="grid" data-collection-grid="Novo doba"></div>
+        <div class="grid">
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media">
+              <img src="IMG_0147.jpeg" alt="Dua ring base">
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Dua ring base</h2>
+              <p class="card__meta">Silver / Gold</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A modular base ring with clean dual lines. Designed to wear alone or stack with Dua solo.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Dua ring base" data-collection="Novo doba" data-ring="true" data-material="true">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media">
+              <img src="worry.jpeg" alt="Mirror pendant">
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Mirror pendant</h2>
+              <p class="card__meta">Silver / Gold</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A reflective pendant with a quiet geometric face. Made for layering or solo wear.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Mirror pendant" data-collection="Novo doba" data-ring="false" data-material="true">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media">
+              <img src="IMG_0151.jpeg" alt="Dua ring solo">
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Dua ring solo</h2>
+              <p class="card__meta">Silver / Gold</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>The companion band to Dua base. Slim profile, polished finish, and designed for everyday wear.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Dua ring solo" data-collection="Novo doba" data-ring="true" data-material="true">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="https://placehold.co/700x700/ddd6ca/1c1c1c?text=Novo+doba+0.4+in+the+making" alt="Novo doba 0.4 in the making" class="carousel__slide">
+                <img src="https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2" alt="Novo doba 0.4 view 2" class="carousel__slide">
+                <img src="https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3" alt="Novo doba 0.4 view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Novo doba 0.4</h2>
+              <p class="card__meta">Novo doba in the making</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A new Novo doba form currently being developed. Inquire for updates, materials, and availability.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Novo doba 0.4" data-collection="Novo doba" data-ring="true" data-material="true">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="https://placehold.co/700x700/ddd6ca/1c1c1c?text=Novo+doba+0.5+in+the+making" alt="Novo doba 0.5 in the making" class="carousel__slide">
+                <img src="https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2" alt="Novo doba 0.5 view 2" class="carousel__slide">
+                <img src="https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3" alt="Novo doba 0.5 view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Novo doba 0.5</h2>
+              <p class="card__meta">Novo doba in the making</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A future Novo doba piece currently in development.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Novo doba 0.5" data-collection="Novo doba" data-ring="false" data-material="true">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="https://placehold.co/700x700/ddd6ca/1c1c1c?text=Novo+doba+0.6+in+the+making" alt="Novo doba 0.6 in the making" class="carousel__slide">
+                <img src="https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2" alt="Novo doba 0.6 view 2" class="carousel__slide">
+                <img src="https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3" alt="Novo doba 0.6 view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Novo doba 0.6</h2>
+              <p class="card__meta">Novo doba in the making</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A future Novo doba piece currently in development.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Novo doba 0.6" data-collection="Novo doba" data-ring="true" data-material="true">Inquire about piece</button>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -891,8 +1060,118 @@
       </div>
 
       <div class="container">
-        <p class="collection-status">Limited 0.10 and additional editions in the making</p>
-        <div class="grid" data-collection-grid="Limited Collection"></div>
+        <div class="grid">
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media">
+              <img src="wb1.jpg" alt="Wood doba ring 0.1">
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Wood doba ring 0.1</h2>
+              <p class="card__meta">Ebony wood and silver</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>Edition one. Dark ebony set against silver in a sculpted band. Each grain pattern is unique.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Wood doba ring 0.1" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media">
+              <img src="wm1.jpg" alt="Wood doba ring 0.2">
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Wood doba ring 0.2</h2>
+              <p class="card__meta">Ebony wood and silver</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>Edition two. A deeper wood inset with a sharper silver frame. Once sold, this cut is not remade.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Wood doba ring 0.2" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media">
+              <img src="wp1.jpg" alt="Wood doba ring 0.3">
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Wood doba ring 0.3</h2>
+              <p class="card__meta">Ebony wood and silver</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>Edition three. Balanced wood to metal ratio with a smooth inner band.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Wood doba ring 0.3" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="https://placehold.co/700x700/ddd6ca/1c1c1c?text=Limited+0.10+in+the+making" alt="Limited 0.10 in the making" class="carousel__slide">
+                <img src="https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2" alt="Limited 0.10 view 2" class="carousel__slide">
+                <img src="https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3" alt="Limited 0.10 view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Limited 0.10</h2>
+              <p class="card__meta">Limited 0.10 in the making</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>Limited 0.10 is currently in the making. Ask about availability and development updates.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Limited 0.10" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="https://placehold.co/700x700/ddd6ca/1c1c1c?text=Limited+0.11+in+the+making" alt="Limited 0.11 in the making" class="carousel__slide">
+                <img src="https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2" alt="Limited 0.11 view 2" class="carousel__slide">
+                <img src="https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3" alt="Limited 0.11 view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Limited 0.11</h2>
+              <p class="card__meta">Limited collection in the making</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A future Limited Collection piece currently in development.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Limited 0.11" data-collection="Limited Collection" data-ring="false" data-material="false">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="https://placehold.co/700x700/ddd6ca/1c1c1c?text=Limited+0.12+in+the+making" alt="Limited 0.12 in the making" class="carousel__slide">
+                <img src="https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2" alt="Limited 0.12 view 2" class="carousel__slide">
+                <img src="https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3" alt="Limited 0.12 view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Limited 0.12</h2>
+              <p class="card__meta">Limited collection in the making</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A future Limited Collection piece currently in development.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Limited 0.12" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -904,8 +1183,118 @@
       </div>
 
       <div class="container">
-        <p class="collection-status">Bold collection in the making</p>
-        <div class="grid" data-collection-grid="Bold"></div>
+        <div class="grid">
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media">
+              <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+01" alt="Sculpture Base ring">
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Sculpture Base ring</h2>
+              <p class="card__meta">Silver / Gold</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>An architectural base with strong volume. Built to anchor a hand stack or wear as a single statement form.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Sculpture Base ring" data-collection="Bold" data-ring="true" data-material="true">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media">
+              <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+02" alt="Peak Ring">
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Peak Ring</h2>
+              <p class="card__meta">Silver / Gold</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A rising silhouette with a sharp crest. Sculptural from every angle.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Peak Ring" data-collection="Bold" data-ring="true" data-material="true">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media">
+              <img src="https://placehold.co/600x600/ddd6ca/1c1c1c?text=Bold+03" alt="Bold pendant">
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Bold pendant</h2>
+              <p class="card__meta">Silver / Gold</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>Oversized pendant with solid weight and clean geometry.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Bold pendant" data-collection="Bold" data-ring="false" data-material="true">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="https://placehold.co/700x700/ddd6ca/1c1c1c?text=Bold+collection+in+the+making" alt="Bold 0.4 in the making" class="carousel__slide">
+                <img src="https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2" alt="Bold 0.4 view 2" class="carousel__slide">
+                <img src="https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3" alt="Bold 0.4 view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Bold 0.4</h2>
+              <p class="card__meta">Bold collection in the making</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A new Bold Collection form currently being developed.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Bold 0.4" data-collection="Bold" data-ring="true" data-material="true">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="https://placehold.co/700x700/ddd6ca/1c1c1c?text=Bold+collection+in+the+making" alt="Bold 0.5 in the making" class="carousel__slide">
+                <img src="https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2" alt="Bold 0.5 view 2" class="carousel__slide">
+                <img src="https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3" alt="Bold 0.5 view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Bold 0.5</h2>
+              <p class="card__meta">Bold collection in the making</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A future Bold Collection piece currently in development.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Bold 0.5" data-collection="Bold" data-ring="false" data-material="true">Inquire about piece</button>
+            </div>
+          </article>
+
+          <article class="card" tabindex="0" role="button" aria-expanded="false">
+            <div class="card__media carousel">
+              <div class="carousel__track">
+                <img src="https://placehold.co/700x700/ddd6ca/1c1c1c?text=Bold+collection+in+the+making" alt="Bold 0.6 in the making" class="carousel__slide">
+                <img src="https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2" alt="Bold 0.6 view 2" class="carousel__slide">
+                <img src="https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3" alt="Bold 0.6 view 3" class="carousel__slide">
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
+              <div class="carousel__dots"></div>
+            </div>
+            <div class="card__body">
+              <h2 class="card__title">Bold 0.6</h2>
+              <p class="card__meta">Bold collection in the making</p>
+              <span class="card__hint">Tap for details</span>
+              <div class="card__info">
+                <p>A future Bold Collection piece currently in development.</p>
+              </div>
+              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Bold 0.6" data-collection="Bold" data-ring="true" data-material="true">Inquire about piece</button>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -1009,10 +1398,7 @@
   <div class="modal" id="inquiry-modal" role="dialog" aria-modal="true" aria-labelledby="inquiry-title" hidden>
     <div class="modal__header">
       <h2 id="inquiry-title">Inquire about piece</h2>
-
-      <button class="modal__close" type="button" id="inquiry-close" aria-label="Close inquiry form">
-        &times;
-      </button>
+      <button class="modal__close" type="button" id="inquiry-close" aria-label="Close inquiry form">&times;</button>
     </div>
 
     <p class="modal__product">
@@ -1072,9 +1458,7 @@
 
       <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
 
-      <p class="form-note">
-        Your inquiry will be sent directly to doba.objects. You will remain on this website.
-      </p>
+      <p class="form-note">Your inquiry will be sent directly to doba.objects. You will remain on this website.</p>
 
       <div class="modal__actions">
         <button type="submit" class="btn" id="submit-inquiry">Send inquiry</button>
@@ -1088,257 +1472,6 @@
       'use strict';
 
       var FORM_ENDPOINT = 'https://formsubmit.co/ajax/doba.objects@gmail.com';
-
-      var sizes = [
-        ['44', '3'],
-        ['45', '3.25'],
-        ['46', '3.75'],
-        ['47', '4'],
-        ['48', '4.5'],
-        ['49', '4.75'],
-        ['50', '5.25'],
-        ['51', '5.5'],
-        ['52', '6'],
-        ['53', '6.25'],
-        ['54', '6.75'],
-        ['55', '7.25'],
-        ['56', '7.5'],
-        ['57', '8'],
-        ['58', '8.25'],
-        ['59', '8.75'],
-        ['60', '9'],
-        ['61', '9.5'],
-        ['62', '10'],
-        ['63', '10.25'],
-        ['64', '10.75'],
-        ['65', '11'],
-        ['66', '11.5'],
-        ['67', '12']
-      ];
-
-      var products = {
-        'Novo doba': [
-          {
-            name: 'Dua ring base',
-            meta: 'Silver / Gold',
-            images: ['IMG_0147.jpeg', 'dua base.jpg.jpg', 'dua duo.jpg'],
-            description: 'A modular base ring with clean dual lines. Designed to wear alone or stack with Dua solo.',
-            ring: true,
-            material: true
-          },
-          {
-            name: 'Mirror pendant',
-            meta: 'Silver / Gold',
-            images: ['worry.jpeg', 'worry 2.jpg', 'fav.jpeg'],
-            description: 'A reflective pendant with a quiet geometric face. Made for layering or solo wear.',
-            ring: false,
-            material: true
-          },
-          {
-            name: 'Dua ring solo',
-            meta: 'Silver / Gold',
-            images: ['IMG_0151.jpeg', 'dua one.jpg.jpg', 'dua duo.jpg'],
-            description: 'The companion band to Dua base. Slim profile, polished finish, and designed for everyday wear.',
-            ring: true,
-            material: true
-          },
-          {
-            name: 'Novo doba 0.4',
-            meta: 'Novo doba in the making',
-            images: ['https://placehold.co/700x700/e8e4df/6b6b6b?text=Novo+doba+0.4', 'https://placehold.co/700x700/ddd6ca/6b6b6b?text=View+2', 'https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3'],
-            description: 'A new Novo doba form currently being developed.',
-            ring: true,
-            material: true
-          },
-          {
-            name: 'Novo doba 0.5',
-            meta: 'Novo doba in the making',
-            images: ['https://placehold.co/700x700/e8e4df/6b6b6b?text=Novo+doba+0.5', 'https://placehold.co/700x700/ddd6ca/6b6b6b?text=View+2', 'https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3'],
-            description: 'A future Novo doba piece currently in development.',
-            ring: false,
-            material: true
-          },
-          {
-            name: 'Novo doba 0.6',
-            meta: 'Novo doba in the making',
-            images: ['https://placehold.co/700x700/e8e4df/6b6b6b?text=Novo+doba+0.6', 'https://placehold.co/700x700/ddd6ca/6b6b6b?text=View+2', 'https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3'],
-            description: 'A future Novo doba piece currently in development.',
-            ring: true,
-            material: true
-          }
-        ],
-
-        'Limited Collection': [
-          {
-            name: 'Wood doba ring 0.1',
-            meta: 'Ebony wood and silver',
-            images: ['wb1.jpg', 'wb2.jpg', 'wr1.jpg'],
-            description: 'Edition one. Dark ebony set against silver in a sculpted band. Each grain pattern is unique.',
-            ring: true,
-            material: false
-          },
-          {
-            name: 'Wood doba ring 0.2',
-            meta: 'Ebony wood and silver',
-            images: ['wm1.jpg', 'wm2.jpg', 'wg2.jpg'],
-            description: 'Edition two. A deeper wood inset with a sharper silver frame. Once sold, this cut is not remade.',
-            ring: true,
-            material: false
-          },
-          {
-            name: 'Wood doba ring 0.3',
-            meta: 'Ebony wood and silver',
-            images: ['wp1.jpg', 'wp2.jpg', 'wg3.jpg'],
-            description: 'Edition three. Balanced wood to metal ratio with a smooth inner band.',
-            ring: true,
-            material: false
-          },
-          {
-            name: 'Limited 0.10',
-            meta: 'Limited 0.10 in the making',
-            images: ['https://placehold.co/700x700/e8e4df/6b6b6b?text=Limited+0.10', 'https://placehold.co/700x700/ddd6ca/6b6b6b?text=View+2', 'https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3'],
-            description: 'Limited 0.10 is currently in the making. Ask about availability and development updates.',
-            ring: true,
-            material: false
-          },
-          {
-            name: 'Limited 0.11',
-            meta: 'Limited collection in the making',
-            images: ['https://placehold.co/700x700/e8e4df/6b6b6b?text=Limited+0.11', 'https://placehold.co/700x700/ddd6ca/6b6b6b?text=View+2', 'https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3'],
-            description: 'A future Limited Collection piece currently in development.',
-            ring: false,
-            material: false
-          },
-          {
-            name: 'Limited 0.12',
-            meta: 'Limited collection in the making',
-            images: ['https://placehold.co/700x700/e8e4df/6b6b6b?text=Limited+0.12', 'https://placehold.co/700x700/ddd6ca/6b6b6b?text=View+2', 'https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3'],
-            description: 'A future Limited Collection piece currently in development.',
-            ring: true,
-            material: false
-          }
-        ],
-
-        'Bold': [
-          {
-            name: 'Sculpture Base ring',
-            meta: 'Silver / Gold',
-            images: ['https://placehold.co/700x700/ddd6ca/1c1c1c?text=Bold+01', 'https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2', 'https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3'],
-            description: 'An architectural base with strong volume. Built to anchor a hand stack or wear as a single statement form.',
-            ring: true,
-            material: true
-          },
-          {
-            name: 'Peak Ring',
-            meta: 'Silver / Gold',
-            images: ['https://placehold.co/700x700/ddd6ca/1c1c1c?text=Bold+02', 'https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2', 'https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3'],
-            description: 'A rising silhouette with a sharp crest. Sculptural from every angle.',
-            ring: true,
-            material: true
-          },
-          {
-            name: 'Bold pendant',
-            meta: 'Silver / Gold',
-            images: ['https://placehold.co/700x700/ddd6ca/1c1c1c?text=Bold+03', 'https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2', 'https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3'],
-            description: 'Oversized pendant with solid weight and clean geometry.',
-            ring: false,
-            material: true
-          },
-          {
-            name: 'Bold 0.4',
-            meta: 'Bold collection in the making',
-            images: ['https://placehold.co/700x700/ddd6ca/1c1c1c?text=Bold+04', 'https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2', 'https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3'],
-            description: 'A new Bold Collection form currently being developed.',
-            ring: true,
-            material: true
-          },
-          {
-            name: 'Bold 0.5',
-            meta: 'Bold collection in the making',
-            images: ['https://placehold.co/700x700/ddd6ca/1c1c1c?text=Bold+05', 'https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2', 'https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3'],
-            description: 'A future Bold Collection piece currently in development.',
-            ring: false,
-            material: true
-          },
-          {
-            name: 'Bold 0.6',
-            meta: 'Bold collection in the making',
-            images: ['https://placehold.co/700x700/ddd6ca/1c1c1c?text=Bold+06', 'https://placehold.co/700x700/e8e4df/6b6b6b?text=View+2', 'https://placehold.co/700x700/f0ede8/6b6b6b?text=View+3'],
-            description: 'A future Bold Collection piece currently in development.',
-            ring: true,
-            material: true
-          }
-        ]
-      };
-
-      function createCard(product, collection) {
-        var article = document.createElement('article');
-        article.className = 'card';
-        article.tabIndex = 0;
-        article.setAttribute('role', 'button');
-        article.setAttribute('aria-expanded', 'false');
-
-        var media = document.createElement('div');
-        media.className = 'card__media';
-
-        var image = document.createElement('img');
-        image.src = product.images[0];
-        image.alt = product.name;
-        media.appendChild(image);
-
-        var body = document.createElement('div');
-        body.className = 'card__body';
-
-        var title = document.createElement('h2');
-        title.className = 'card__title';
-        title.textContent = product.name;
-
-        var meta = document.createElement('p');
-        meta.className = 'card__meta';
-        meta.textContent = product.meta;
-
-        var hint = document.createElement('span');
-        hint.className = 'card__hint';
-        hint.textContent = 'Tap for details';
-
-        var info = document.createElement('div');
-        info.className = 'card__info';
-
-        var description = document.createElement('p');
-        description.textContent = product.description;
-        info.appendChild(description);
-
-        var inquiry = document.createElement('button');
-        inquiry.type = 'button';
-        inquiry.className = 'btn btn--ghost btn--small inquire-btn';
-        inquiry.textContent = 'Inquire about piece';
-        inquiry.dataset.product = product.name;
-        inquiry.dataset.collection = collection;
-        inquiry.dataset.ring = String(product.ring);
-        inquiry.dataset.material = String(product.material);
-
-        body.appendChild(title);
-        body.appendChild(meta);
-        body.appendChild(hint);
-        body.appendChild(info);
-        body.appendChild(inquiry);
-
-        article.appendChild(media);
-        article.appendChild(body);
-
-        return article;
-      }
-
-      function renderProducts() {
-        document.querySelectorAll('[data-collection-grid]').forEach(function (grid) {
-          var collection = grid.dataset.collection;
-          var items = products[collection] || [];
-
-          items.forEach(function (product) {
-            grid.appendChild(createCard(product, collection));
-          });
-        });
-      }
 
       var pages = document.querySelectorAll('.page');
       var nav = document.querySelector('.nav');
@@ -1373,6 +1506,15 @@
       var policyNote = document.getElementById('size-policy-note');
       var statusBox = document.getElementById('form-status');
       var submitButton = document.getElementById('submit-inquiry');
+
+      var sizes = [
+        ['44', '3'], ['45', '3.25'], ['46', '3.75'], ['47', '4'],
+        ['48', '4.5'], ['49', '4.75'], ['50', '5.25'], ['51', '5.5'],
+        ['52', '6'], ['53', '6.25'], ['54', '6.75'], ['55', '7.25'],
+        ['56', '7.5'], ['57', '8'], ['58', '8.25'], ['59', '8.75'],
+        ['60', '9'], ['61', '9.5'], ['62', '10'], ['63', '10.25'],
+        ['64', '10.75'], ['65', '11'], ['66', '11.5'], ['67', '12']
+      ];
 
       var femaleIndex = 10;
       var maleIndex = 18;
@@ -1440,6 +1582,69 @@
         closeMenu();
         closeModal();
         window.scrollTo(0, 0);
+      }
+
+      function initCarousels() {
+        document.querySelectorAll('.carousel').forEach(function (carousel) {
+          if (carousel.dataset.ready === 'true') {
+            return;
+          }
+
+          var track = carousel.querySelector('.carousel__track');
+
+          if (!track) {
+            return;
+          }
+
+          var slides = Array.from(track.children);
+          var dotsContainer = carousel.querySelector('.carousel__dots');
+          var previousButton = carousel.querySelector('.carousel__btn--prev');
+          var nextButton = carousel.querySelector('.carousel__btn--next');
+          var currentIndex = 0;
+
+          function goTo(index) {
+            currentIndex = (index + slides.length) % slides.length;
+            track.style.transform = 'translateX(-' + currentIndex * 100 + '%)';
+
+            if (dotsContainer) {
+              Array.from(dotsContainer.children).forEach(function (dot, dotIndex) {
+                dot.classList.toggle('is-active', dotIndex === currentIndex);
+              });
+            }
+          }
+
+          if (dotsContainer) {
+            slides.forEach(function (_, index) {
+              var dot = document.createElement('button');
+              dot.type = 'button';
+              dot.className = 'carousel__dot' + (index === 0 ? ' is-active' : '');
+              dot.setAttribute('aria-label', 'Go to slide ' + (index + 1));
+
+              dot.addEventListener('click', function (event) {
+                event.stopPropagation();
+                goTo(index);
+              });
+
+              dotsContainer.appendChild(dot);
+            });
+          }
+
+          if (previousButton) {
+            previousButton.addEventListener('click', function (event) {
+              event.stopPropagation();
+              goTo(currentIndex - 1);
+            });
+          }
+
+          if (nextButton) {
+            nextButton.addEventListener('click', function (event) {
+              event.stopPropagation();
+              goTo(currentIndex + 1);
+            });
+          }
+
+          carousel.dataset.ready = 'true';
+        });
       }
 
       function buildSizeOptions(collection) {
@@ -1658,7 +1863,6 @@
 
           form.reset();
           setStatus('Thank you. Your inquiry has been sent to doba.objects. We will reply by email.', 'success');
-
           submitButton.textContent = 'Inquiry sent';
 
           setTimeout(function () {
@@ -1673,7 +1877,7 @@
         }
       }
 
-      renderProducts();
+      initCarousels();
 
       document.addEventListener('click', function (event) {
         var link = event.target.closest('[data-link]');
@@ -1701,36 +1905,41 @@
         }
       });
 
-      document.addEventListener('click', function (event) {
-        var card = event.target.closest('.card');
+      document.querySelectorAll('.card').forEach(function (card) {
+        card.addEventListener('click', function (event) {
+          if (
+            event.target.closest('.inquire-btn') ||
+            event.target.closest('.carousel__btn') ||
+            event.target.closest('.carousel__dot')
+          ) {
+            return;
+          }
 
-        if (!card || event.target.closest('.inquire-btn')) {
-          return;
-        }
+          var shouldOpen = !card.classList.contains('is-open');
 
-        var shouldOpen = !card.classList.contains('is-open');
+          document.querySelectorAll('.card').forEach(function (otherCard) {
+            otherCard.classList.remove('is-open');
+            otherCard.setAttribute('aria-expanded', 'false');
+          });
 
-        document.querySelectorAll('.card').forEach(function (otherCard) {
-          otherCard.classList.remove('is-open');
-          otherCard.setAttribute('aria-expanded', 'false');
+          card.classList.toggle('is-open', shouldOpen);
+          card.setAttribute('aria-expanded', String(shouldOpen));
         });
 
-        card.classList.toggle('is-open', shouldOpen);
-        card.setAttribute('aria-expanded', String(shouldOpen));
-      });
+        card.addEventListener('keydown', function (event) {
+          if (event.key === 'Enter' || event.key === ' ') {
+            if (
+              event.target.closest('.inquire-btn') ||
+              event.target.closest('.carousel__btn') ||
+              event.target.closest('.carousel__dot')
+            ) {
+              return;
+            }
 
-      document.addEventListener('keydown', function (event) {
-        var card = event.target.closest('.card');
-
-        if (card && (event.key === 'Enter' || event.key === ' ') && !event.target.closest('.inquire-btn')) {
-          event.preventDefault();
-          card.click();
-        }
-
-        if (event.key === 'Escape') {
-          closeMenu();
-          closeModal();
-        }
+            event.preventDefault();
+            card.click();
+          }
+        });
       });
 
       menuToggle.addEventListener('click', function () {
@@ -1743,6 +1952,13 @@
       modalBackdrop.addEventListener('click', closeModal);
       sizeInput.addEventListener('change', handleSizeChange);
       form.addEventListener('submit', submitForm);
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          closeMenu();
+          closeModal();
+        }
+      });
 
       window.addEventListener('hashchange', function () {
         setPage(window.location.hash);
