@@ -20,7 +20,7 @@
       --radius: .5rem;
       --shadow: 0 4px 20px rgba(0, 0, 0, .04);
       --max-width: 72rem;
-      --header-height: 6rem;
+      --header-height: 7rem;
       --font: 'Montserrat', system-ui, sans-serif;
     }
 
@@ -84,6 +84,7 @@
       top: 0;
       z-index: 100;
       height: var(--header-height);
+      overflow: hidden;
       border-bottom: 1px solid var(--border);
       background: rgba(250, 249, 247, .96);
       backdrop-filter: blur(10px);
@@ -91,7 +92,7 @@
 
     .header__inner {
       display: flex;
-      align-items: center;
+      align-items: stretch;
       justify-content: space-between;
       height: 100%;
       gap: 1rem;
@@ -99,19 +100,23 @@
 
     .logo {
       display: flex;
-      align-items: center;
-      height: 100%;
-      flex: 1;
+      align-items: stretch;
+      height: var(--header-height);
+      flex: 1 1 auto;
       min-width: 0;
-      padding-block: .15rem;
+      overflow: hidden;
     }
 
     .logo img {
+      display: block;
       width: auto;
-      height: 100%;
-      max-width: min(88vw, 640px);
+      height: var(--header-height);
+      max-width: none;
+      max-height: none;
       object-fit: contain;
       object-position: left center;
+      transform: scale(1.45);
+      transform-origin: left center;
     }
 
     .menu-toggle {
@@ -123,6 +128,7 @@
       gap: 6px;
       width: 36px;
       height: 36px;
+      margin-block: auto;
       border: 0;
       background: transparent;
       flex-shrink: 0;
