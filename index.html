@@ -1019,7 +1019,6 @@
             </div>
           </article>
 
-         
     </section>
 
     <section id="limited" class="page">
@@ -1219,7 +1218,6 @@
             </div>
           </article>
 
-          
     </section>
 
     <section id="studio" class="page">
@@ -1443,6 +1441,11 @@
       var femaleIndex = 10;
       var maleIndex = 18;
 
+      var limitedSizeOverrides = {
+        'Wood doba ring 0.1': ['56.5', '7.75'],
+        'Wood doba ring 0.3': sizes[11]
+      };
+
       function sizeLabel(size) {
         return 'EU ' + size[0] + ' / US ' + size[1];
       }
@@ -1571,7 +1574,7 @@
         });
       }
 
-      function buildSizeOptions(collection) {
+      function buildSizeOptions(collection, product) {
         sizeInput.innerHTML = '';
         sizeInput.disabled = false;
         sizeInput.required = false;
@@ -1580,11 +1583,11 @@
         policyNote.textContent = '';
 
         if (collection === 'Limited Collection') {
-          var fixedSize = sizes[femaleIndex];
+          var fixedSize = limitedSizeOverrides[product] || sizes[femaleIndex];
 
           sizeInput.appendChild(createOption(
             sizeLabel(fixedSize),
-            sizeLabel(fixedSize) + ' | standard female, fixed size'
+            sizeLabel(fixedSize) + ' | fixed size for this piece'
           ));
 
           sizeInput.value = sizeLabel(fixedSize);
@@ -1666,7 +1669,7 @@
         wishesGroup.classList.toggle('is-hidden', isLimited);
 
         if (isRing) {
-          buildSizeOptions(collection);
+          buildSizeOptions(collection, product);
         }
 
         modal.hidden = false;
