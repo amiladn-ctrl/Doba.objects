@@ -46,10 +46,6 @@
       line-height: 1.6;
     }
 
-    body.modal-open {
-      overflow: hidden;
-    }
-
     img {
       display: block;
       max-width: 100%;
@@ -60,14 +56,8 @@
       text-decoration: none;
     }
 
-    button,
-    input,
-    select,
-    textarea {
-      font: inherit;
-    }
-
     button {
+      font: inherit;
       cursor: pointer;
     }
 
@@ -161,8 +151,7 @@
       transform: translateY(-8px) rotate(-45deg);
     }
 
-    .nav-backdrop,
-    .modal-backdrop {
+    .nav-backdrop {
       position: fixed;
       inset: 0;
       visibility: hidden;
@@ -170,18 +159,10 @@
       background: rgba(28, 28, 28, .5);
       backdrop-filter: blur(6px);
       transition: opacity .3s ease, visibility .3s ease;
-    }
-
-    .nav-backdrop {
       z-index: 98;
     }
 
-    .modal-backdrop {
-      z-index: 200;
-    }
-
-    .nav-backdrop.is-open,
-    .modal-backdrop.is-open {
+    .nav-backdrop.is-open {
       visibility: visible;
       opacity: 1;
     }
@@ -248,14 +229,14 @@
       text-align: center;
     }
     
- .hero-title .hero-logo {
-  width: 22vw;
-  max-width: 420px;
-  min-width: 180px;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
+    .hero-title .hero-logo {
+      width: 22vw;
+      max-width: 420px;
+      min-width: 180px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
 
     .hero__image,
     .hero__overlay {
@@ -282,8 +263,7 @@
 
     h1,
     h2,
-    h3,
-    .modal h2 {
+    h3 {
       font-family: var(--font);
       font-weight: 400;
       letter-spacing: -.02em;
@@ -336,14 +316,6 @@
       color: var(--surface);
     }
 
-    .btn--small {
-      width: 100%;
-      min-height: 40px;
-      margin-top: .85rem;
-      padding: .6rem 1rem;
-      font-size: .7rem;
-    }
-
     .about__grid {
       display: grid;
       align-items: center;
@@ -371,9 +343,7 @@
 
     .about p,
     .section__intro,
-    .page-header__desc,
-    .info-content p,
-    .info-content li {
+    .page-header__desc {
       color: var(--muted);
     }
 
@@ -399,14 +369,14 @@
     }
 
     .collections-preview__grid,
-    .grid {
+    .gallery-grid {
       display: grid;
       gap: 1.25rem;
       grid-template-columns: 1fr;
     }
 
     .preview-card,
-    .card {
+    .gallery-item {
       overflow: hidden;
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -419,142 +389,42 @@
     }
 
     .preview-card:hover,
-    .card:hover {
+    .gallery-item:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 30px rgba(0, 0, 0, .06);
     }
 
     .preview-card__media,
-    .card__media {
+    .gallery-item {
       aspect-ratio: 1;
       overflow: hidden;
       background: #f0ede8;
     }
 
     .preview-card__media img,
-    .card__media img,
-    .carousel__slide {
+    .gallery-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform .3s ease;
     }
 
-    .carousel {
-      position: relative;
-      overflow: hidden;
+    .gallery-item:hover img,
+    .preview-card:hover .preview-card__media img {
+      transform: scale(1.03);
     }
 
-    .carousel__track {
-      display: flex;
-      height: 100%;
-      transition: transform .4s ease;
-    }
-
-    .carousel__slide {
-      display: block;
-      min-width: 100%;
-      flex-shrink: 0;
-    }
-
-    .carousel__btn {
-      position: absolute;
-      top: 50%;
-      z-index: 2;
-      display: grid;
-      width: 2rem;
-      height: 2rem;
-      place-items: center;
-      border: 0;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, .9);
-      color: var(--text);
-      font-size: 1.25rem;
-      line-height: 1;
-      transform: translateY(-50%);
-    }
-
-    .carousel__btn--prev {
-      left: .5rem;
-    }
-
-    .carousel__btn--next {
-      right: .5rem;
-    }
-
-    .carousel__dots {
-      position: absolute;
-      bottom: .6rem;
-      left: 50%;
-      z-index: 2;
-      display: flex;
-      gap: .4rem;
-      transform: translateX(-50%);
-    }
-
-    .carousel__dot {
-      width: 8px;
-      height: 8px;
-      padding: 0;
-      border: 0;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, .25);
-    }
-
-    .carousel__dot.is-active {
-      background: var(--text);
-    }
-
-    .preview-card__body,
-    .card__body {
+    .preview-card__body {
       padding: 1.25rem;
     }
 
-    .preview-card__title,
-    .card__title {
+    .preview-card__title {
       margin-bottom: .25rem;
       font-size: 1rem;
       font-weight: 500;
     }
 
-    .preview-card__meta,
-    .card__meta {
-      color: var(--muted);
-      font-size: .8rem;
-    }
-
-    .card {
-      cursor: pointer;
-    }
-
-    .card__hint {
-      display: block;
-      margin-top: .5rem;
-      color: var(--accent);
-      font-size: .65rem;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-    }
-
-    .card__info {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height .35s ease, opacity .3s ease, margin .3s ease;
-    }
-
-    .card.is-open .card__info {
-      max-height: 12rem;
-      margin-top: .85rem;
-      opacity: 1;
-    }
-
-    .card.is-open .card__hint {
-      display: none;
-    }
-
-    .card__info p {
-      padding-top: .85rem;
-      border-top: 1px solid var(--border);
+    .preview-card__meta {
       color: var(--muted);
       font-size: .8rem;
     }
@@ -570,216 +440,6 @@
       gap: 1rem;
       max-width: 36rem;
       margin: auto;
-    }
-
-    .contact-page {
-      display: flex;
-      align-items: center;
-      min-height: calc(100svh - var(--header-height) - 8rem);
-      padding: 4rem 0;
-      text-align: center;
-    }
-
-    .contact-page .section__intro {
-      margin-inline: auto;
-    }
-
-    .info-page {
-      padding-bottom: 4rem;
-    }
-
-    .info-content {
-      max-width: 42rem;
-    }
-
-    .info-content h2 {
-      margin: 2.25rem 0 .85rem;
-      font-size: 1.5rem;
-      font-weight: 500;
-    }
-
-    .info-content h2:first-child {
-      margin-top: 0;
-    }
-
-    .info-content ul {
-      margin: 0 0 1.25rem 1.15rem;
-    }
-
-    .info-content li {
-      margin-bottom: .65rem;
-    }
-
-    .info-content strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .info-content hr {
-      margin: 2rem 0;
-      border: 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .care-label {
-      display: block;
-      margin: 1.25rem 0 .4rem;
-      color: var(--text);
-      font-size: .8rem;
-      font-weight: 600;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-    }
-
-    .modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      z-index: 201;
-      width: min(92vw, 30rem);
-      max-height: min(90vh, 44rem);
-      overflow-y: auto;
-      padding: 1.5rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--surface);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, .15);
-      opacity: 0;
-      visibility: hidden;
-      transform: translate(-50%, -48%) scale(.98);
-      transition: opacity .3s ease, visibility .3s ease, transform .3s ease;
-    }
-
-    .modal.is-open {
-      opacity: 1;
-      visibility: visible;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .modal__header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: .35rem;
-    }
-
-    .modal h2 {
-      font-size: 1.35rem;
-      font-weight: 500;
-    }
-
-    .modal__close {
-      width: 2rem;
-      height: 2rem;
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      font-size: 1.5rem;
-      line-height: 1;
-    }
-
-    .modal__product {
-      margin-bottom: 1.4rem;
-      color: var(--muted);
-      font-size: .85rem;
-    }
-
-    .modal__product strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .form-row {
-      display: grid;
-      gap: 1rem;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: .4rem;
-      color: var(--text);
-      font-size: .7rem;
-      font-weight: 600;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      outline: 0;
-      padding: .75rem .85rem;
-      background: var(--bg);
-      color: var(--text);
-      font-size: .9rem;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--text);
-    }
-
-    textarea {
-      min-height: 6rem;
-      resize: vertical;
-    }
-
-    select {
-      cursor: pointer;
-    }
-
-    .form-policy-note {
-      margin: 0 0 .65rem;
-      color: var(--accent);
-      font-size: .77rem;
-      line-height: 1.45;
-    }
-
-    .form-note {
-      margin: .5rem 0 1.25rem;
-      color: var(--muted);
-      font-size: .75rem;
-    }
-
-    .form-status {
-      display: none;
-      margin-bottom: 1rem;
-      padding: .75rem;
-      border: 1px solid var(--border);
-      font-size: .8rem;
-    }
-
-    .form-status.is-visible {
-      display: block;
-    }
-
-    .form-status.is-success {
-      border-color: #9db89d;
-      color: #426442;
-    }
-
-    .form-status.is-error {
-      border-color: #c89b9b;
-      color: #7a3d3d;
-    }
-
-    .modal__actions {
-      display: flex;
-      flex-direction: column;
-      gap: .75rem;
-    }
-
-    .modal__actions .btn {
-      width: 100%;
     }
 
     .footer {
@@ -801,18 +461,9 @@
       font-size: .8rem;
     }
 
-    .is-hidden {
-      display: none !important;
-    }
-
-    @media (min-width: 480px) {
-      .form-row {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
     @media (min-width: 640px) {
-      .grid {
+      .collections-preview__grid,
+      .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
@@ -843,7 +494,8 @@
     }
 
     @media (min-width: 1024px) {
-      .grid {
+      .collections-preview__grid,
+      .gallery-grid {
         grid-template-columns: repeat(3, 1fr);
       }
     }
@@ -872,7 +524,7 @@
     <div class="nav__divider"></div>
     <a href="#novo-doba" data-link>Novo doba</a>
     <a href="#limited" data-link>Wood doba</a>
-    <a href="#bold" data-link>Bold</a>
+    <a href="#bold" data-link>Gallery of Works</a>
     <div class="nav__divider"></div>
     <a href="#studio" data-link>Studio</a>
     <a href="#care" data-link>How to care</a>
@@ -888,8 +540,8 @@
 
         <div class="hero__content">
           <h1 class="hero-title">
-  <img src="logotext.svg" alt="doba objects" class="hero-logo">
-</h1>
+            <img src="logotext.svg" alt="doba objects" class="hero-logo">
+          </h1>
           <p>Objects shaped for everyday expression.</p>
           <a href="#novo-doba" class="btn" data-link>Explore Collections</a>
         </div>
@@ -913,7 +565,7 @@
       <section class="section">
         <div class="container">
           <h2>Collections</h2>
-          <p class="section__intro">Explore the Doba Objects world: signature essentials, limited seasonal releases, and bold statement pieces.</p>
+          <p class="section__intro">Explore the Doba Objects world: signature essentials, limited seasonal releases, and gallery of works.</p>
 
           <div class="collections-preview__grid">
             <a href="#novo-doba" class="preview-card" data-link>
@@ -938,11 +590,11 @@
 
             <a href="#bold" class="preview-card" data-link>
               <div class="preview-card__media">
-                <img src="cnc c 2.jpeg" alt="Bold collection">
+                <img src="cnc c 2.jpeg" alt="Gallery of Works">
               </div>
               <div class="preview-card__body">
-                <h3 class="preview-card__title">Bold</h3>
-                <p class="preview-card__meta">Oversized sculptural volume</p>
+                <h3 class="preview-card__title">Gallery of Works</h3>
+                <p class="preview-card__meta">Visual archive and sculptural pieces</p>
               </div>
             </a>
           </div>
@@ -957,6 +609,7 @@
       </section>
     </section>
 
+    <!-- Novo Doba Section (Gallery Only) -->
     <section id="novo-doba" class="page">
       <div class="container page-header">
         <p class="breadcrumb"><a href="#home" data-link>Home</a> / Novo doba</p>
@@ -964,98 +617,40 @@
         <p class="page-header__desc">The core collection. Timeless silhouettes in silver.</p>
       </div>
 
-      <div class="container">
-        <div class="grid">
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="IMG_0147.jpeg" alt="Dua ring base" class="carousel__slide">
-                <img src="dua base.jpg.jpg" alt="Dua ring base view 2" class="carousel__slide">
-                <img src="dua duo.jpg" alt="Dua ring base view 3" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Dua ring base</h2>
-              <p class="card__meta">Silver </p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>A modular base ring with different textures and surface finish. Designed to wear alone or stack with Dua solo.</p>
-              </div>
-              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Dua ring base" data-collection="Novo doba" data-ring="true" data-material="true">Inquire about piece</button>
-            </div>
-          </article>
-
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="worry.jpeg" alt="Mirror pendant" class="carousel__slide">
-                <img src="worry 2.jpg" alt="Mirror pendant view 2" class="carousel__slide">
-                <img src="fav.jpeg" alt="Mirror pendant view 3" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Mirror pendant</h2>
-              <p class="card__meta">Silver</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>A reflective pendant with a quiet and tactile form and finish. Made for layering or solo wear.</p>
-              </div>
-              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Mirror pendant" data-collection="Novo doba" data-ring="false" data-material="true">Inquire about piece</button>
-            </div>
-          </article>
-
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="IMG_0151.jpeg" alt="Dua ring solo" class="carousel__slide">
-                <img src="dua one.jpg.jpg" alt="Dua ring solo view 2" class="carousel__slide">
-                <img src="dua duo.jpg" alt="Dua ring solo view 3" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Dua ring solo</h2>
-              <p class="card__meta">Silver</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>The companion band to Dua base. Slim profile, textured and polished finish, and designed for everyday wear.</p>
-              </div>
-              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Dua ring solo" data-collection="Novo doba" data-ring="true" data-material="true">Inquire about piece</button>
-            </div>
-          </article>
-          
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="IMG_3057.jpeg" alt="Signet ring 0.1" class="carousel__slide">
-                <img src="IMG_3059.jpeg" alt="Signet ring 0.1" class="carousel__slide">
-                <img src="IMG_3060.jpeg" alt="Signet ring 0.1" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Signet ring 0.1</h2>
-              <p class="card__meta">Silver</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>The new edition, Signet collection. Pinky signet with custom orchid stamp and custom texture.</p>
-              </div>
-              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Signet ring 0.1" data-collection="Novo doba" data-ring="true" data-material="true">Inquire about piece</button>
-            </div>
-          </article>
-
+      <div class="container section">
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="IMG_0147.jpeg" alt="Novo Doba work 1">
+          </div>
+          <div class="gallery-item">
+            <img src="dua base.jpg.jpg" alt="Novo Doba work 2">
+          </div>
+          <div class="gallery-item">
+            <img src="dua duo.jpg" alt="Novo Doba work 3">
+          </div>
+          <div class="gallery-item">
+            <img src="worry.jpeg" alt="Novo Doba work 4">
+          </div>
+          <div class="gallery-item">
+            <img src="worry 2.jpg" alt="Novo Doba work 5">
+          </div>
+          <div class="gallery-item">
+            <img src="fav.jpeg" alt="Novo Doba work 6">
+          </div>
+          <div class="gallery-item">
+            <img src="IMG_0151.jpeg" alt="Novo Doba work 7">
+          </div>
+          <div class="gallery-item">
+            <img src="IMG_3057.jpeg" alt="Novo Doba work 8">
+          </div>
+          <div class="gallery-item">
+            <img src="IMG_3059.jpeg" alt="Novo Doba work 9">
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- Wood Doba Section (Gallery Only) -->
     <section id="limited" class="page">
       <div class="container page-header">
         <p class="breadcrumb"><a href="#home" data-link>Home</a> / Wood Doba</p>
@@ -1063,951 +658,162 @@
         <p class="page-header__desc">Wood Doba consists of one of one jewellery and objects created through individual material intervention. Once they are gone, they are gone.</p>
       </div>
 
-      <div class="container">
-        <div class="grid">
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="wb1.jpg" alt="Wood doba ring 0.1" class="carousel__slide">
-                <img src="wb2.jpg" alt="Wood doba ring 0.1 view 2" class="carousel__slide">
-                <img src="wr1.jpg" alt="Wood doba ring 0.1 view 3" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Wood doba ring 0.1</h2>
-              <p class="card__meta">Ebony wood and silver</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>Edition one. Rounded ebony form adorned in textured silver beads.</p>
-              </div>
-              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Wood doba ring 0.1" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
-            </div>
-          </article>
-
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="wm1.jpg" alt="Wood doba ring 0.2" class="carousel__slide">
-                <img src="wm2.jpg" alt="Wood doba ring 0.2 view 2" class="carousel__slide">
-                <img src="wg2.jpg" alt="Wood doba ring 0.2 view 3" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Wood doba ring 0.2</h2>
-              <p class="card__meta">Ebony wood and silver-NOT AVAILABLE</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>Edition two. A simple geometric form covered in detailed textures and asymetrical silver beads, almost reminiscent of night sky and stars.</p>
-              </div>
-              
-          </article>
-
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="wp1.jpg" alt="Wood doba ring 0.3" class="carousel__slide">
-                <img src="wp2.jpg" alt="Wood doba ring 0.3 view 2" class="carousel__slide">
-                <img src="wg3.jpg" alt="Wood doba ring 0.3 view 3" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Wood doba ring 0.3</h2>
-              <p class="card__meta">Ebony wood and silver</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>Edition three. Detailed and sculptural form adorned in textures and set with differently textured silver beads acting as a bridge between dark and light.</p>
-              </div>
-              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Wood doba ring 0.3" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
-            </div>
-          </article>
-
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="neck2.jpeg" alt="wood doba 0.4" class="carousel__slide">
-                <img src="neck n set.jpeg" alt="wood doba 0.4" class="carousel__slide">
-                <img src="IMG_2243.jpeg" alt="wood doba 0.4" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Wood doba pendant 0.4</h2>
-              <p class="card__meta">Ebony wood and silver</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>Edition four. Simple geometrical form adorned with detailed textures and differently textured silver beads.</p>
-              </div>
-              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Wood doba pendant 0.4" data-collection="Limited Collection" data-ring="true" data-material="false">Inquire about piece</button>
-            </div>
-          </article>
-
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="FC6FE0E2-61B8-425E-977E-3E0CB41938FE.jpeg" alt="wood doba 0.5" class="carousel__slide">
-                <img src="earr 2.jpeg" alt="Wood doba 0.5" class="carousel__slide">
-                <img src="IMG_2289.jpeg" alt="wood doba 0.5" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Wood doba earrings 0.5</h2>
-              <p class="card__meta">Ebony wood and silver.</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>Textured wood with silver beads, hanging on silver wire forms.</p>
-              </div>
-              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Wood doba earrings 0.5" data-collection="Limited Collection" data-ring="false" data-material="false">Inquire about piece</button>
-            </div>
-          </article>
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="sjw8.jpg" alt="Sculptural ring 0.1" class="carousel__slide">
-                <img src="sjw5.jpg" alt="Sculptural ring " class="carousel__slide">
-                <img src="sjw9.jpg" alt="Sculptural ring" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Sculptural ring 0.1</h2>
-              <p class="card__meta">Exhibition piece in ebony wood</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>Bolder sculptural form, simple base adorned in linear textures and clusters of silver beads. </p>
-              </div>
-           
-          </article>
-
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="sjw3.jpg" alt="Sculptural ring 0.2" class="carousel__slide">
-                <img src="sjw7.jpg" alt="Sculptural ring " class="carousel__slide">
-                <img src="sjw 2.jpg" alt="Sculptural ring" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Sculptural ring 0.2</h2>
-              <p class="card__meta">Exhibition piece in ebony wood</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>Bolder sculptural form, simple base adorned with movement of textured pattern across the form and larger satin finished silver beads. </p>
-              </div>
-            
-          </article>
-
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="sjw4.jpg" alt="Sculptural ring 0.3" class="carousel__slide">
-                <img src="sjw6.jpg" alt="Sculptural ring " class="carousel__slide">
-                <img src="sjw1.jpg" alt="Sculptural ring" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Sculptural ring 0.3</h2>
-              <p class="card__meta">Exhibition piece in ebony wood</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>Bolder sculptural form, interrupted with clusters of silver beads emerging from each end. With synthethic stone set a the top, emerging from wooden structure.. </p>
-              </div>
-              </article>
-
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="IMG_3070.jpeg" alt="Sculptural ring 0.4" class="carousel__slide">
-                <img src="IMG_3074.jpeg" alt="Sculptural ring " class="carousel__slide">
-                <img src="IMG_3084.jpeg" alt="Sculptural ring" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Sculptural ring 0.4</h2>
-              <p class="card__meta">Exhibition piece in ebony wood</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>Simple geometrical form with statement pink stone set on top and silver beads slightly emerging from wood. </p>
-              </div>
-
-               </article>
-          
-                <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="custom.jpg" alt="Wood doba sculptural 0.1" class="carousel__slide">
-                <img src="custom 2.jpg" alt="Wood doba sculptural 0.1 " class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Wood doba sculptural 0.1</h2>
-              <p class="card__meta">Custom made Sculptural ring</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>Custom made sculptural ring in ebony wood adorned with silver wire beads emerging from the form. With simple texture and sunflower stamp at the bottom. </p>
-              </div>
-</article>
+      <div class="container section">
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="wb1.jpg" alt="Wood Doba work 1">
+          </div>
+          <div class="gallery-item">
+            <img src="wb2.jpg" alt="Wood Doba work 2">
+          </div>
+          <div class="gallery-item">
+            <img src="wr1.jpg" alt="Wood Doba work 3">
+          </div>
+          <div class="gallery-item">
+            <img src="wm1.jpg" alt="Wood Doba work 4">
+          </div>
+          <div class="gallery-item">
+            <img src="wm2.jpg" alt="Wood Doba work 5">
+          </div>
+          <div class="gallery-item">
+            <img src="wg2.jpg" alt="Wood Doba work 6">
+          </div>
+          <div class="gallery-item">
+            <img src="wp1.jpg" alt="Wood Doba work 7">
+          </div>
+          <div class="gallery-item">
+            <img src="wp2.jpg" alt="Wood Doba work 8">
+          </div>
+          <div class="gallery-item">
+            <img src="neck2.jpeg" alt="Wood Doba work 9">
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- Gallery of Works Section -->
     <section id="bold" class="page">
       <div class="container page-header">
-        <p class="breadcrumb"><a href="#home" data-link>Home</a> / Bold</p>
-        <h1>Bold</h1>
-        <p class="page-header__desc">Oversized shapes and sculptural volume for those who want to stand out.</p>
+        <p class="breadcrumb"><a href="#home" data-link>Home</a> / Gallery of Works</p>
+        <h1>Gallery of Works</h1>
+        <p class="page-header__desc">A curated visual archive of sculptural objects and artistic studies.</p>
       </div>
 
-      <div class="container">
-        <div class="grid">
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="IMG_2054.jpeg" alt="Bold ring" class="carousel__slide">
-                <img src="IMG_2048.jpeg" alt="Bold ring view 2" class="carousel__slide">
-                <img src="ena set 2.jpeg" alt="Bold ring view 3" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Bold ring</h2>
-              <p class="card__meta">Experimental form in walnut wood</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>Bigger and softer form, locally CNC carved rounded shape, hand finished form and textures, adorned in cluster of differently sized and shaped silver beads.</p>
-              </div>
-              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Bold ring" data-collection="Bold" data-ring="true" data-material="true">Inquire about piece</button>
-            </div>
-          </article>
-
-          <article class="card" tabindex="0" role="button" aria-expanded="false">
-            <div class="card__media carousel">
-              <div class="carousel__track">
-                <img src="cnc c 1.jpeg" alt="Bold cuff" class="carousel__slide">
-                <img src="cnc c 2.jpeg" alt="Bold cuff view 2" class="carousel__slide">
-                <img src="ena set 1.jpeg" alt="Bold cuff view 3" class="carousel__slide">
-              </div>
-              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous slide">‹</button>
-              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next slide">›</button>
-              <div class="carousel__dots"></div>
-            </div>
-            <div class="card__body">
-              <h2 class="card__title">Bold cuff</h2>
-              <p class="card__meta">Experimental form in walnut wood</p>
-              <span class="card__hint">Tap for details</span>
-              <div class="card__info">
-                <p>Bigger and bolder form, locally CNC carved rounded shape, hand finished form and textures, with strategically places silver beads in different sizes.</p>
-              </div>
-              <button class="btn btn--ghost btn--small inquire-btn" type="button" data-product="Bold cuff" data-collection="Bold" data-ring="true" data-material="true">Inquire about piece</button>
-            </div>
-          </article>
-          
-                     
-          </article>
+      <div class="container section">
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="cnc c 2.jpeg" alt="Gallery work 1">
+          </div>
+          <div class="gallery-item">
+            <img src="fav.jpeg" alt="Gallery work 2">
+          </div>
+          <div class="gallery-item">
+            <img src="worry 2.jpg" alt="Gallery work 3">
+          </div>
+          <div class="gallery-item">
+            <img src="dua duo.jpg" alt="Gallery work 4">
+          </div>
+          <div class="gallery-item">
+            <img src="wg2.jpg" alt="Gallery work 5">
+          </div>
+          <div class="gallery-item">
+            <img src="IMG_3059.jpeg" alt="Gallery work 6">
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="studio" class="page">
       <div class="container page-header">
-        <p class="breadcrumb"><a href="#home" data-link>Home</a> / Studio structure and production</p>
-        <h1>Studio structure and production</h1>
-        <p class="page-header__desc">How Doba Objects designs, makes, and delivers each piece.</p>
-      </div>
-
-      <div class="container info-page">
-        <div class="info-content">
-          <p>Doba Objects operates as a small independent studio producing wearable objects. All design and production take place in Sarajevo under the direction of a single designer-maker.</p>
-
-          <p>The studio works across three collections:</p>
-
-          <ul>
-            <li><strong>Novo Doba</strong> Wax carved pieces, cast in solid metal. These designs are repeatable and made to order.</li>
-            <li><strong>Wood Doba</strong> Pieces in ebony wood or wood combined with silver, stones etc. Each piece is designed and finished individually. One of one. Once a Limited piece is sold, that specific design is not repeated.</li>
-            <li><strong>Bold Collection</strong> Larger sculptural pieces produced in bigger scale, one at a time. Some are made to order, some are one of one models.</li>
-          </ul>
-
-          <p>No collection uses plating. All metal is solid. All wood is solid.</p>
-
-          <hr>
-
-          <h2>Ordering and production time</h2>
-          <p>All orders are produced individually. Production time depends on the collection and the current studio schedule. An estimated production window is communicated at the time of order along with material prices , advance payment etc..</p>
-
-          <hr>
-
-          <h2>Custom work and commissions</h2>
-          <p>The studio accepts a limited number of custom commissions each year. Scope, price, and timing are agreed in writing before work begins.</p>
-
-          <hr>
-
-          <h2>Material clarity</h2>
-          <p>All pieces are either solid metal, solid wood, or a combination of solid metal and solid wood. The studio does not use plating or hollow forms to imitate weight. Natural variation in wood grain, minor casting marks, and hand finishing are part of the studio’s aesthetic and are not treated as defects.</p>
-        </div>
+        <p class="breadcrumb"><a href="#home" data-link>Home</a> / Studio</p>
+        <h1>Studio Structure and Production</h1>
+        <p class="page-header__desc">Quiet processes, careful crafting, and sustainable material sourcing.</p>
       </div>
     </section>
 
     <section id="care" class="page">
       <div class="container page-header">
-        <p class="breadcrumb"><a href="#home" data-link>Home</a> / How to care</p>
-        <h1>Care Guide</h1>
-        <p class="page-header__desc">How to maintain solid metals and solid wood over time.</p>
-      </div>
-
-      <div class="container info-page">
-        <div class="info-content">
-          <h2>Solid metal</h2>
-          <p>Doba Objects metal pieces are solid throughout, not plated. Metal develops a natural patina through normal exposure to air and moisture.</p>
-
-          <span class="care-label">To clean</span>
-          <p>Use a soft polishing cloth for light tarnish. For deeper tarnish, use a standard polishing cloth or mild metal cleaning solution.</p>
-
-          <span class="care-label">To store</span>
-          <p>Keep pieces in a dry place away from direct humidity when not being worn.</p>
-
-          <span class="care-label">To avoid</span>
-          <p>Avoid chlorine, perfume, and household cleaning chemicals applied directly to the piece.</p>
-
-          <hr>
-
-          <h2>Solid wood</h2>
-          <p>Wood pieces are solid wood, not veneered or laminated. Grain, density, and tone vary naturally from piece to piece.</p>
-
-          <span class="care-label">To clean</span>
-          <p>Wipe gently with a dry, soft cloth after wear. Avoid water and soap. To bring back the shine of wood, after prolonged use, apply small amount of natural oils such as olive oil on its surface.</p>
-
-          <span class="care-label">To store</span>
-          <p>Keep away from prolonged direct sunlight and extreme heat, cold, or humidity.</p>
-
-          <span class="care-label">To avoid</span>
-          <p>Do not submerge in water or wear while swimming or showering.</p>
-        </div>
+        <p class="breadcrumb"><a href="#home" data-link>Home</a> / How to Care</p>
+        <h1>How to Care</h1>
+        <p class="page-header__desc">Simple preservation steps to maintain the finish of your pieces over time.</p>
       </div>
     </section>
 
     <section id="contact" class="page">
-      <section class="contact-page">
-        <div class="container">
-          <h2>Get in touch</h2>
-          <p class="section__intro">Interested in a piece, a collaboration, or a custom order? We would love to hear from you.</p>
-          <a href="mailto:doba.objects@gmail.com" class="btn">doba.objects@gmail.com</a>
-        </div>
-      </section>
+      <div class="container page-header">
+        <p class="breadcrumb"><a href="#home" data-link>Home</a> / Contact</p>
+        <h1>Contact</h1>
+        <p class="page-header__desc">Get in touch for inquiries, collaborations, or custom requests.</p>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="container">
-      <p class="footer__brand">DOBA.OBJECTS</p>
-      <p class="footer__copy">© 2026 doba.objects. All rights reserved.</p>
+      <p class="footer__brand">doba.objects</p>
+      <p class="footer__copy">&copy; 2026 doba.objects. All rights reserved.</p>
     </div>
   </footer>
 
-  <div class="modal-backdrop" id="inquiry-backdrop" aria-hidden="true"></div>
-
-  <div class="modal" id="inquiry-modal" role="dialog" aria-modal="true" aria-labelledby="inquiry-title" hidden>
-    <div class="modal__header">
-      <h2 id="inquiry-title">Inquire about piece</h2>
-      <button class="modal__close" type="button" id="inquiry-close" aria-label="Close inquiry form">&times;</button>
-    </div>
-
-    <p class="modal__product">
-      Piece:
-      <strong id="inquiry-product-name">—</strong>
-    </p>
-
-    <form id="inquiry-form">
-      <input type="hidden" id="inquiry-product" name="piece">
-      <input type="hidden" id="inquiry-collection" name="collection">
-      <input type="hidden" id="inquiry-subject" name="_subject">
-      <input type="hidden" id="inquiry-replyto" name="_replyto">
-      <input type="hidden" name="_template" value="table">
-      <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="is-hidden">
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="inquiry-name">Your name</label>
-          <input type="text" id="inquiry-name" name="customer_name" autocomplete="name" placeholder="Full name" required>
-        </div>
-
-        <div class="form-group">
-          <label for="inquiry-email">Your email</label>
-          <input type="email" id="inquiry-email" name="customer_email" autocomplete="email" placeholder="you@email.com" required>
-        </div>
-      </div>
-
-      <div class="form-group is-hidden" id="group-material">
-        <label for="inquiry-material">Colour / material</label>
-        <select id="inquiry-material" name="colour_material">
-          <option value="">Select material</option>
-          <option value="Silver">Silver</option>
-          <option value="Gold">Gold</option>
-        </select>
-      </div>
-
-      <div class="form-group is-hidden" id="group-size">
-        <label for="inquiry-size">Ring size</label>
-        <p class="form-policy-note" id="size-policy-note"></p>
-        <select id="inquiry-size" name="ring_size"></select>
-      </div>
-
-      <div class="form-group is-hidden" id="group-custom-size">
-        <label for="inquiry-custom-size">Requested size</label>
-        <input type="text" id="inquiry-custom-size" name="custom_ring_size" placeholder="e.g. EU 58 / US 8.25">
-      </div>
-
-      <div class="form-group is-hidden" id="group-information">
-        <label for="inquiry-information">Information inquiry</label>
-        <textarea id="inquiry-information" name="information_inquiry" placeholder="Ask about availability of the piece, pricing, materials, shipping, or anything else..."></textarea>
-      </div>
-
-      <div class="form-group is-hidden" id="group-wishes">
-        <label for="inquiry-wishes">Custom wishes</label>
-        <textarea id="inquiry-wishes" name="custom_wishes" placeholder="Texture, finish, chain length, stacking notes, or other details..."></textarea>
-      </div>
-
-      <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
-
-      <p class="form-note">Your inquiry will be sent directly to doba.objects. You will remain on this website.</p>
-
-      <div class="modal__actions">
-        <button type="submit" class="btn" id="submit-inquiry">Send inquiry</button>
-        <button type="button" class="btn btn--ghost" id="inquiry-cancel">Cancel</button>
-      </div>
-    </form>
-  </div>
-
   <script>
-    (function () {
-      'use strict';
-
-      var FORM_ENDPOINT = 'https://formsubmit.co/ajax/doba.objects@gmail.com';
-
-      var pages = document.querySelectorAll('.page');
-      var nav = document.querySelector('.nav');
-      var navLinks = document.querySelectorAll('.nav a[data-link]');
-      var menuToggle = document.querySelector('.menu-toggle');
-      var navBackdrop = document.querySelector('.nav-backdrop');
-
-      var modal = document.getElementById('inquiry-modal');
-      var modalBackdrop = document.getElementById('inquiry-backdrop');
-      var form = document.getElementById('inquiry-form');
-      var closeButton = document.getElementById('inquiry-close');
-      var cancelButton = document.getElementById('inquiry-cancel');
-
-      var productName = document.getElementById('inquiry-product-name');
-      var productInput = document.getElementById('inquiry-product');
-      var collectionInput = document.getElementById('inquiry-collection');
-      var subjectInput = document.getElementById('inquiry-subject');
-      var replyToInput = document.getElementById('inquiry-replyto');
-
-      var nameInput = document.getElementById('inquiry-name');
-      var emailInput = document.getElementById('inquiry-email');
-      var materialInput = document.getElementById('inquiry-material');
-      var sizeInput = document.getElementById('inquiry-size');
-      var customSizeInput = document.getElementById('inquiry-custom-size');
-
-      var materialGroup = document.getElementById('group-material');
-      var sizeGroup = document.getElementById('group-size');
-      var customSizeGroup = document.getElementById('group-custom-size');
-      var informationGroup = document.getElementById('group-information');
-      var wishesGroup = document.getElementById('group-wishes');
-
-      var policyNote = document.getElementById('size-policy-note');
-      var statusBox = document.getElementById('form-status');
-      var submitButton = document.getElementById('submit-inquiry');
-
-      var sizes = [
-        ['44', '3'], ['45', '3.25'], ['46', '3.75'], ['47', '4'],
-        ['48', '4.5'], ['49', '4.75'], ['50', '5.25'], ['51', '5.5'],
-        ['52', '6'], ['53', '6.25'], ['54', '6.75'], ['55', '7.25'],
-        ['56', '7.5'], ['57', '8'], ['58', '8.25'], ['59', '8.75'],
-        ['60', '9'], ['61', '9.5'], ['62', '10'], ['63', '10.25'],
-        ['64', '10.75'], ['65', '11'], ['66', '11.5'], ['67', '12']
-      ];
-
-      var femaleIndex = 10;
-      var maleIndex = 18;
-
-      var limitedSizeOverrides = {
-        'Wood doba ring 0.1': ['56.5', '7.75'],
-        'Wood doba ring 0.3': sizes[11]
-      };
-
-      function sizeLabel(size) {
-        return 'EU ' + size[0] + ' / US ' + size[1];
-      }
-
-      function createOption(value, text) {
-        var item = document.createElement('option');
-        item.value = value;
-        item.textContent = text;
-        return item;
-      }
-
-      function closeMenu() {
-        nav.classList.remove('is-open');
-        navBackdrop.classList.remove('is-open');
-        menuToggle.classList.remove('is-active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        menuToggle.setAttribute('aria-label', 'Open menu');
-        navBackdrop.setAttribute('aria-hidden', 'true');
-
-        if (!modal.classList.contains('is-open')) {
-          document.body.classList.remove('modal-open');
-        }
-      }
-
-      function openMenu() {
-        nav.classList.add('is-open');
-        navBackdrop.classList.add('is-open');
-        menuToggle.classList.add('is-active');
-        menuToggle.setAttribute('aria-expanded', 'true');
-        menuToggle.setAttribute('aria-label', 'Close menu');
-        navBackdrop.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('modal-open');
-      }
-
-      function closeModal() {
-        modal.classList.remove('is-open');
-        modalBackdrop.classList.remove('is-open');
-        modalBackdrop.setAttribute('aria-hidden', 'true');
-        modal.hidden = true;
-
-        if (!nav.classList.contains('is-open')) {
-          document.body.classList.remove('modal-open');
-        }
-      }
-
-      function setPage(hash) {
-        var id = (hash || '#home').slice(1);
-
-        if (!document.getElementById(id)) {
-          id = 'home';
-        }
-
-        pages.forEach(function (page) {
-          page.classList.toggle('is-active', page.id === id);
-        });
-
-        navLinks.forEach(function (link) {
-          link.classList.toggle('is-active', link.getAttribute('href') === '#' + id);
-        });
-
-        closeMenu();
-        closeModal();
-        window.scrollTo(0, 0);
-      }
-
-      function initCarousels() {
-        document.querySelectorAll('.carousel').forEach(function (carousel) {
-          if (carousel.dataset.ready === 'true') {
-            return;
-          }
-
-          var track = carousel.querySelector('.carousel__track');
-
-          if (!track) {
-            return;
-          }
-
-          var slides = Array.from(track.children);
-          var dotsContainer = carousel.querySelector('.carousel__dots');
-          var previousButton = carousel.querySelector('.carousel__btn--prev');
-          var nextButton = carousel.querySelector('.carousel__btn--next');
-          var currentIndex = 0;
-
-          function goTo(index) {
-            currentIndex = (index + slides.length) % slides.length;
-            track.style.transform = 'translateX(-' + currentIndex * 100 + '%)';
-
-            if (dotsContainer) {
-              Array.from(dotsContainer.children).forEach(function (dot, dotIndex) {
-                dot.classList.toggle('is-active', dotIndex === currentIndex);
-              });
-            }
-          }
-
-          if (dotsContainer) {
-            slides.forEach(function (_, index) {
-              var dot = document.createElement('button');
-              dot.type = 'button';
-              dot.className = 'carousel__dot' + (index === 0 ? ' is-active' : '');
-              dot.setAttribute('aria-label', 'Go to slide ' + (index + 1));
-
-              dot.addEventListener('click', function (event) {
-                event.stopPropagation();
-                goTo(index);
-              });
-
-              dotsContainer.appendChild(dot);
-            });
-          }
-
-          if (previousButton) {
-            previousButton.addEventListener('click', function (event) {
-              event.stopPropagation();
-              goTo(currentIndex - 1);
-            });
-          }
-
-          if (nextButton) {
-            nextButton.addEventListener('click', function (event) {
-              event.stopPropagation();
-              goTo(currentIndex + 1);
-            });
-          }
-
-          carousel.dataset.ready = 'true';
-        });
-      }
-
-      function buildSizeOptions(collection, product) {
-        sizeInput.innerHTML = '';
-        sizeInput.disabled = false;
-        sizeInput.required = false;
-        customSizeGroup.classList.add('is-hidden');
-        customSizeInput.required = false;
-        policyNote.textContent = '';
-
-        if (collection === 'Limited Collection') {
-          var fixedSize = limitedSizeOverrides[product] || sizes[femaleIndex];
-
-          sizeInput.appendChild(createOption(
-            sizeLabel(fixedSize),
-            sizeLabel(fixedSize) + ' | fixed size for this piece'
-          ));
-
-          sizeInput.value = sizeLabel(fixedSize);
-          sizeInput.disabled = true;
-          sizeGroup.classList.remove('is-hidden');
-          policyNote.textContent = 'Limited pieces are carved at one fixed size and cannot be resized.';
-          return;
-        }
-
-        sizeInput.appendChild(createOption('', 'Select size'));
-
-        if (collection === 'Novo doba') {
-          var femaleGroup = document.createElement('optgroup');
-          femaleGroup.label = 'Standard female range';
-
-          for (var i = femaleIndex - 3; i <= femaleIndex + 3; i++) {
-            femaleGroup.appendChild(createOption(
-              sizeLabel(sizes[i]),
-              sizeLabel(sizes[i]) + (i === femaleIndex ? ' | standard female' : '')
-            ));
-          }
-
-          var maleGroup = document.createElement('optgroup');
-          maleGroup.label = 'Standard male range';
-
-          for (var j = maleIndex - 3; j <= maleIndex + 3; j++) {
-            maleGroup.appendChild(createOption(
-              sizeLabel(sizes[j]),
-              sizeLabel(sizes[j]) + (j === maleIndex ? ' | standard male' : '')
-            ));
-          }
-
-          sizeInput.appendChild(femaleGroup);
-          sizeInput.appendChild(maleGroup);
-          sizeInput.appendChild(createOption('other', 'Other size | custom quote'));
-
-          sizeInput.required = true;
-          sizeGroup.classList.remove('is-hidden');
-          policyNote.textContent = 'Novo doba rings can be resized up to three sizes above or below the master. Other sizes require a new carved master and are treated as a mini commission.';
-          return;
-        }
-
-        if (collection === 'Bold') {
-          sizes.forEach(function (size) {
-            sizeInput.appendChild(createOption(sizeLabel(size), sizeLabel(size)));
-          });
-
-          sizeInput.required = true;
-          sizeGroup.classList.remove('is-hidden');
-          policyNote.textContent = 'Bold rings are sized through 3D modelling. All sizes are available within material and machine tolerances. Extreme sizes may require a design proportion check before quoting.';
-        }
-      }
-
-      function openModal(button) {
-        var product = button.dataset.product;
-        var collection = button.dataset.collection;
-        var isRing = button.dataset.ring === 'true';
-        var hasMaterial = button.dataset.material === 'true';
-        var isLimited = collection === 'Limited Collection';
-
-        form.reset();
-        statusBox.textContent = '';
-        statusBox.className = 'form-status';
-
-        productName.textContent = product;
-        productInput.value = product;
-        collectionInput.value = collection;
-        subjectInput.value = 'Inquiry: ' + product + ' | ' + collection;
-
-        materialGroup.classList.toggle('is-hidden', !hasMaterial);
-        materialInput.required = hasMaterial;
-
-        sizeGroup.classList.add('is-hidden');
-        customSizeGroup.classList.add('is-hidden');
-        sizeInput.required = false;
-        sizeInput.disabled = false;
-
-        informationGroup.classList.toggle('is-hidden', !isLimited);
-        wishesGroup.classList.toggle('is-hidden', isLimited);
-
-        if (isRing) {
-          buildSizeOptions(collection, product);
-        }
-
-        modal.hidden = false;
-        modal.classList.add('is-open');
-        modalBackdrop.classList.add('is-open');
-        modalBackdrop.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('modal-open');
-
-        setTimeout(function () {
-          nameInput.focus();
-        }, 50);
-      }
-
-      function handleSizeChange() {
-        var isOther = sizeInput.value === 'other';
-
-        customSizeGroup.classList.toggle('is-hidden', !isOther);
-        customSizeInput.required = isOther;
-
-        if (!isOther) {
-          customSizeInput.value = '';
-        }
-      }
-
-      function setStatus(message, type) {
-        statusBox.textContent = message;
-        statusBox.className = 'form-status is-visible is-' + type;
-      }
-
-      function validateForm() {
-        if (!nameInput.value.trim()) {
-          setStatus('Please enter your name.', 'error');
-          nameInput.focus();
-          return false;
-        }
-
-        if (!emailInput.checkValidity()) {
-          setStatus('Please enter a valid email address.', 'error');
-          emailInput.focus();
-          return false;
-        }
-
-        if (materialInput.required && !materialInput.value) {
-          setStatus('Please select a colour or material.', 'error');
-          materialInput.focus();
-          return false;
-        }
-
-        if (!sizeGroup.classList.contains('is-hidden')) {
-          if (!sizeInput.value) {
-            setStatus('Please select a ring size.', 'error');
-            sizeInput.focus();
-            return false;
-          }
-
-          if (sizeInput.value === 'other' && !customSizeInput.value.trim()) {
-            setStatus('Please enter your requested size.', 'error');
-            customSizeInput.focus();
-            return false;
-          }
-        }
-
-        return true;
-      }
-
-      async function submitForm(event) {
-        event.preventDefault();
-
-        if (!validateForm()) {
-          return;
-        }
-
-        replyToInput.value = emailInput.value.trim();
-
-        var data = {};
-
-        new FormData(form).forEach(function (value, key) {
-          data[key] = value;
-        });
-
-        if (collectionInput.value === 'Limited Collection') {
-          data.inquiry_type = 'Information inquiry about availability, pricing, materials, shipping, or related details.';
-          data.size_policy_note = 'Fixed standard female size. Limited pieces cannot be resized.';
-        }
-
-        if (collectionInput.value === 'Novo doba') {
-          data.size_policy_note = sizeInput.value === 'other'
-            ? 'Other size requested. New carved master required. Treat as mini commission.'
-            : 'Novo doba sizing within three sizes above or below the master.';
-        }
-
-        if (collectionInput.value === 'Bold') {
-          data.size_policy_note = 'Custom parametric 3D sizing. Extreme sizes may require a proportion check before quoting.';
-        }
-
-        submitButton.disabled = true;
-        submitButton.textContent = 'Sending...';
-        statusBox.textContent = '';
-        statusBox.className = 'form-status';
-
-        try {
-          var response = await fetch(FORM_ENDPOINT, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify(data)
-          });
-
-          var result = await response.json().catch(function () {
-            return {};
-          });
-
-          if (!response.ok || result.success === false) {
-            throw new Error('Unable to send inquiry');
-          }
-
-          form.reset();
-          setStatus('Thank you. Your inquiry has been sent to doba.objects. We will reply by email.', 'success');
-          submitButton.textContent = 'Inquiry sent';
-
-          setTimeout(function () {
-            closeModal();
-            submitButton.disabled = false;
-            submitButton.textContent = 'Send inquiry';
-          }, 3000);
-        } catch (error) {
-          setStatus('The inquiry could not be sent. Please try again or contact doba.objects@gmail.com directly.', 'error');
-          submitButton.disabled = false;
-          submitButton.textContent = 'Send inquiry';
-        }
-      }
-
-      initCarousels();
-
-      document.addEventListener('click', function (event) {
-        var link = event.target.closest('[data-link]');
-
-        if (link) {
-          var href = link.getAttribute('href');
-
-          if (href && href.charAt(0) === '#') {
-            event.preventDefault();
-
-            if (window.location.hash !== href) {
-              window.location.hash = href;
-            } else {
-              setPage(href);
-            }
-          }
-        }
-
-        var inquiryButton = event.target.closest('.inquire-btn');
-
-        if (inquiryButton) {
-          event.preventDefault();
-          event.stopPropagation();
-          openModal(inquiryButton);
+    // Simple SPA Navigation Toggle Script
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+    const navBackdrop = document.querySelector('.nav-backdrop');
+
+    function toggleMenu() {
+      menuToggle.classList.toggle('is-active');
+      nav.classList.toggle('is-open');
+      navBackdrop.classList.toggle('is-open');
+    }
+
+    menuToggle.addEventListener('click', toggleMenu);
+    navBackdrop.addEventListener('click', toggleMenu);
+
+    const links = document.querySelectorAll('[data-link]');
+    const pages = document.querySelectorAll('.page');
+
+    function switchPage(hash) {
+      const targetId = hash ? hash.substring(1) : 'home';
+      let matched = false;
+
+      pages.forEach(page => {
+        if (page.id === targetId) {
+          page.classList.add('is-active');
+          matched = true;
+        } else {
+          page.classList.remove('is-active');
         }
       });
 
-      document.querySelectorAll('.card').forEach(function (card) {
-        card.addEventListener('click', function (event) {
-          if (
-            event.target.closest('.inquire-btn') ||
-            event.target.closest('.carousel__btn') ||
-            event.target.closest('.carousel__dot')
-          ) {
-            return;
+      if (!matched) {
+        document.getElementById('home').classList.add('is-active');
+      }
+
+      window.scrollTo(0, 0);
+    }
+
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          history.pushState(null, '', href);
+          switchPage(href);
+          if (nav.classList.contains('is-open')) {
+            toggleMenu();
           }
-
-          var shouldOpen = !card.classList.contains('is-open');
-
-          document.querySelectorAll('.card').forEach(function (otherCard) {
-            otherCard.classList.remove('is-open');
-            otherCard.setAttribute('aria-expanded', 'false');
-          });
-
-          card.classList.toggle('is-open', shouldOpen);
-          card.setAttribute('aria-expanded', String(shouldOpen));
-        });
-
-        card.addEventListener('keydown', function (event) {
-          if (event.key === 'Enter' || event.key === ' ') {
-            if (
-              event.target.closest('.inquire-btn') ||
-              event.target.closest('.carousel__btn') ||
-              event.target.closest('.carousel__dot')
-            ) {
-              return;
-            }
-
-            event.preventDefault();
-            card.click();
-          }
-        });
-      });
-
-      menuToggle.addEventListener('click', function () {
-        nav.classList.contains('is-open') ? closeMenu() : openMenu();
-      });
-
-      navBackdrop.addEventListener('click', closeMenu);
-      closeButton.addEventListener('click', closeModal);
-      cancelButton.addEventListener('click', closeModal);
-      modalBackdrop.addEventListener('click', closeModal);
-      sizeInput.addEventListener('change', handleSizeChange);
-      form.addEventListener('submit', submitForm);
-
-      document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-          closeMenu();
-          closeModal();
         }
       });
+    });
 
-      window.addEventListener('hashchange', function () {
-        setPage(window.location.hash);
-      });
+    window.addEventListener('popstate', () => {
+      switchPage(window.location.hash);
+    });
 
-      setPage(window.location.hash || '#home');
-    })();
+    if (window.location.hash) {
+      switchPage(window.location.hash);
+    }
   </script>
 </body>
 </html>
